@@ -25,6 +25,7 @@ import Thema from "views/Thema.js";
 import Community from "views/Community.js";
 import UpgradeToPro from "views/Upgrade.js";
 
+
 var routes = [
   {
     path: "/dashboard",
@@ -68,6 +69,7 @@ var routes = [
     component: <Setting />,
     layout: "/admin",
   },
+  
   /*{
     path: "/typography",
     name: "Typography",
