@@ -40,7 +40,10 @@ import routes from "routes.js";
 
 function Header(props) {
   const [isOpen, setIsOpen] = React.useState(false);
+  
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
+  const [dropdownOpen2, setDropdownOpen2] = React.useState(false);
+
   const [color, setColor] = React.useState("transparent");
   const sidebarToggle = React.useRef();
   const location = useLocation();
@@ -55,6 +58,11 @@ function Header(props) {
   const dropdownToggle = (e) => {
     setDropdownOpen(!dropdownOpen);
   };
+
+  const dropdownToggle2 = (e) => {
+    setDropdownOpen2(!dropdownOpen2);
+  };
+
   const getBrand = () => {
     let brandName = "Default Brand";
     routes.map((prop, key) => {
@@ -138,40 +146,31 @@ function Header(props) {
           <Nav navbar>
 
             
-            <Dropdown nav isOpen={dropdownOpen}toggle={(e) => dropdownToggle(e)}>
-              <DropdownToggle caret nav>
-                <i className="nc-icon nc-bell-55" />
+          <NavItem>
+              <Link to="#pablo" className="nav-link btn-rotate">
+              <i className="nc-icon nc-bell-55" />
                 <p>
                   <span className="d-lg-none d-md-block">Some Actions</span>
-                </p>
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem tag="a">Action</DropdownItem>
-                <DropdownItem tag="a">Another Action</DropdownItem>
-                <DropdownItem tag="a">Something else here</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-
-
-
-            <NavItem>
-              <Link to="#pablo" className="nav-link btn-rotate">
-                <i className="nc-icon nc-settings-gear-65" />
-                <p>
-                  <span className="d-lg-none d-md-block">Account</span>
                 </p>
               </Link>
             </NavItem>
 
-
-            <NavItem>
-              <Link to="#pablo" className="nav-link btn-rotate">
+            <Dropdown nav isOpen={dropdownOpen}toggle={(e) => dropdownToggle(e)}>
+              <DropdownToggle caret nav>
                 <i className="nc-icon nc-single-02" />
                 <p>
                   <span className="d-lg-none d-md-block">Account</span>
                 </p>
-              </Link>
-            </NavItem>
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem tag="a">Profile</DropdownItem>
+                <DropdownItem tag="a">Another Action</DropdownItem>
+                <DropdownItem tag="a">Setting</DropdownItem>
+                <DropdownItem tag="a">Logout</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+
+
           </Nav>
         </Collapse>
       </Container>
