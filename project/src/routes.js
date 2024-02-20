@@ -35,40 +35,40 @@ var routes = [
   },
   {
     path: "/icons",
-    name: "Icons",
+    name: "ETFS",
     icon: "nc-icon nc-diamond",
     component: <Icons />,
     layout: "/admin",
   },
   {
     path: "/maps",
-    name: "Maps",
+    name: "HOT Thema",
     icon: "nc-icon nc-pin-3",
     component: <Maps />,
     layout: "/admin",
   },
   {
     path: "/notifications",
-    name: "Notifications",
+    name: "ETF Ranking",
     icon: "nc-icon nc-bell-55",
     component: <Notifications />,
     layout: "/admin",
   },
   {
     path: "/user-page",
-    name: "User Profile",
+    name: "Community",
     icon: "nc-icon nc-single-02",
     component: <UserPage />,
     layout: "/admin",
   },
   {
     path: "/tables",
-    name: "Table List",
-    icon: "nc-icon nc-tile-56",
+    name: "Setting",
+    icon: "nc-icon nc-settings-gear-65",
     component: <TableList />,
     layout: "/admin",
   },
-  {
+  /*{
     path: "/typography",
     name: "Typography",
     icon: "nc-icon nc-caps-small",
@@ -82,6 +82,6 @@ var routes = [
     icon: "nc-icon nc-spaceship",
     component: <UpgradeToPro />,
     layout: "/admin",
-  },
+  },*/
 ];
 export default routes;

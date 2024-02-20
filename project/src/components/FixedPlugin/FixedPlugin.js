@@ -63,7 +63,7 @@ function FixedPlugin(props) {
               />
             </div>
           </li>
-          <li className="header-title">SIDEBAR ACTIVE COLOR</li>
+          <li className="header-title"> ACTIVE COLOR</li>
           <li className="adjustments-line">
             <div className="badge-colors text-center">
               <span

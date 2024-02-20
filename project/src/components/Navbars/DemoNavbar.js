@@ -144,7 +144,6 @@ function Header(props) {
             </InputGroup>
           </form>
           <Nav navbar>
-
             
           <NavItem>
               <Link to="#pablo" className="nav-link btn-rotate">
@@ -157,6 +156,7 @@ function Header(props) {
 
             <Dropdown nav isOpen={dropdownOpen}toggle={(e) => dropdownToggle(e)}>
               <DropdownToggle caret nav>
+
                 <i className="nc-icon nc-single-02" />
                 <p>
                   <span className="d-lg-none d-md-block">Account</span>
