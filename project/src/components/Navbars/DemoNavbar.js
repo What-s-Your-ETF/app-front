@@ -136,12 +136,9 @@ function Header(props) {
             </InputGroup>
           </form>
           <Nav navbar>
+          
+            <Dropdown nav isOpen={dropdownOpen}toggle={(e) => dropdownToggle(e)}>
 
-            <Dropdown
-              nav
-              isOpen={dropdownOpen}
-              toggle={(e) => dropdownToggle(e)}
-            >
               <DropdownToggle caret nav>
                 <i className="nc-icon nc-bell-55" />
                 <p>
@@ -156,7 +153,6 @@ function Header(props) {
               </DropdownMenu>
             </Dropdown>
 
-
             <NavItem>
               <Link to="#pablo" className="nav-link btn-rotate">
                 <i className="nc-icon nc-settings-gear-65" />    
@@ -165,9 +161,14 @@ function Header(props) {
                 </p>
               </Link>
             </NavItem>
-            
-
-
+            <NavItem>
+              <Link to="#pablo" className="nav-link btn-rotate">
+                <i className="nc-icon nc-single-02" />
+                <p>
+                  <span className="d-lg-none d-md-block">Account</span>
+                </p>
+              </Link>
+            </NavItem>
           </Nav>
         </Collapse>
       </Container>
