@@ -163,14 +163,14 @@ function Header(props) {
                 </p>
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem tag="a">Profile</DropdownItem>
+                <Link to={"/admin/profile"}>
+                    <DropdownItem tag="a">Profile</DropdownItem>
+                </Link>
                 <DropdownItem tag="a">Another Action</DropdownItem>
                 <DropdownItem tag="a">Setting</DropdownItem>
                 <DropdownItem tag="a">Logout</DropdownItem>
               </DropdownMenu>
             </Dropdown>
-
-
           </Nav>
         </Collapse>
       </Container>

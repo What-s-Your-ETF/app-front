@@ -24,7 +24,9 @@ import TableList from "views/Tables.js";
 import Maps from "views/Map.js";
 import UserPage from "views/User.js";
 import UpgradeToPro from "views/Upgrade.js";
-
+import Login from "views/Login";
+import Signin from "views/Signin";
+import Profile from "views/Profile";
 var routes = [
   {
     path: "/dashboard",
@@ -66,6 +68,27 @@ var routes = [
     name: "Setting",
     icon: "nc-icon nc-settings-gear-65",
     component: <TableList />,
+    layout: "/admin",
+  },
+  {
+    path: "/login",
+    name: "Setting",
+    icon: "nc-icon nc-settings-gear-65",
+    component: <Login />,
+    layout: "/admin",
+  },
+  {
+    path: "/signin",
+    name: "Setting",
+    icon: "nc-icon nc-settings-gear-65",
+    component: <Signin />,
+    layout: "/admin",
+  },
+  {
+    path: "/profile",
+    name: "Setting",
+    icon: "nc-icon nc-settings-gear-65",
+    component: <Profile />,
     layout: "/admin",
   },
   /*{
