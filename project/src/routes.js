@@ -17,12 +17,12 @@
 
 */
 import Dashboard from "views/Dashboard.js";
-import Notifications from "views/Notifications.js";
-import Icons from "views/Icons.js";
+import Rank from "views/Rank.js";
+import ETFS from "views/ETFS.js";
 import Typography from "views/Typography.js";
-import TableList from "views/Tables.js";
-import Maps from "views/Map.js";
-import UserPage from "views/User.js";
+import Setting from "views/Setting.js";
+import Thema from "views/Thema.js";
+import Community from "views/Community.js";
 import UpgradeToPro from "views/Upgrade.js";
 
 var routes = [
@@ -34,38 +34,38 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/icons",
+    path: "/myetfs",
     name: "ETFS",
     icon: "nc-icon nc-diamond",
-    component: <Icons />,
+    component: <ETFS />,
     layout: "/admin",
   },
   {
-    path: "/maps",
+    path: "/thema",
     name: "HOT Thema",
     icon: "nc-icon nc-pin-3",
-    component: <Maps />,
+    component: <Thema />,
     layout: "/admin",
   },
   {
-    path: "/notifications",
+    path: "/ranking",
     name: "ETF Ranking",
-    icon: "nc-icon nc-bell-55",
-    component: <Notifications />,
+    icon: "nc-icon nc-chart-bar-32",
+    component: <Rank />,
     layout: "/admin",
   },
   {
-    path: "/user-page",
+    path: "/community",
     name: "Community",
     icon: "nc-icon nc-single-02",
-    component: <UserPage />,
+    component: <Community />,
     layout: "/admin",
   },
   {
-    path: "/tables",
+    path: "/setting",
     name: "Setting",
     icon: "nc-icon nc-settings-gear-65",
-    component: <TableList />,
+    component: <Setting />,
     layout: "/admin",
   },
   /*{
