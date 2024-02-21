@@ -57,8 +57,17 @@ function Community() {
                 <ul className="list-unstyled team-members">
                   <li>
                     <Row>
+
                       <Col md="2" xs="2">
-                      
+                        {board.map((i,el)=>{
+
+                          <Col>
+                          <Col md="7" xs = "7">{el.title}</Col><br />
+                          <span className="text-muted"> <small>{el.content}</small></span>
+                          </Col>
+                         
+                
+                        })}
                         <div className="avatar">
                           <img
                             alt="..."
