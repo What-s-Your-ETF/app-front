@@ -69,7 +69,7 @@ function Community() {
                       <div md="2" xs="2">
                         {board.map((el)=>{
                           return (
-                            <div md="2" xs="2">
+                            <div md="2" xs="2"  onClick={() => navigate('detail')}>
                             <div md="7" xs="7">{el.title}</div>
                             <div md="5" xs="5">
                               <span className="text-muted"> <small>{el.content}</small></span>

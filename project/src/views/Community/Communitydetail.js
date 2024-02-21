@@ -1,6 +1,7 @@
 
 import React from "react";
 import {useNavigate} from "react-router-dom"
+import {Form} from 'react-bootstrap'
 
 // reactstrap components
 import {
@@ -22,7 +23,16 @@ function DeCommunity() {
     {
       title : "집갈래",
       content : "집집집",
-      author : "배별하"
+      author : "배별하",
+      comment :[{
+        content: "나도",
+        author : "마우스"
+      },{
+        content: "나도",
+        author : "키보드"
+      }
+
+      ]
     }, 
     {
       title: "피곤하다",
@@ -39,44 +49,60 @@ function DeCommunity() {
           
             <Card>
               <CardHeader style={{display: "flex"}}>
-                <CardTitle tag="h4">Community Board</CardTitle>
+                <CardTitle tag="h4">{board[0].title}</CardTitle>
                 <Button onClick={() => navigate(-1)} className="d-flex flex-column justify-content-center align-items-end">
                 뒤로가기
                 </Button>
               </CardHeader>
+              
               <CardBody>
                 <ul className="list-unstyled team-members">
-                  <li>
-                    <div>
+                  <li> 
+                        <div>{board[0].content}</div>
+                  </li>
+                </ul>
+              </CardBody>
+                
+            </Card>
 
-                        <h1>{board[0].title}</h1>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" style ={{display:"flex"}}>
+                <Form.Control placeholder="댓글을 입력해주세요"></Form.Control>
+                <Button>입력</Button>
+            </Form.Group>
 
-                      <div md="2" xs="2">
-                        {board.map((el)=>{
-                          return (
-                            <div md="2" xs="2">
-                            <div md="7" xs="7">{el.title}</div>
-                            <div md="5" xs="5">
-                              <span className="text-muted"> <small>{el.content}</small></span>
-                              <div className="d-flex flex-column justify-content-center align-items-end">
-                                <div>{el.author}</div>
-                                </div>
-                            </div>
-                            </div>
-                  
-                          )
-                        
-                        })}
-                        
-                      </div>  
-                     
+
+            <Card>
+              <CardHeader style={{display: "flex"}}>
+            
+              </CardHeader>
+              
+              <CardBody>
+                <ul className="list-unstyled team-members">
+                  <li> 
+                  <div md="2" xs="2">
+
+                        {board[0].comment.map((el)=>{return (
+                            
+                         <div md="2" xs="2">
+                         <div md="7" xs="7"><small>{el.author}</small></div>
+                         <div md="5" xs="5">
+                        <span className="text-muted">{el.content}</span>
+                        </div>
+                        </div>
+
+                        )
+
+                    })}
                     </div>
                   </li>
                 </ul>
               </CardBody>
+                
             </Card>
-          </Col>
-         
+            
+           
+
+          </Col> 
         </Row>
       </div>
     </>
