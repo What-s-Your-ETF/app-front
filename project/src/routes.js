@@ -22,11 +22,60 @@ import ETFS from "views/ETFS.js";
 import Typography from "views/Typography.js";
 import Setting from "views/Setting.js";
 import Thema from "views/Thema.js";
-import Community from "views/Community.js";
+import Community from "views/Community/Community";
+import WCommunity from "views/Community/WriteCommunity";
 import UpgradeToPro from "views/Upgrade.js";
 import Login from "views/Login";
 import Signin from "views/Signin";
 import Profile from "views/Profile";
+
+
+export var nav = [
+
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    icon: "nc-icon nc-bank",
+    component: <Dashboard />,
+    layout: "/admin",
+  },
+  {
+    path: "/myetfs",
+    name: "ETFS",
+    icon: "nc-icon nc-diamond",
+    component: <ETFS />,
+    layout: "/admin",
+  },
+  {
+    path: "/thema",
+    name: "HOT Thema",
+    icon: "nc-icon nc-pin-3",
+    component: <Thema />,
+    layout: "/admin",
+  },
+  {
+    path: "/ranking",
+    name: "ETF Ranking",
+    icon: "nc-icon nc-chart-bar-32",
+    component: <Rank />,
+    layout: "/admin",
+  },
+  {
+    path: "/community",
+    name: "Community",
+    icon: "nc-icon nc-single-02",
+    component: <Community />,
+    layout: "/admin",
+  },
+  {
+    path: "/setting",
+    name: "Setting",
+    icon: "nc-icon nc-settings-gear-65",
+    component: <Setting />,
+    layout: "/admin",
+  },
+
+]
 
 var routes = [
   {
@@ -71,6 +120,14 @@ var routes = [
     component: <Setting />,
     layout: "/admin",
   },
+
+  {
+    path:"/community/wirte",
+    name: "WCommunity",
+    icon: "nc-icon nc-settings-gear-65",
+    component :<WCommunity/>,
+    layout: "/admin",
+  },
 //   {
 //     path: "/login",
 //     name: "Setting",
@@ -85,20 +142,20 @@ var routes = [
 //     component: <Signin />,
 //     layout: "/admin",
 //   },
-//   {
-//     path: "/profile",
-//     name: "Setting",
-//     icon: "nc-icon nc-settings-gear-65",
-//     component: <Profile />,
-//     layout: "/admin",
-//   },
   {
-    path: "/typography",
-    name: "Typography",
-    icon: "nc-icon nc-caps-small",
-    component: <Typography />,
+    path: "/profile",
+    name: "Setting",
+    icon: "nc-icon nc-settings-gear-65",
+    component: <Profile />,
     layout: "/admin",
   },
+  // {
+  //   path: "/typography",
+  //   name: "Typography",
+  //   icon: "nc-icon nc-caps-small",
+  //   component: <Typography />,
+  //   layout: "/admin",
+  // },
   {
     pro: true,
     path: "/upgrade",

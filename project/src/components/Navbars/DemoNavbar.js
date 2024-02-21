@@ -35,7 +35,6 @@ import {
   InputGroupAddon,
   Input,
 } from "reactstrap";
-
 import routes from "routes.js";
 
 function Header(props) {
@@ -64,6 +63,7 @@ function Header(props) {
   };
 
   const getBrand = () => {
+  
     let brandName = "Default Brand";
     routes.map((prop, key) => {
       if (window.location.href.indexOf(prop.layout + prop.path) !== -1) {
