@@ -27,6 +27,7 @@ import UpgradeToPro from "views/Upgrade.js";
 import Login from "views/Login";
 import Signin from "views/Signin";
 import Profile from "views/Profile";
+import Signup from "views/Signup";
 
 export var navs = [
     {
@@ -67,6 +68,13 @@ export var navs = [
 ]
 
 var routes = [
+    {
+        path: "/signup",
+        name: "회원가입",
+        icon: "nc-icon nc-settings-gear-65",
+        component: <Signup />,
+        layout: "/admin",
+    },
   {
     path: "/dashboard",
     name: "Dashboard",
