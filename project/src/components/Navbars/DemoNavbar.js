@@ -164,9 +164,7 @@ function Header(props) {
                 <DropdownItem tag="a">Logout</DropdownItem>
               </DropdownMenu>
             </Dropdown>
-            : <Link to={"admin/login"}><button onClick={(e)=>setIsLogin(!isLogin)}>Login</button></Link>}
-
-
+            : <Link to={"/admin/login"}><button onClick={(e)=>setIsLogin(!isLogin)}>Login</button></Link>}
 
           </Nav>
         </Collapse>
