@@ -1,21 +1,4 @@
-/*!
-
-=========================================================
-* Paper Dashboard React - v1.3.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-* Licensed under MIT (https://github.com/creativetimofficial/paper-dashboard-react/blob/main/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
+import { useState } from "react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -44,7 +27,10 @@ function Header(props) {
   const [dropdownOpen2, setDropdownOpen2] = React.useState(false);
 
   const [color, setColor] = React.useState("transparent");
+
+  const [isLogin, setIsLogin] = React.useState(false)
   const sidebarToggle = React.useRef();
+
   const location = useLocation();
   const toggle = () => {
     if (isOpen) {
@@ -54,6 +40,7 @@ function Header(props) {
     }
     setIsOpen(!isOpen);
   };
+
   const dropdownToggle = (e) => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -132,7 +119,10 @@ function Header(props) {
           <span className="navbar-toggler-bar navbar-kebab" />
           <span className="navbar-toggler-bar navbar-kebab" />
         </NavbarToggler>
+        
         <Collapse isOpen={isOpen} navbar className="justify-content-end">
+        
+          {/* 찾기메뉴 */}
           <form>
             <InputGroup className="no-border">
               <Input placeholder="Search..." />
@@ -144,8 +134,9 @@ function Header(props) {
             </InputGroup>
           </form>
           <Nav navbar>
-            
-          <NavItem>
+    
+            {/* 알람 */}
+            <NavItem>
               <Link to="#pablo" className="nav-link btn-rotate">
               <i className="nc-icon nc-bell-55" />
                 <p>
@@ -154,6 +145,8 @@ function Header(props) {
               </Link>
             </NavItem>
 
+            {/* 유저메뉴 */}
+            {isLogin ?
             <Dropdown nav isOpen={dropdownOpen}toggle={(e) => dropdownToggle(e)}>
               <DropdownToggle caret nav>
 
@@ -171,6 +164,10 @@ function Header(props) {
                 <DropdownItem tag="a">Logout</DropdownItem>
               </DropdownMenu>
             </Dropdown>
+            : <Link to={"admin/login"}><button onClick={(e)=>setIsLogin(!isLogin)}>Login</button></Link>}
+
+
+
           </Nav>
         </Collapse>
       </Container>

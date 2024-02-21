@@ -19,6 +19,7 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { Nav } from "reactstrap";
+import { navs } from "routes";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 
@@ -61,16 +62,13 @@ function Sidebar(props) {
           </div>
         </a>
 
-        <a
-          href="https://www.creative-tim.com"
-          className="simple-text logo-normal"
-        >
+        <a href="/" className="simple-text logo-normal">
           What's U R ETF
         </a>
       </div>
       <div className="sidebar-wrapper" ref={sidebar}>
         <Nav>
-          {props.routes.map((prop, key) => {
+          {navs.map((prop, key) => {
             return (
               <li
                 className={

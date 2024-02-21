@@ -29,51 +29,42 @@ import Login from "views/Login";
 import Signin from "views/Signin";
 import Profile from "views/Profile";
 
-
-export var nav = [
-
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    icon: "nc-icon nc-bank",
-    component: <Dashboard />,
-    layout: "/admin",
-  },
-  {
-    path: "/myetfs",
-    name: "ETFS",
-    icon: "nc-icon nc-diamond",
-    component: <ETFS />,
-    layout: "/admin",
-  },
-  {
-    path: "/thema",
-    name: "HOT Thema",
-    icon: "nc-icon nc-pin-3",
-    component: <Thema />,
-    layout: "/admin",
-  },
-  {
-    path: "/ranking",
-    name: "ETF Ranking",
-    icon: "nc-icon nc-chart-bar-32",
-    component: <Rank />,
-    layout: "/admin",
-  },
-  {
-    path: "/community",
-    name: "Community",
-    icon: "nc-icon nc-single-02",
-    component: <Community />,
-    layout: "/admin",
-  },
-  {
-    path: "/setting",
-    name: "Setting",
-    icon: "nc-icon nc-settings-gear-65",
-    component: <Setting />,
-    layout: "/admin",
-  },
+export var navs = [
+    {
+        path: "/dashboard",
+        name: "Dashboard",
+        icon: "nc-icon nc-bank",
+        component: <Dashboard />,
+        layout: "/admin",
+      },
+      {
+        path: "/myetfs",
+        name: "ETFS",
+        icon: "nc-icon nc-diamond",
+        component: <ETFS />,
+        layout: "/admin",
+      },
+      {
+        path: "/thema",
+        name: "HOT Thema",
+        icon: "nc-icon nc-pin-3",
+        component: <Thema />,
+        layout: "/admin",
+      },
+      {
+        path: "/ranking",
+        name: "ETF Ranking",
+        icon: "nc-icon nc-chart-bar-32",
+        component: <Rank />,
+        layout: "/admin",
+      },
+      {
+        path: "/community",
+        name: "Community",
+        icon: "nc-icon nc-single-02",
+        component: <Community />,
+        layout: "/admin",
+      },
 
 ]
 
@@ -106,13 +97,24 @@ var routes = [
     component: <Rank />,
     layout: "/admin",
   },
+
   {
     path: "/community",
     name: "Community",
     icon: "nc-icon nc-single-02",
-    component: <Community />,
     layout: "/admin",
+    component: <Community/>
   },
+
+  {
+    path: "/community/write",
+    name: "WCommunity",
+    icon: "nc-icon nc-single-02",
+    layout: "/admin",
+    component: <WCommunity/>
+  },
+
+
   {
     path: "/setting",
     name: "Setting",
@@ -122,33 +124,22 @@ var routes = [
   },
 
   {
-    path:"/community/wirte",
-    name: "WCommunity",
-    icon: "nc-icon nc-settings-gear-65",
-    component :<WCommunity/>,
-    layout: "/admin",
-  },
-//   {
-//     path: "/login",
-//     name: "Setting",
-//     icon: "nc-icon nc-settings-gear-65",
-//     component: <Login />,
-//     layout: "/admin",
-//   },
-//   {
-//     path: "/signin",
-//     name: "Setting",
-//     icon: "nc-icon nc-settings-gear-65",
-//     component: <Signin />,
-//     layout: "/admin",
-//   },
-  {
     path: "/profile",
-    name: "Setting",
+    name: "Profile",
     icon: "nc-icon nc-settings-gear-65",
     component: <Profile />,
     layout: "/admin",
   },
+  {
+    path: "/login",
+    name: "Login",
+    icon: "nc-icon nc-settings-gear-65",
+    component: <Login />,
+    layout: "/admin",
+  },
+
+  
+
   // {
   //   path: "/typography",
   //   name: "Typography",

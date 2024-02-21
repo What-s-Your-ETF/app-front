@@ -66,18 +66,18 @@ function Dashboard(props) {
       />
       <div className="main-panel" ref={mainPanel}>
         <DemoNavbar {...props} />
-        <Routes>
-          {routes.map((prop, key) => {
-            return (
-              <Route
-                path={prop.path}
-                element={prop.component}
-                key={key}
-                exact
-              />
-            );
-          })}
-        </Routes>
+            <Routes>
+            {routes.map((prop, key) => {
+                return (
+                <Route
+                    path={prop.path}
+                    element={prop.component}
+                    key={key}
+                    exact
+                />
+                );
+            })}
+            </Routes>
         <Footer fluid />
       </div>
     </div>
