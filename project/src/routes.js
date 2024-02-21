@@ -24,6 +24,7 @@ import Setting from "views/Setting.js";
 import Thema from "views/Thema.js";
 import Community from "views/Community/Community";
 import WCommunity from "views/Community/WriteCommunity";
+import DeCommunity from "views/Community/Communitydetail";
 import UpgradeToPro from "views/Upgrade.js";
 import Login from "views/Login";
 import Signin from "views/Signin";
@@ -120,6 +121,14 @@ var routes = [
     icon: "nc-icon nc-single-02",
     layout: "/admin",
     component: <WCommunity/>
+  },
+
+  {
+    path: "/community/detail",
+    name: "DeCommunity",
+    icon: "nc-icon nc-single-02",
+    layout: "/admin",
+    component: <DeCommunity/>
   },
 
 
