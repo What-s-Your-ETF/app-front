@@ -61,9 +61,11 @@ function Sidebar(props) {
             <i class ="nc-chart-pie-35"/>
           </div>
         </a>
-
+        <img src="https://www.shinhancard.com/pconts/company/images/contents/shc_symbol_ci.png" alt="My Image" width="100" height="100"/>
         <a href="/" className="simple-text logo-normal">
-          What's U R ETF
+            <div style={{textAlign :"center"}}>
+                What's U R ETF
+            </div>
         </a>
       </div>
       <div className="sidebar-wrapper" ref={sidebar}>
