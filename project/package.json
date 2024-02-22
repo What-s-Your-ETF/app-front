@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.23.9",
+    "axios": "^1.6.7",
     "bootstrap": "^4.6.2",
     "chart.js": "3.9.1",
     "global": "^4.4.0",
