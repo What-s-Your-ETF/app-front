@@ -14,13 +14,17 @@ import {
     LineChart
 } from 'recharts';
 import { useState } from "react";
-import News from "components/Contents/News";
+import News from "components/ETF/News";
 function ETFS() {
+
     const [newsComponents, setNewsComponents] = useState([])
+    const [clickedDate, setClickedDate] = useState('')
+    const [numOfPortfolio, setNumOfPortfolio] = useState(1)
+
     // const [news]
     useEffect((()=>{
         console.log(99)
-        setNewsComponents(<News data={{title : 'hi', content : "hihi"}}></News>)
+        // setNewsComponents(<News data={{title : 'hi', content : "hihi"}}></News>)
     }),[])
 
     const data = [
@@ -69,9 +73,10 @@ function ETFS() {
     ];
 
 
-  const handleDataClick = (data, index) => {
-    console.log("Clicked data:", data);
-
+  const handleDataClick = async (data, index) => {
+    // console.log("Clicked data:", data.activeLabel);
+    setClickedDate(data.activeLabel.slice(1))
+    console.log(clickedDate)
     const news = ([
         {title : "삼성전자 주가 사상 최고치 달성 ㄷㄷ", content : "삼성전자가 이번 실적 발표에서 역대 최대 실적을 달성한것으로 알려졌다.", _date : "23-05-02"},
         {title : "엔비디아 주가 떡상 ㄷㄷ", content : "엔비디아 짱짱맨입니다.", _date : "23-05-02"},
@@ -82,9 +87,10 @@ function ETFS() {
 
     const fetchsedNews = []
     for(let i=0;i<news.length;i++){
-        fetchsedNews.push(<News data={news[i]}></News>)
+        await fetchsedNews.push(<News key={i} data={news[i]}></News>)
     }
-    setNewsComponents(fetchsedNews)
+    await setNewsComponents(fetchsedNews)
+    // await console.log(newsComponents[0])
   };
   const graph = (
     <LineChart width={730} height={250} data={data} onClick={handleDataClick} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -104,8 +110,33 @@ function ETFS() {
   
 return (
     <>    
-    <div className="content">                            
+    <div className="content">           
+
+        <nav class="navbar navbar-expand-lg bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                </ul>
+                </div>
+            </div>
+            
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                </ul>
+                </div>
+            </div>
+        </nav>
+        
         {graph}
+        {newsComponents.length === 0 ? null : <div>{clickedDate}일의 뉴스</div>
+        }
         <div>
             {newsComponents}
         </div>
