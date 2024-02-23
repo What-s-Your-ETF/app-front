@@ -19,6 +19,7 @@ import {
   Input,
 } from "reactstrap";
 import routes from "routes.js";
+import Button from 'react-bootstrap/Button';
 
 function Header(props) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -146,7 +147,7 @@ function Header(props) {
             </NavItem>
 
             {/* 유저메뉴 */}
-            {isLogin ?
+            {sessionStorage.getItem("token") !== null ?
             <Dropdown nav isOpen={dropdownOpen}toggle={(e) => dropdownToggle(e)}>
               <DropdownToggle caret nav>
 
@@ -162,11 +163,15 @@ function Header(props) {
                 <DropdownItem tag="a" href="/admin/profile">Another Action</DropdownItem>
                 <DropdownItem tag="a">Setting</DropdownItem>
                 <Link to={"/admin/dashboard"}>
-                    <DropdownItem tag="a" onClick={(e)=>setIsLogin(!isLogin)}>Logout</DropdownItem>
+                    <DropdownItem tag="a"onClick={() => {
+                      sessionStorage.removeItem("token");
+                      sessionStorage.removeItem("nickname");
+                      }}
+                    >Logout</DropdownItem>
                 </Link>
               </DropdownMenu>
             </Dropdown>
-            : <Link to={"/admin/login"}><button onClick={(e)=>setIsLogin(!isLogin)}>Login</button></Link>}
+            : <Link to={"/admin/login"}><Button style={{borderRadius:"100px"}}variant="outline-primary">Login</Button></Link>}
 
           </Nav>
         </Collapse>

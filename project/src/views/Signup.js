@@ -19,7 +19,7 @@ export default function Signup() {
             }
 
             try{
-                const response = await axios.post('http://127.0.0.1:3000/api/users/signup',{
+                const response = await axios.post('http://127.0.0.1:3000/api/user/signup',{
                     
                     email : idValue,
                     password : pwValue,
@@ -50,12 +50,12 @@ export default function Signup() {
 
                             <div class="login-form">
                                 <label for="name">이름</label><br/>
-                                <input type="text" name="id" placeholder="사용자의 이름을 입력해주세요" class="form-control" id="id" value={name} onChange={(e)=>{setName(e.target.value)}}/>
+                                <input type="text" name="name" placeholder="사용자의 이름을 입력해주세요" class="form-control" id="id" value={name} onChange={(e)=>{setName(e.target.value)}}/>
                             </div>
                             
                             <div class="login-form">
                                 <label for="pw">닉네임</label><br/>
-                                <input type="password" name="pw" placeholder="사용자의 닉네임을 입력해주세요" class="form-control" id="pw" value={Nickname} onChange={(e)=>{setNickname(e.target.value)}}/>
+                                <input type="text" name="nickname" placeholder="사용자의 닉네임을 입력해주세요" class="form-control" id="pw" value={Nickname} onChange={(e)=>{setNickname(e.target.value)}}/>
                             </div>
                         
                             <div class="login-form">
