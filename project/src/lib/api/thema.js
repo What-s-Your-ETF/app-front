@@ -1,50 +1,30 @@
-//실습5: 네이버 주식 공시리스트 가져오기
-import axios from 'axios';
-import * as cheerio from 'cheerio';
-import iconv from 'iconv-lite';
+const axios = require('axios');
+const cheerio = require('cheerio');
+const iconv = require('iconv-lite');
 
-const url = 'https://finance.naver.com/item/news_notice.naver?code=005930&page='
+const url = 'https://finance.naver.com/sise/theme.naver';
 
-async function list(){
+async function themalist(){
 
     let resp = await axios.get(url,{responseType: 'arraybuffer', responseEncoding: 'binary',
     headers:{'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0'}})
     let content = iconv.decode(resp.data, 'euc-kr');
-    let $ = cheerio.load(content)
-    //console.log(content)
-
-    const jjinlist = $('body > div > table.type6 > tbody.first > tr').map((i,el)=>{
-        const title = $(el).find('td.title > a').text()
-        const info = $(el).find('td.info').text()
-        const date = $(el).find('td.date').text()
-
-
+    let $ = cheerio.load(content);
+ 
+    const jjinlist = $('table.type_1.theme > tbody > tr').filter((i, el) => (i >= 3 && i < 8) || (i >= 11 && i < 16)).map((i,el)=>{
+        const thema = $(el).find('td.col_type1>a').text();
+        const num = $(el).find('td.number.col_type2>span').text().trim();
+       
         return{
-            title,
-            info,
-            date
+            thema,
+            num
         }
-    }).toArray()
-
-    const jjinlist2 = $('body > div > table.type6 > tbody.last > tr').map((i,el)=>{
-        const title = $(el).find('td.title > a').text()
-        const info = $(el).find('td.info').text()
-        const date = $(el).find('td.date').text()
-
-
-        return{
-            title,
-            info,
-            date
-        }
-    }).toArray()
-
-
-
+    }).toArray();
 
     console.log(jjinlist)
-    console.log(jjinlist2)
+    return jjinlist
 
 }
 
-list()
+
+themalist();

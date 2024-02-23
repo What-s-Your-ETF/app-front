@@ -18,7 +18,9 @@
 */
 import Dashboard from "views/Dashboard.js";
 import Rank from "views/Rank.js";
-import ETFS from "views/ETFS.js";
+import StartETFS from "views/ETFS/ETFSstart";
+import ETFSetting from "views/ETFS/ETFSetting";
+import ETFS from "views/ETFS/ETFSresult.js";
 import Typography from "views/Typography.js";
 import Setting from "views/Setting.js";
 import Thema from "views/Thema.js";
@@ -43,7 +45,7 @@ export var navs = [
         path: "/myetfs",
         name: "ETFS",
         icon: "nc-icon nc-diamond",
-        component: <ETFS />,
+        component: <StartETFS />,
         layout: "/admin",
       },
       {
@@ -89,9 +91,26 @@ var routes = [
     path: "/myetfs",
     name: "ETFS",
     icon: "nc-icon nc-diamond",
+    component: <StartETFS />,
+    layout: "/admin",
+  },
+
+  {
+    path: "/myetfs/setting",
+    name: "ETFS",
+    icon: "nc-icon nc-diamond",
+    component: <ETFSetting />,
+    layout: "/admin",
+  },
+
+  {
+    path: "/myetfs/result",
+    name: "ETFS",
+    icon: "nc-icon nc-diamond",
     component: <ETFS />,
     layout: "/admin",
   },
+
   {
     path: "/thema",
     name: "HOT Thema",
