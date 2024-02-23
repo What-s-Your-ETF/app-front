@@ -2,6 +2,7 @@ import React from 'react'
 import { Col, Row } from 'reactstrap'
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'
 export default function Signup() {
         const [idValue, setIdValue] = useState('');
         const [pwValue, setPwValue] = useState('');
@@ -11,13 +12,13 @@ export default function Signup() {
         const navigate = useNavigate()
        
         
-        const onsubmit = (event) => {
-            event.preventDefault();
+        const onsubmit = async(e) => {
+            e.preventDefault();
             if(pwValue !== pwValue2){
                 alert('비밀번호가 일치하지 않습니다')
             }
 
-            /*try{
+            try{
                 const response = await axios.post('http://127.0.0.1:3000/api/users/signup',{
                     
                     email : idValue,
@@ -32,7 +33,7 @@ export default function Signup() {
     
             }catch(error){
                 console.error(error)
-            }*/
+            }
 
             
             

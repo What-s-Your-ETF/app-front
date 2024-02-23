@@ -8,30 +8,25 @@ export default function Login() {
         const navigate = useNavigate()
         const [idValue, setIdValue] = useState('');
         const [pwValue, setPwValue] = useState('');
-        //const { setIsLoggedIn, setToken } = useContext(TockenContext );
-        //const {setIsLoggedIn2, setNickname} = useContext(NicknameContext)
+
 
 
 
         const handleLogin = async(e) => {
             e.preventDefault();
-           /* try{
+           try{
                 const response = await axios.post('http://127.0.0.1:3000/users/login',{
                     email : idValue,
                     password : pwValue
                 })
                 console.log(response.data)
-                setToken(response.data.token)
-                setNickname(response.data.nickname)
-                setIsLoggedIn(true);  
-                setIsLoggedIn2(true);  
                 console.log('로그인 성공')
                 navigate(-1)
     
             }catch(error){
                 console.error(error)
                 alert('아이디나 비밀번호를 다시 입력해주세요')
-            }*/
+            }
         }
 
 

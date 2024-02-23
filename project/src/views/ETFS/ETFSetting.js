@@ -11,6 +11,7 @@ import {
   Row,
   Col,
   Button,
+  Tab
 } from "reactstrap";
 import Form from 'react-bootstrap/Form';
 
@@ -24,6 +25,7 @@ export default function ETFSetting() {
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] =useState(null)
   const [money, setMoney] = useState(null)
+  const [comp, setComp] = useState("1")
 
   const datePickerFormat = "YYYY-MM-DD";
   const datePickerUtils = {

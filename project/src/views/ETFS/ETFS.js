@@ -17,6 +17,7 @@ import { useState } from "react";
 import News from "components/ETF/News";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import ETFSetting from "./ETFSetting";
 
 function ETFss() {
 
@@ -179,7 +180,11 @@ return (
             return(<Tab eventKey={elem.title} title={elem.title}>{getGraph(elem.data)}</Tab>)
         })} 
         <Tab eventKey="add" title="+">
+<<<<<<< HEAD
             <div>hi </div>
+=======
+            <ETFSetting></ETFSetting>
+>>>>>>> 742a41f68a3c48d7d3aec0ff5f5600bf1679ad7a
         </Tab>
     </Tabs>
         {newsComponents.length === 0 ? null : <div>{clickedDate}일의 뉴스</div>}
