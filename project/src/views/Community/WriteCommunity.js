@@ -7,6 +7,8 @@ import {
   CardTitle,
   Row,
   Col,
+  Button
+ 
 } from "reactstrap";
 
 import { Form } from 'react-bootstrap'
@@ -39,7 +41,7 @@ function WCommunity() {
                     </Form.Group>
                 <Link to={"/admin/community"}>
                     <div id="btn-login" style={{marginTop : '10px', display:"flex", justifyContent:"center"}}>
-                    <button type="submit" className="btn btn-success">글 등록하기</button>
+                    <Button type="submit" class="btn btn-success">글 등록하기</Button>
                     </div>
                 </Link>
 

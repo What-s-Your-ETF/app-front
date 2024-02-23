@@ -1,19 +1,40 @@
-import React from 'react'
+import React, { useState, useContext } from 'react';
 import { Col, Row } from 'reactstrap'
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import { TockenContext,NicknameContext } from 'lib/context/AuthContext';
+
 export default function Login() {
+        const navigate = useNavigate()
         const [idValue, setIdValue] = useState('');
         const [pwValue, setPwValue] = useState('');
+        //const { setIsLoggedIn, setToken } = useContext(TockenContext );
+        //const {setIsLoggedIn2, setNickname} = useContext(NicknameContext)
+
+
+
+        const handleLogin = async(e) => {
+            e.preventDefault();
+           /* try{
+                const response = await axios.post('http://127.0.0.1:3000/users/login',{
+                    email : idValue,
+                    password : pwValue
+                })
+                console.log(response.data)
+                setToken(response.data.token)
+                setNickname(response.data.nickname)
+                setIsLoggedIn(true);  
+                setIsLoggedIn2(true);  
+                console.log('로그인 성공')
+                navigate(-1)
     
-        const handleInputChange = (event) => {
-            setIdValue(event.target.value);
-        };
-        
-        const onsubmit = (event) => {
-            // todoLogin(idValue, pwValue)
-            event.preventDefault();
+            }catch(error){
+                console.error(error)
+                alert('아이디나 비밀번호를 다시 입력해주세요')
+            }*/
         }
+
+
   return (
     <>
         <div className="content">
@@ -35,7 +56,7 @@ export default function Login() {
 
                             <div style={{display:"flex", alignContent:"center"}}>
                                 <div id="btn-login" style={{marginTop : '10px', display:"flex", justifyContent:"center"}}>
-                                    <button type="submit" class="btn btn-success" onClick={onsubmit}>로그인</button>
+                                    <button type="submit" class="btn btn-success" onClick={handleLogin}>로그인</button>
                                 </div>
                                 <Link to={"/admin/signup"}>
                                     <div id="btn-login" style={{marginTop : '10px', display:"flex", justifyContent:"center"}}>
