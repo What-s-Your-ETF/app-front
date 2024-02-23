@@ -32,6 +32,7 @@ import Login from "views/Login";
 import Signin from "views/Signin";
 import Profile from "views/Profile";
 import Signup from "views/Signup";
+import ETFss from "views/ETFS/ETFS";
 
 export var navs = [
     {
@@ -87,13 +88,21 @@ var routes = [
     component: <Dashboard />,
     layout: "/admin",
   },
+//   {
+//     path: "/myetfs",
+//     name: "ETFS",
+//     icon: "nc-icon nc-diamond",
+//     component: <StartETFS />,
+//     layout: "/admin",
+//   },
   {
     path: "/myetfs",
     name: "ETFS",
     icon: "nc-icon nc-diamond",
-    component: <StartETFS />,
+    component: <ETFss/>,
     layout: "/admin",
   },
+
 
   {
     path: "/myetfs/setting",
