@@ -20,6 +20,7 @@ import Dashboard from "views/Dashboard.js";
 import Rank from "views/Rank.js";
 import StartETFS from "views/ETFS/ETFSstart";
 import ETFSetting from "views/ETFS/ETFSetting";
+import ETFSetting2 from "views/ETFS/ETFSettiong2";
 import ETFS from "views/ETFS/ETFSresult.js";
 import Typography from "views/Typography.js";
 import Setting from "views/Setting.js";
@@ -100,6 +101,14 @@ var routes = [
     name: "ETFS",
     icon: "nc-icon nc-diamond",
     component: <ETFSetting />,
+    layout: "/admin",
+  },
+
+  {
+    path: "/myetfs/setting2",
+    name: "ETFS",
+    icon: "nc-icon nc-diamond",
+    component: <ETFSetting2 />,
     layout: "/admin",
   },
 
