@@ -15,11 +15,59 @@ import {
 } from 'recharts';
 import { useState } from "react";
 import News from "components/ETF/News";
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+
 function ETFS() {
 
     const [newsComponents, setNewsComponents] = useState([])
     const [clickedDate, setClickedDate] = useState('')
-    const [numOfPortfolio, setNumOfPortfolio] = useState(1)
+    const [etfs, setEtfs] = useState([{
+        etf1 : [
+            {name: '`23-01-01', ETF: 400, Your_ETF: 610},
+            {name: '`23-01-02', ETF: 410, Your_ETF: 520},
+            {name: '`23-01-03', ETF: 420, Your_ETF: 240},
+            {name: '`23-01-04', ETF: 430, Your_ETF: 660},
+            {name: '`23-01-05', ETF: 440, Your_ETF: 770},
+            {name: '`23-01-06', ETF: 450, Your_ETF: 880},
+            {name: '`23-01-07', ETF: 460, Your_ETF: 700},
+            {name: '`23-01-01', ETF: 400, Your_ETF: 610},
+            {name: '`23-01-02', ETF: 410, Your_ETF: 520},
+            {name: '`23-01-03', ETF: 420, Your_ETF: 240},
+            {name: '`23-01-04', ETF: 430, Your_ETF: 660},
+            {name: '`23-01-05', ETF: 440, Your_ETF: 770},
+            {name: '`23-01-06', ETF: 450, Your_ETF: 880},
+            {name: '`23-01-07', ETF: 460, Your_ETF: 700},
+            {name: '`23-01-01', ETF: 400, Your_ETF: 610},
+            {name: '`23-01-02', ETF: 410, Your_ETF: 520},
+            {name: '`23-01-03', ETF: 420, Your_ETF: 240},
+            {name: '`23-01-04', ETF: 430, Your_ETF: 660},
+            {name: '`23-01-05', ETF: 440, Your_ETF: 770},
+            {name: '`23-01-06', ETF: 450, Your_ETF: 880},
+            {name: '`23-01-07', ETF: 460, Your_ETF: 700},
+            {name: '`23-01-01', ETF: 400, Your_ETF: 610},
+            {name: '`23-01-02', ETF: 410, Your_ETF: 520},
+            {name: '`23-01-03', ETF: 420, Your_ETF: 240},
+            {name: '`23-01-04', ETF: 430, Your_ETF: 660},
+            {name: '`23-01-05', ETF: 440, Your_ETF: 770},
+            {name: '`23-01-06', ETF: 450, Your_ETF: 880},
+            {name: '`23-01-07', ETF: 460, Your_ETF: 700},
+            {name: '`23-01-01', ETF: 400, Your_ETF: 610},
+            {name: '`23-01-02', ETF: 410, Your_ETF: 520},
+            {name: '`23-01-03', ETF: 420, Your_ETF: 240},
+            {name: '`23-01-04', ETF: 430, Your_ETF: 660},
+            {name: '`23-01-05', ETF: 440, Your_ETF: 770},
+            {name: '`23-01-06', ETF: 450, Your_ETF: 880},
+            {name: '`23-01-07', ETF: 460, Your_ETF: 700},
+            {name: '`23-01-01', ETF: 400, Your_ETF: 610},
+            {name: '`23-01-02', ETF: 410, Your_ETF: 520},
+            {name: '`23-01-03', ETF: 420, Your_ETF: 240},
+            {name: '`23-01-04', ETF: 430, Your_ETF: 660},
+            {name: '`23-01-05', ETF: 440, Your_ETF: 770},
+            {name: '`23-01-06', ETF: 450, Your_ETF: 880},
+            {name: '`23-01-07', ETF: 460, Your_ETF: 700},
+        ]}
+    ])
 
     // const [news]
     useEffect((()=>{
@@ -27,50 +75,7 @@ function ETFS() {
         // setNewsComponents(<News data={{title : 'hi', content : "hihi"}}></News>)
     }),[])
 
-    const data = [
-        {name: '`23-01-01', ETF: 400, Your_ETF: 610},
-        {name: '`23-01-02', ETF: 410, Your_ETF: 520},
-        {name: '`23-01-03', ETF: 420, Your_ETF: 240},
-        {name: '`23-01-04', ETF: 430, Your_ETF: 660},
-        {name: '`23-01-05', ETF: 440, Your_ETF: 770},
-        {name: '`23-01-06', ETF: 450, Your_ETF: 880},
-        {name: '`23-01-07', ETF: 460, Your_ETF: 700},
-        {name: '`23-01-01', ETF: 400, Your_ETF: 610},
-        {name: '`23-01-02', ETF: 410, Your_ETF: 520},
-        {name: '`23-01-03', ETF: 420, Your_ETF: 240},
-        {name: '`23-01-04', ETF: 430, Your_ETF: 660},
-        {name: '`23-01-05', ETF: 440, Your_ETF: 770},
-        {name: '`23-01-06', ETF: 450, Your_ETF: 880},
-        {name: '`23-01-07', ETF: 460, Your_ETF: 700},
-        {name: '`23-01-01', ETF: 400, Your_ETF: 610},
-        {name: '`23-01-02', ETF: 410, Your_ETF: 520},
-        {name: '`23-01-03', ETF: 420, Your_ETF: 240},
-        {name: '`23-01-04', ETF: 430, Your_ETF: 660},
-        {name: '`23-01-05', ETF: 440, Your_ETF: 770},
-        {name: '`23-01-06', ETF: 450, Your_ETF: 880},
-        {name: '`23-01-07', ETF: 460, Your_ETF: 700},
-        {name: '`23-01-01', ETF: 400, Your_ETF: 610},
-        {name: '`23-01-02', ETF: 410, Your_ETF: 520},
-        {name: '`23-01-03', ETF: 420, Your_ETF: 240},
-        {name: '`23-01-04', ETF: 430, Your_ETF: 660},
-        {name: '`23-01-05', ETF: 440, Your_ETF: 770},
-        {name: '`23-01-06', ETF: 450, Your_ETF: 880},
-        {name: '`23-01-07', ETF: 460, Your_ETF: 700},
-        {name: '`23-01-01', ETF: 400, Your_ETF: 610},
-        {name: '`23-01-02', ETF: 410, Your_ETF: 520},
-        {name: '`23-01-03', ETF: 420, Your_ETF: 240},
-        {name: '`23-01-04', ETF: 430, Your_ETF: 660},
-        {name: '`23-01-05', ETF: 440, Your_ETF: 770},
-        {name: '`23-01-06', ETF: 450, Your_ETF: 880},
-        {name: '`23-01-07', ETF: 460, Your_ETF: 700},
-        {name: '`23-01-01', ETF: 400, Your_ETF: 610},
-        {name: '`23-01-02', ETF: 410, Your_ETF: 520},
-        {name: '`23-01-03', ETF: 420, Your_ETF: 240},
-        {name: '`23-01-04', ETF: 430, Your_ETF: 660},
-        {name: '`23-01-05', ETF: 440, Your_ETF: 770},
-        {name: '`23-01-06', ETF: 450, Your_ETF: 880},
-        {name: '`23-01-07', ETF: 460, Your_ETF: 700},
-    ];
+    // const data =
 
 
   const handleDataClick = async (data, index) => {
@@ -92,7 +97,7 @@ function ETFS() {
     await setNewsComponents(fetchsedNews)
     // await console.log(newsComponents[0])
   };
-  const graph = (
+  const getGraph = (data)=>{
     <LineChart width={730} height={250} data={data} onClick={handleDataClick} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
     <CartesianGrid strokeDasharray="3 3" />
     <XAxis dataKey="name" />
@@ -102,7 +107,7 @@ function ETFS() {
     <Line type="monotone" dataKey="ETF" stroke="#8884d8" />
     <Line type="monotone" dataKey="Your_ETF" stroke="#82ca9d" />
     </LineChart>
-  )
+  }
 
     // {for(let i = 0; i<news.length; i++){
     //     return <News data={news[i]}></News>
@@ -112,29 +117,17 @@ return (
     <>    
     <div className="content">           
 
-        <nav class="navbar navbar-expand-lg bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
-                
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                
-                </ul>
-                </div>
-            </div>
-            
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
-                
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                
-                </ul>
-                </div>
-            </div>
-        </nav>
+    <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3" onSelect={(key) => console.log(1)}>
+        <Tab eventKey="portfolio1" title="portfolio1">
+            {getGraph(etfs.etf1)}
+        </Tab>
+        <Tab eventKey="portfolio2" title="portfolio2">
+        </Tab>
+        <Tab eventKey="portfolio3" title="portfolio3">
+        </Tab>
+    </Tabs>
+
         
-        {graph}
         {newsComponents.length === 0 ? null : <div>{clickedDate}일의 뉴스</div>
         }
         <div>
