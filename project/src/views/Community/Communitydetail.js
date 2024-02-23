@@ -24,14 +24,15 @@ function DeCommunity() {
       title : "집갈래",
       content : "집집집",
       author : "배별하",
-      comment :[{
-        content: "나도",
-        author : "마우스"
-      },{
-        content: "나도",
-        author : "키보드"
-      }
-
+      comment :[
+        {
+            content: "나도",
+            author : "마우스"
+        },
+        {
+            content: "나도",
+            author : "키보드"
+        }
       ]
     }, 
     {
@@ -45,14 +46,14 @@ function DeCommunity() {
     <>
       <div className="content">
         <Row>
-          <Col md="12">
-          
+            <Col md="12">
+                <Button onClick={() => navigate(-1)} className="d-flex flex-column justify-content-center align-items-end">
+                    뒤로가기
+                </Button>
             <Card>
               <CardHeader style={{display: "flex"}}>
                 <CardTitle tag="h4">{board[0].title}</CardTitle>
-                <Button onClick={() => navigate(-1)} className="d-flex flex-column justify-content-center align-items-end">
-                뒤로가기
-                </Button>
+                
               </CardHeader>
               
               <CardBody>
@@ -80,28 +81,20 @@ function DeCommunity() {
                 <ul className="list-unstyled team-members">
                   <li> 
                   <div md="2" xs="2">
-
-                        {board[0].comment.map((el)=>{return (
-                            
+                        {board[0].comment.map((el)=>{return(
                          <div md="2" xs="2">
                          <div md="7" xs="7"><small>{el.author}</small></div>
                          <div md="5" xs="5">
                         <span className="text-muted">{el.content}</span>
                         </div>
                         </div>
-
                         )
-
                     })}
                     </div>
                   </li>
                 </ul>
               </CardBody>
-                
             </Card>
-            
-           
-
           </Col> 
         </Row>
       </div>

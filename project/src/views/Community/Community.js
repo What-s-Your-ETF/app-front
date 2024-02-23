@@ -39,16 +39,13 @@ function Community() {
           
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Community Board</CardTitle>
-
-                {/* <Button onClick={() => navigate('write')} className="d-flex flex-column justify-content-center align-items-end">
-                글 작성하기
-                </Button> */}
-                
-                <Link to={"/admin/community/write"}><Button className="d-flex flex-column justify-content-center align-items-end">
-                글 작성하기
-                </Button></Link>
-
+                <div style={{display : "flex", alignitem :"right"}}>
+                    <CardTitle tag="h4">Community Board</CardTitle>
+                    <Link to={"/admin/community/write"}><Button className="d-flex flex-column justify-content-center align-items-end">
+                    글 작성하기
+                    </Button>
+                    </Link>
+                </div>
               </CardHeader>
               <CardBody>
                 <ul className="list-unstyled team-members">

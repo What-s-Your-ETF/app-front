@@ -123,13 +123,9 @@ function ETFss() {
         ]},
     ])
 
-    // const [news]
     useEffect((()=>{
         console.log(99)
     }),[])
-
-    // const data =
-
 
   const handleDataClick = async (data, index) => {
     try {
@@ -149,10 +145,6 @@ function ETFss() {
     // const news = axios.get('123.0.0.1',{}) //리턴 타이틀 컨텐트 데이트
      
     var fetchsedNews = []
-
-    // for(let i=0;i<news.length;i++){
-    //     await fetchsedNews.push(<News key={i} data={news[i]}></News>)
-    // }
 
     var filteredNews = news.filter((elem)=>elem._date === clickedDate)
     console.log(filteredNews)
@@ -178,9 +170,6 @@ function ETFss() {
     )
   }
 
-    // {for(let i = 0; i<news.length; i++){
-    //     return <News data={news[i]}></News>
-    // }}s
 return (
     <>    
     <div className="content">           
@@ -190,6 +179,7 @@ return (
             return(<Tab eventKey={elem.title} title={elem.title}>{getGraph(elem.data)}</Tab>)
         })} 
         <Tab eventKey="add" title="+">
+            <div>hi </div>
         </Tab>
     </Tabs>
         {newsComponents.length === 0 ? null : <div>{clickedDate}일의 뉴스</div>}
