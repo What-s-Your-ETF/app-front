@@ -24,7 +24,7 @@ export default function Login() {
                 console.log(response.data)
                 console.log('로그인 성공')
                 navigate(-1)
-                sessionStorage.setItem("token",response.data.token)
+                sessionStorage.setItem("authToken",response.data.token)
                 sessionStorage.setItem('nickname',response.data.nickname)
             }catch(error){
                 console.error(error)

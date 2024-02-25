@@ -172,7 +172,6 @@ function Header(props) {
               </DropdownMenu>
             </Dropdown>
             : <Link to={"/admin/login"}><Button style={{borderRadius:"100px"}}variant="outline-primary">Login</Button></Link>}
-
           </Nav>
         </Collapse>
       </Container>

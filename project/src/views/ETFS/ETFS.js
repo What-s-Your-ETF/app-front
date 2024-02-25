@@ -18,6 +18,7 @@ import News from "components/ETF/News";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import ETFSetting from "./ETFSetting";
+import axios, { Axios } from "axios";
 
 function ETFss() {
 
@@ -126,6 +127,9 @@ function ETFss() {
 
     useEffect((()=>{
         console.log(99)
+        axios.get('http://127.0.0.1:3000/api/portfolios/').then(resp=>{
+            console.log(resp)
+        })
     }),[])
 
   const handleDataClick = async (data, index) => {
