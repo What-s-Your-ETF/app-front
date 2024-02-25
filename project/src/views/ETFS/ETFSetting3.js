@@ -1,84 +1,48 @@
 import React from "react";
-import { Row, Col, Card, Button, Form, Table, CardTitle,CardHeader,CardBody } from "reactstrap";
-import { useContext } from "react";
+import { Row, Col, Card, CardTitle,CardHeader,CardBody } from "reactstrap";
+import { useContext, useState, useEffect } from "react";
 import { MyContext } from "./ETFmaker";
-
-let list = [
-    {
-      title: "삼성그룹",
-      gijun : "9,326", //선택일자 마지막일 종가
-      suickpersent_1month: "9.32",  //선택일자 마지막일 종가 / (선택일자-1달)종가
-      suickpersent_3month:"5.79",
-      suickpersent_6month:"2.73",
-      suickpersent_1year:"4.84",
-  
-
-    },
-    {
-        title: "샘성그룹",
-        gijun : "9,326",
-        suickpersent_1month: "9.32",
-        suickpersent_3month:"5.79",
-        suickpersent_6month:"2.73",
-        suickpersent_1year:"4.84",
-  
-
-      },
-      {
-        title: "삼송그룹",
-        gijun : "9,326",
-        suickpersent_1month: "9.32",
-        suickpersent_3month:"5.79",
-        suickpersent_6month:"2.73",
-        suickpersent_1year:"4.84",
-  
-      },
-      {
-        title: "생성그룹",
-        gijun : "9,326",
-        suickpersent_1month: "9.32",
-        suickpersent_3month:"5.79",
-        suickpersent_6month:"2.73",
-        suickpersent_1year:"4.84",
-   
-
-      },
-      {
-        title: "샘송그룹",
-        gijun : "9,326",
-        suickpersent_1month: "9.32",
-        suickpersent_3month:"5.79",
-        suickpersent_6month:"2.73",
-        suickpersent_1year:"4.84",
-
-
-      },
-      {
-        title: "상성그룹",
-        gijun : "9,326",
-        suickpersent_1month: "9.32",
-        suickpersent_3month:"5.79",
-        suickpersent_6month:"2.73",
-        suickpersent_1year:"4.84",
-
-
-      },
-      {
-        title: "삼상그룹",
-        gijun : "9,326",
-        suickpersent_1month: "9.32",
-        suickpersent_3month:"5.79",
-        suickpersent_6month:"2.73",
-        suickpersent_1year:"4.84",
-
-
-      },
-]
-
+import {Form, Table, Button} from 'react-bootstrap';
+import { Checkbox } from "@mui/material";
 
 export default function ETFSetting3(){
-    const { setContextValue } = useContext(MyContext);
 
+  
+    const { setContextValue } = useContext(MyContext);
+    const [percentlist, setPercentlist] = useState([])
+    const [isChecked, setIsChecked] = useState(false)
+
+    const PercentChange = (e, title) => {
+      setPercentlist(prev => ({...prev, [title]: e.target.value/100}));
+      console.log(percentlist)
+    }
+
+    function Percentavg(){
+        setIsChecked(!isChecked);
+        const newPercent = 1/ETFlist.length
+        const newPercentlist = {}
+        ETFlist.forEach(item => {
+          newPercentlist[item.title] = newPercent;
+        });
+        setPercentlist(newPercentlist)
+        console.log(percentlist)
+    }
+
+    const [ETFlist, setETFlist] = useState([ {
+      title: "삼성그룹"
+    },
+    {
+        title: "샘성그룹"
+    },
+    {
+        title: "삼송그룹",
+    },
+      {
+        title: "생성그룹",
+  
+    }])
+      
+      
     return(
         <div className="content">
         <Row>
@@ -90,17 +54,50 @@ export default function ETFSetting3(){
 
                 <div style={{fontSize:"15px", padding:"4%"}}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Form.Control type="text" style={{ width: "40%", marginRight: "10px" }} />
-                    <Button variant="light" style={{ background: 'none', border: 'none' }}>🔍️</Button>
+
                     </div>
                     <div style={{marginTop: "20px"}}>투자비중 선택</div>
+                    <div style={{marginTop: "10px" , fontSize:"12px", color:"gray"}}>선택한 종목 각각의 투자비중은 반드시 최소 1이상 입력해야하며, 투자비중 총합이 100%가 되도록 입력해주세요 <br/>
+                          선택한 종목은 종가기준으로 적용됩니다
+                    </div>
+
+                    <div style={{marginTop: "20px"}}>총 {ETFlist.length}개</div>
+
+                    <Table striped bordered hover size="sm">
+                    <thead>
+                    <tr>
+                    <th>상품명</th>
+                    <th>투자비중(%)</th>
+                    <th>삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {ETFlist.map((item) => (
+                    <React.Fragment key={item.id}>
+                    <tr>
+                    <td>{item.title}</td>
+                    <td>{isChecked === false? 
+                        <Form.Control className="custom-input" type="num" value={percentlist[item.title]* 100 } onChange={(e) => { PercentChange(e, item.title) }} style={{ marginBottom: '10px', height: '40px'}}/>
+                        : <div>{1/ETFlist.length*100}</div>
+                    }</td>
+                    <td><Button>삭제</Button></td>
+
+
+             
+                    </tr>
+                    </React.Fragment>
+                    ))}
+                    </tbody>
+                    </Table>
+
 
 
                 
 
                     <div style={{justifyContent: 'flex-end', display:"flex", gap:"2%"}}>
-                  
+                    <Checkbox onClick={Percentavg}></Checkbox>
                     <Button onClick={() => setContextValue('2')}  className="d-flex flex-column justify-content-center align-items-end">이전</Button>
+                    <Button href="/admin/myetfs"  className="d-flex flex-column justify-content-center align-items-end">ETF 만들기</Button>
                     
          
 

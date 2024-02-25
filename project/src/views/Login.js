@@ -9,14 +9,12 @@ import { login } from 'lib/api/apis';
 
 import "./Login.css"
 
-
 export default function Login() {
         const navigate = useNavigate()
         const [idValue, setIdValue] = useState('');
         const [pwValue, setPwValue] = useState('');
-       
-
-        const handleLogin = async(e) => {
+      
+        const handleLogin = async(e) => {          
             e.preventDefault();
            try{
                 const response = await axios.post('http://127.0.0.1:3000/api/user/login',{
@@ -64,12 +62,15 @@ export default function Login() {
             }
             const userData = event.data;      // 이게 response 값입니다. 이거 사용하시면 돼용.
             console.log(userData);
-            sessionStorage.setItem("authToken", userData.authToken)            // 확인하시고 이거 지워주세요!!!!!!!
+            localStorage.setItem("authToken", userData.authToken)
+            localStorage.setItem("nickname", userData.nickname) 
+            window.location.href = 'http://localhost:3001/admin/dashboard';           // 확인하시고 이거 지워주세요!!!!!!!
             // 이벤트 리스너를 제거합니다.
             window.removeEventListener("message", handleMessage);
           };
           // 이벤트 리스너를 설정합니다.
           window.addEventListener("message", handleMessage, false);
+         
       };
 
 
@@ -83,7 +84,7 @@ export default function Login() {
                 <div style={{ padding: '10px', margin: '20px', width: '50%', backgroundColor: '#E7EFFD' }}>
                 <div id="login-box" style={{ padding: '20px', borderRadius: '10px', backgroundColor: '#E7EFFD' }}>
 
-                <Form.Control className="custom-input" type="text" placeholder="아이디를 입력하세요" value={idValue} onChange={(e) => { setIdValue(e.target.value) }} style={{ marginBottom: '10px', height: '40px' }} />
+                <Form.Control className="custom-input" type="text" placeholder="이메일을 입력하세요" value={idValue} onChange={(e) => { setIdValue(e.target.value) }} style={{ marginBottom: '10px', height: '40px' }} />
                 <Form.Control  className="custom-input" type="password" placeholder="비밀번호를 입력하세요" value={pwValue} onChange={(e) => { setPwValue(e.target.value) }} style={{ marginBottom: '10px', height: '40px' }} />
 
                 <div style={{ display: "flex", justifyContent: "center" , gap:"5%" }}>
