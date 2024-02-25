@@ -4,6 +4,9 @@ import { Link, useNavigate, } from 'react-router-dom';
 import axios from 'axios'
 import { Button, Form } from 'react-bootstrap';
 import Cookies from 'js-cookie';
+
+import { login } from 'lib/api/apis';
+
 import "./Login.css"
 
 
@@ -20,10 +23,23 @@ export default function Login() {
                     email : idValue,
                     password : pwValue
                 })
-                console.log(response.data)
-                console.log('로그인 성공')
+
+                // const response = login({email : idValue, password : pwValue})
+
+                // login({email : idValue, password : pwValue}).then(response=>{
+                //     console.log(response)
+                    
+                //     localStorage.setItem("authToken",response.data.token)
+                //     localStorage.setItem("nickname",response.data.nickname)
+
+                // }).catch(err=>{
+                //     console.log(err)
+                // })
+                // console.log('로그인성공')
+                // console.log(response.data)
+                // console.log('로그인 성공')
                 navigate(-1)
-                
+
                 localStorage.setItem("authToken",response.data.token)
                 localStorage.setItem("nickname",response.data.nickname)
 
