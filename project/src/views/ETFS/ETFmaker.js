@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import ETFSetting from "./ETFSetting";
 import ETFSetting2 from "./ETFSettiong2";
 import ETFSetting3 from "./ETFSetting3";
-
 export const MyContext = React.createContext();
 
 export default function ETFMaker(){

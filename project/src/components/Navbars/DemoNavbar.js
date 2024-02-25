@@ -52,14 +52,16 @@ function Header(props) {
   };
 
 
-  const handleLogout = async (e) => {
-    try {
-      e.preventDefault();
-        const response = await axios.post('http://127.0.0.1:3000/api/user/logout');
-        console.log(response.data);
-        sessionStorage.removeItem("authToken");
-        sessionStorage.removeItem("nickname");
+  const handleLogout = async () => {
+    try {        
+        // const response = await axios.post('http://127.0.0.1:3000/api/user/logout');
+
+        console.log(1);
+
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("nickname");
         console.log("삭제 완료");
+
     } catch (error) {
         console.error("Error during logout:", error);
         alert('실패');
@@ -168,7 +170,7 @@ function Header(props) {
             </NavItem>
 
             {/* 유저메뉴 */}
-            {sessionStorage.getItem("authToken") !== null ?
+            {localStorage.getItem("authToken") !== null ?
             <Dropdown nav isOpen={dropdownOpen}toggle={(e) => dropdownToggle(e)}>
               <DropdownToggle caret nav>
 
@@ -184,7 +186,7 @@ function Header(props) {
                 <DropdownItem tag="a" href="/admin/profile">Another Action</DropdownItem>
                 <DropdownItem tag="a">Setting</DropdownItem>
                 <Link to={"/admin/dashboard"}>
-                    <DropdownItem tag="a"onClick={() => handleLogout}
+                    <DropdownItem tag="a"onClick={(e) => handleLogout()}
                     >Logout</DropdownItem>
                 </Link>
               </DropdownMenu>

@@ -23,8 +23,9 @@ export default function Login() {
                 console.log(response.data)
                 console.log('로그인 성공')
                 navigate(-1)
-                sessionStorage.setItem("authToken",response.data.token)
-                sessionStorage.setItem('nickname',response.data.nickname)
+                
+                localStorage.setItem("authToken",response.data.token)
+                localStorage.setItem("nickname",response.data.nickname)
 
             }catch(error){
                 console.error(error)
@@ -34,8 +35,10 @@ export default function Login() {
 
         const handleKaKaoLogin = async (e) => {
           e.preventDefault();
+
           // 팝업 창을 열어 카카오 로그인 페이지를 표시하기.
           const popup = window.open('http://localhost:3000/api/kakao', "_blank", "width=800, height=600, top=100, left=100");
+          
           // 메시지 이벤트 리스너를 추가하여, 팝업 창으로부터 메시지를 받기.
           const handleMessage = (event) => {
             // 보안상의 이유로, 이벤트의 출처를 검증.

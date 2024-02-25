@@ -1,80 +1,8 @@
 import React from "react";
-import { Row, Col, Card, Button, Form, Table, CardTitle,CardHeader,CardBody } from "reactstrap";
+import { Row, Col, Card, Button, CardTitle,CardHeader,CardBody } from "reactstrap";
 import { useContext } from "react";
 import { MyContext } from "./ETFmaker";
-
-let list = [
-    {
-      title: "삼성그룹",
-      gijun : "9,326", //선택일자 마지막일 종가
-      suickpersent_1month: "9.32",  //선택일자 마지막일 종가 / (선택일자-1달)종가
-      suickpersent_3month:"5.79",
-      suickpersent_6month:"2.73",
-      suickpersent_1year:"4.84",
-  
-
-    },
-    {
-        title: "샘성그룹",
-        gijun : "9,326",
-        suickpersent_1month: "9.32",
-        suickpersent_3month:"5.79",
-        suickpersent_6month:"2.73",
-        suickpersent_1year:"4.84",
-  
-
-      },
-      {
-        title: "삼송그룹",
-        gijun : "9,326",
-        suickpersent_1month: "9.32",
-        suickpersent_3month:"5.79",
-        suickpersent_6month:"2.73",
-        suickpersent_1year:"4.84",
-  
-      },
-      {
-        title: "생성그룹",
-        gijun : "9,326",
-        suickpersent_1month: "9.32",
-        suickpersent_3month:"5.79",
-        suickpersent_6month:"2.73",
-        suickpersent_1year:"4.84",
-   
-
-      },
-      {
-        title: "샘송그룹",
-        gijun : "9,326",
-        suickpersent_1month: "9.32",
-        suickpersent_3month:"5.79",
-        suickpersent_6month:"2.73",
-        suickpersent_1year:"4.84",
-
-
-      },
-      {
-        title: "상성그룹",
-        gijun : "9,326",
-        suickpersent_1month: "9.32",
-        suickpersent_3month:"5.79",
-        suickpersent_6month:"2.73",
-        suickpersent_1year:"4.84",
-
-
-      },
-      {
-        title: "삼상그룹",
-        gijun : "9,326",
-        suickpersent_1month: "9.32",
-        suickpersent_3month:"5.79",
-        suickpersent_6month:"2.73",
-        suickpersent_1year:"4.84",
-
-
-      },
-]
-
+import {Form, Table} from 'react-bootstrap';
 
 export default function ETFSetting3(){
     const { setContextValue } = useContext(MyContext);
