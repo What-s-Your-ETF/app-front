@@ -23,7 +23,7 @@ export default function Login() {
                 console.log(response.data)
                 console.log('로그인 성공')
                 navigate(-1)
-                sessionStorage.setItem("token",response.data.token)
+                sessionStorage.setItem("authToken",response.data.token)
                 sessionStorage.setItem('nickname',response.data.nickname)
 
             }catch(error){
@@ -45,7 +45,7 @@ export default function Login() {
             }
             const userData = event.data;      // 이게 response 값입니다. 이거 사용하시면 돼용.
             console.log(userData);
-            sessionStorage.setItem("token", userData.authToken)            // 확인하시고 이거 지워주세요!!!!!!!
+            sessionStorage.setItem("authToken", userData.authToken)            // 확인하시고 이거 지워주세요!!!!!!!
             // 이벤트 리스너를 제거합니다.
             window.removeEventListener("message", handleMessage);
           };

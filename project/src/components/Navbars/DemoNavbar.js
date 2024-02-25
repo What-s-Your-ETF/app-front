@@ -52,13 +52,22 @@ function Header(props) {
   };
 
 
-  const handleLogout = async(e) => {
-    e.preventDefault();
-   
-        const response = await axios.post('http://127.0.0.1:3000/api/user/login')
-        sessionStorage.removeItem("token");
+  const handleLogout = async () => {
+    try {
+        const response = await axios.post('http://127.0.0.1:3000/api/user/logout');
+        console.log(response.data);
+        sessionStorage.removeItem("authToken");
         sessionStorage.removeItem("nickname");
-}
+        console.log("삭제 완료");
+    } catch (error) {
+        console.error("Error during logout:", error);
+        alert('실패');
+    }
+};
+
+
+
+  
 
 
   const getBrand = () => {
@@ -158,7 +167,7 @@ function Header(props) {
             </NavItem>
 
             {/* 유저메뉴 */}
-            {sessionStorage.getItem("token") !== null ?
+            {sessionStorage.getItem("authToken") !== null ?
             <Dropdown nav isOpen={dropdownOpen}toggle={(e) => dropdownToggle(e)}>
               <DropdownToggle caret nav>
 
@@ -180,7 +189,6 @@ function Header(props) {
               </DropdownMenu>
             </Dropdown>
             : <Link to={"/admin/login"}><Button style={{borderRadius:"100px"}}variant="outline-primary">Login</Button></Link>}
-          
           </Nav>
         </Collapse>
       </Container>
