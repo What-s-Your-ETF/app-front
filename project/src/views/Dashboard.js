@@ -23,19 +23,6 @@ import axios from "axios";
 
 function Dashboard() {
 
-  // useEffect(() => {
-  //   // 토큰을 로컬 스토리지에서 가져옵니다.
-  //   const authToken = Cookies.get('authToken');
-
-  //   if (authToken) {
-  //     console.log('토큰 값: ', authToken);
-  //     sessionStorage.setItem("token", authToken)
-  //   } else {
-  //     console.log('토큰이 없습니다.');
-  //   }
-  // }, []); // 빈 배열을 전달하여 컴포넌트가 마운트될 때만 이 효과를 실행합니다.
-
-
   
   return (
     <>

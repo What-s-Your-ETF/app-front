@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -51,22 +51,21 @@ function Header(props) {
     setDropdownOpen2(!dropdownOpen2);
   };
 
+  
 
   const handleLogout = async () => {
     try {        
-        // const response = await axios.post('http://127.0.0.1:3000/api/user/logout');
-
-        console.log(1);
-
+        const response = await axios.post('http://127.0.0.1:3000/api/user/logout');
         localStorage.removeItem("authToken");
         localStorage.removeItem("nickname");
         console.log("삭제 완료");
+        setIsLogin(false)
 
     } catch (error) {
         console.error("Error during logout:", error);
         alert('실패');
     }
-};
+  };
 
 
 
@@ -186,7 +185,7 @@ function Header(props) {
                 <DropdownItem tag="a" href="/admin/profile">Another Action</DropdownItem>
                 <DropdownItem tag="a">Setting</DropdownItem>
                 <Link to={"/admin/dashboard"}>
-                    <DropdownItem tag="a"onClick={(e) => handleLogout()}
+                    <DropdownItem tag="a"onClick={(e) => handleLogout()} 
                     >Logout</DropdownItem>
                 </Link>
               </DropdownMenu>
