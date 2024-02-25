@@ -52,8 +52,9 @@ function Header(props) {
   };
 
 
-  const handleLogout = async () => {
+  const handleLogout = async (e) => {
     try {
+      e.preventDefault();
         const response = await axios.post('http://127.0.0.1:3000/api/user/logout');
         console.log(response.data);
         sessionStorage.removeItem("authToken");
