@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import { Link } from "react-router-dom";
+import { MyContext } from "./ETFmaker";
 
 
 // reactstrap components
@@ -92,6 +93,7 @@ import {Form, Table} from 'react-bootstrap';
 export default function ETFSetting2() {
     const [ETFitem, setETFitem] = useState("")
     const [ETFlist, setETFlist] = useState([])
+    const { setContextValue } = useContext(MyContext);
 
     function check(title){
 
@@ -173,8 +175,8 @@ export default function ETFSetting2() {
                 
 
                     <div style={{justifyContent: 'flex-end', display:"flex", gap:"2%"}}>
-                    <Link to={"/admin/myetfs/setting"}>
-                    <Button className="d-flex flex-column justify-content-center align-items-end">이전</Button>
+                    <Link>
+                    <Button onClick={() => setContextValue('1')}  className="d-flex flex-column justify-content-center align-items-end">이전</Button>
                     </Link>
                     <Link to={"/admin/myetfs/setting2"}>
                     <Button className="d-flex flex-column justify-content-center align-items-end">다음</Button>

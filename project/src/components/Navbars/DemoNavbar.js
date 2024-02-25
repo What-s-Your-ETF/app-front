@@ -134,7 +134,7 @@ function Header(props) {
               </InputGroupAddon>
             </InputGroup>
           </form>
-          <Nav navbar>
+          <Nav navbar style={{ display: 'flex', alignItems: 'center' }}>
     
             {/* 알람 */}
             <NavItem>

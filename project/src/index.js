@@ -24,16 +24,19 @@ import "bootstrap/dist/css/bootstrap.css";
 import "assets/scss/paper-dashboard.scss?v=1.3.0";
 import "assets/demo/demo.css";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
+import { CookiesProvider } from "react-cookie";
 
 import AdminLayout from "layouts/Admin.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
+  <CookiesProvider>
   <BrowserRouter>
     <Routes>
       <Route path="/admin/*" element={<AdminLayout />} />
       <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
     </Routes>
   </BrowserRouter>
+  </CookiesProvider>
 );

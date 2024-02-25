@@ -2,6 +2,7 @@ import React from 'react'
 import { Col, Row } from 'reactstrap'
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Form } from 'react-bootstrap';
 import axios from 'axios'
 export default function Signup() {
         const [idValue, setIdValue] = useState('');
@@ -38,53 +39,28 @@ export default function Signup() {
             
             
         }
-  return (
-    <>
-        <div className="content">
-            <Row>
-                <Col>
-                <body>
-            <div id="container">
-                <form  style={{border : '2px solid black', padding : '10px', margin : '20px'}}>
-                    <div id="login-box">
-
-                            <div class="login-form">
-                                <label for="name">이름</label><br/>
-                                <input type="text" name="name" placeholder="사용자의 이름을 입력해주세요" class="form-control" id="id" value={name} onChange={(e)=>{setName(e.target.value)}}/>
-                            </div>
-                            
-                            <div class="login-form">
-                                <label for="pw">닉네임</label><br/>
-                                <input type="text" name="nickname" placeholder="사용자의 닉네임을 입력해주세요" class="form-control" id="pw" value={Nickname} onChange={(e)=>{setNickname(e.target.value)}}/>
-                            </div>
-                        
-                            <div class="login-form">
-                                <label for="id">이메일</label><br/>
-                                <input type="text" name="id" placeholder="아이디를 입력해주세요" class="form-control" id="id" value={idValue} onChange={(e)=>{setIdValue(e.target.value)}}/>
-                            </div>
-                            
-                            <div class="login-form">
-                                <label for="pw">비밀번호</label><br/>
-                                <input type="password" name="pw" placeholder="비밀번호를 입력해주세요" class="form-control" id="pw" value={pwValue} onChange={(e)=>{setPwValue(e.target.value)}}/>
-                            </div>
-                            <div class="login-form">
-                                <label for="pw">비밀번호 재입력</label><br/>
-                                <input type="password" name="pw" placeholder="비밀번호를 다시입력해주세요" class="form-control" id="pw" value={pwValue2} onChange={(e)=>{setPwValue2(e.target.value)}}/>
-                            </div>
-
-
-                            <div style={{display:"flex", alignContent:"center"}}>
-                                <div id="btn-login" style={{marginTop : '10px', display:"flex", justifyContent:"center"}}>
-                                    <button type="submit" class="btn btn-success" onClick={onsubmit}>가입하기</button>
+        return (
+            <>
+                <div className="content" style={{ backgroundColor: '#E7EFFD' }}>
+                    <Row>
+                        <Col>
+                            <div id="container" style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#E7EFFD' }}>
+                                <div style={{ padding: '10px', margin: '20px', width: '50%', backgroundColor: '#E7EFFD' }}>
+                                    <div id="login-box" style={{ padding: '20px', borderRadius: '10px', backgroundColor: '#E7EFFD' }}>
+                                        <Form.Control className="custom-input" type="text" placeholder="사용자의 이름을 입력해주세요" value={name} onChange={(e)=>{setName(e.target.value)}} style={{ marginBottom: '10px', height: '40px' }} />
+                                        <Form.Control className="custom-input" type="text" placeholder="사용자의 닉네임을 입력해주세요" value={Nickname} onChange={(e)=>{setNickname(e.target.value)}} style={{ marginBottom: '10px', height: '40px' }} />
+                                        <Form.Control className="custom-input" type="text" placeholder="아이디를 입력해주세요" value={idValue} onChange={(e)=>{setIdValue(e.target.value)}} style={{ marginBottom: '10px', height: '40px' }} />
+                                        <Form.Control className="custom-input" type="password" placeholder="비밀번호를 입력해주세요" value={pwValue} onChange={(e)=>{setPwValue(e.target.value)}} style={{ marginBottom: '10px', height: '40px' }} />
+                                        <Form.Control className="custom-input" type="password" placeholder="비밀번호를 다시입력해주세요" value={pwValue2} onChange={(e)=>{setPwValue2(e.target.value)}} style={{ marginBottom: '10px', height: '40px' }} />
+                                        <div style={{display:"flex", justifySelf:"center", marginTop : '10px'}}>
+                                                <button type="submit" class="btn btn-success" onClick={onsubmit}>가입하기</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                    </div>
-                </form>
-            </div>    
-            </body>
-                </Col>   
-            </Row>        
-        </div>
-    </>
-  )
+                        </Col>   
+                    </Row>        
+                </div>
+            </>
+        )
 }
