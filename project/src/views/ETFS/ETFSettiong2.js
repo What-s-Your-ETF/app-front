@@ -170,10 +170,7 @@ export default function ETFSetting2() {
                         <div style={{ marginRight: "10px" }}>{item}</div>
                         ))}
                     </div>
-
-
-                
-
+                    
                     <div style={{justifyContent: 'flex-end', display:"flex", gap:"2%"}}>
                     <Link>
                     <Button onClick={() => setContextValue('1')}  className="d-flex flex-column justify-content-center align-items-end">이전</Button>
@@ -184,17 +181,6 @@ export default function ETFSetting2() {
 
                 </div>
                 </div>
-
-
-              
-
-          
-
-                
-
-
-
-             
                 
               </CardHeader>
               <CardBody>
