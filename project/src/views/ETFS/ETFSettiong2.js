@@ -15,7 +15,7 @@ import {
 } from "reactstrap";
 import {Form, Table} from 'react-bootstrap';
 
-    let list = [
+  let list = [
         {
           title: "삼성그룹",
           gijun : "9,326", //선택일자 마지막일 종가
@@ -178,8 +178,8 @@ export default function ETFSetting2() {
                     <Link>
                     <Button onClick={() => setContextValue('1')}  className="d-flex flex-column justify-content-center align-items-end">이전</Button>
                     </Link>
-                    <Link to={"/admin/myetfs/setting2"}>
-                    <Button className="d-flex flex-column justify-content-center align-items-end">다음</Button>
+                    <Link>
+                    <Button onClick={() => setContextValue('3')}className="d-flex flex-column justify-content-center align-items-end">다음</Button>
                     </Link>
 
                 </div>

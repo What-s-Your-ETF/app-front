@@ -32,16 +32,26 @@ export default function Login() {
             }
         }
 
-        const handleKaKaoLogin = async(e) =>{
-            try{
-             window.open('http://127.0.0.1:3000/api/kakao', "_blank", "noopener, noreferrer");
-           
-
-            }catch(error){
-                console.error(error)
-                alert('아이디나 비밀번호를 다시 입력해주세요')
+        const handleKaKaoLogin = async (e) => {
+          e.preventDefault();
+          // 팝업 창을 열어 카카오 로그인 페이지를 표시하기.
+          const popup = window.open('http://localhost:3000/api/kakao', "_blank", "width=800, height=600, top=100, left=100");
+          // 메시지 이벤트 리스너를 추가하여, 팝업 창으로부터 메시지를 받기.
+          const handleMessage = (event) => {
+            // 보안상의 이유로, 이벤트의 출처를 검증.
+            if (event.origin !== "http://localhost:3000") {
+                console.log("Origin not allowed");
+                return;
             }
-        }
+            const userData = event.data;      // 이게 response 값입니다. 이거 사용하시면 돼용.
+            console.log(userData);
+            sessionStorage.setItem("token", userData.authToken)            // 확인하시고 이거 지워주세요!!!!!!!
+            // 이벤트 리스너를 제거합니다.
+            window.removeEventListener("message", handleMessage);
+          };
+          // 이벤트 리스너를 설정합니다.
+          window.addEventListener("message", handleMessage, false);
+      };
 
 
   return (

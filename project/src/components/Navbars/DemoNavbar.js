@@ -20,6 +20,7 @@ import {
 } from "reactstrap";
 import routes from "routes.js";
 import Button from 'react-bootstrap/Button';
+import axios from "axios";
 
 function Header(props) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -49,6 +50,16 @@ function Header(props) {
   const dropdownToggle2 = (e) => {
     setDropdownOpen2(!dropdownOpen2);
   };
+
+
+  const handleLogout = async(e) => {
+    e.preventDefault();
+   
+        const response = await axios.post('http://127.0.0.1:3000/api/user/login')
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("nickname");
+}
+
 
   const getBrand = () => {
   
@@ -163,16 +174,13 @@ function Header(props) {
                 <DropdownItem tag="a" href="/admin/profile">Another Action</DropdownItem>
                 <DropdownItem tag="a">Setting</DropdownItem>
                 <Link to={"/admin/dashboard"}>
-                    <DropdownItem tag="a"onClick={() => {
-                      sessionStorage.removeItem("token");
-                      sessionStorage.removeItem("nickname");
-                      }}
+                    <DropdownItem tag="a"onClick={() => handleLogout}
                     >Logout</DropdownItem>
                 </Link>
               </DropdownMenu>
             </Dropdown>
             : <Link to={"/admin/login"}><Button style={{borderRadius:"100px"}}variant="outline-primary">Login</Button></Link>}
-
+          
           </Nav>
         </Collapse>
       </Container>
