@@ -18,12 +18,8 @@ import News from "components/ETF/News";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import ETFSetting from "./ETFSetting";
-<<<<<<< HEAD
 import axios, { Axios } from "axios";
-=======
 import ETFMaker from "./ETFmaker";
->>>>>>> 06bf93e56ff21e5f5c2e772b1204a5e08075b59b
-
 function ETFss() {
 
     const [newsComponents, setNewsComponents] = useState([]) //전체 뉴스
