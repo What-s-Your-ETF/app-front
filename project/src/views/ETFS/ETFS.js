@@ -128,18 +128,19 @@ function ETFss() {
 
     useEffect((()=>{
         console.log(localStorage.getItem('authToken'))
-        
+
         axios.post("http://127.0.0.1:3000/api/portfolios", 
-        {headers : {
-            "name": "My Portfolio",
-            "duration": {
-                "startDate": "2022-01-01",
-                "endDate": "2022-12-31"
+        {body : {
+            name: "My Portfolio1",
+            duration: {
+                startDate: "2022-01-01",
+                endDate: "2022-12-31"
             },
-            "investAmounts": 1000000,
-            "itemCodes": ["005930", "000660", "006400"],
-            "weights": [0.3, 0.3, 0.4]
-        }}).then(resp=>console.log(resp))
+            investAmounts: 1000000,
+            itemCodes: ["005930", "000660", "006400"],
+            weights: [0.3, 0.3, 0.4]
+        }},{headers : {Authorization: "Bearer "+localStorage.getItem('authToken')}}).then(resp=>
+            console.log(resp))
 
         // axios.get('http://127.0.0.1:3000/api/portfolios',{headers : {Authorization: "Bearer "+localStorage.getItem('authToken')}}).then(resp=>{
         //     console.log(resp)
