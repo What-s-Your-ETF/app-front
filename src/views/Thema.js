@@ -86,7 +86,7 @@ function Thema() {
                           </div>
                       </div>
                       
-                      <div style={{width: "50%", color: "red"}}>+{el.volatility}</div>
+                      <div style={{width: "50%", color: "red"}}>+{el.volatility} %</div>
                     </div>
                   ))}
                 </div>
@@ -143,7 +143,7 @@ function Thema() {
                           </div>
                       </div>
                       
-                      <div style={{width: "50%", color: "blue"}}>{el.volatility}</div>
+                      <div style={{width: "50%", color: "blue"}}>{el.volatility} %</div>
                     </div>
                   ))}
                 </div>
