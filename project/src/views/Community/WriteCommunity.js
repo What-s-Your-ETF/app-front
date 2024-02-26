@@ -1,65 +1,78 @@
-import React from "react";
-
+import React, { useState } from "react";
+import axios from "axios";
 import {
   Card,
   CardHeader,
   CardBody,
-  CardTitle,
+  FormGroup,
+  Form,
+  Input,
+  Button,
   Row,
-  Col,
-  Button
- 
+  Col
 } from "reactstrap";
 
-import { Form } from 'react-bootstrap'
-import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom/dist";
+function CommunityWrite() {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
-function WCommunity() {
-    const navigate = useNavigate()
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  }
 
-    return (
-        <>
-        <div className="content">
-            <Row>
-                <Col md="12">
-                    <Button onClick={() => navigate(-1)} className="d-flex flex-column justify-content-center align-items-end">
-                        뒤로가기
-                    </Button>
-                <Card>
-                <CardHeader>
-                    <CardTitle tag="h4">Community Board</CardTitle>
-                
-                </CardHeader>
-                <CardBody>
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
+  }
 
-                <div md="2" xs="2">
-                    <Form.Group className="mb-3"  controlId="exampleForm.ControlInput1">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control onChange={()=>{}} type="text" placeholder="제목을 입력해주세요" />
-                    </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control type="content" onChange={()=>{}} placeholder="내용을 입력해주세요" />
-                        </Form.Group>
-                    <Link to={"/admin/community"}>
-                        <div id="btn-login" style={{marginTop : '10px', display:"flex", justifyContent:"center"}}>
-                        <Button type="submit" class="btn btn-success">글 등록하기</Button>
-                        </div>
-                    </Link>
-                </div>
+  async function postBoard(){
+    try{
+        const nickname = localStorage.getItem('nickname');
+        const response = await axios.post('/api/board',{title:title, content:content, nickname : nickname});
 
+        window.location.href = "http://localhost:3001/admin/community"
+    }catch(err){
+        console.error(err);
+    }
+  }
 
-
-
-                </CardBody>
-                </Card>
-            </Col>
-            
-            </Row>
-        </div>
-        </>
-    );
+  return (
+    <div className="content">
+      <Row>
+        <Col md="12">
+          <Card>
+            <CardHeader>
+              <h5 className="title">글 작성하기</h5>
+            </CardHeader>
+            <CardBody>
+              <Form>
+                <FormGroup>
+                  <label>제목</label>
+                  <Input
+                    type="text"
+                    value={title}
+                    onChange={handleTitleChange}
+                    required
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <label>내용</label>
+                  <Input
+                    type="textarea"
+                    value={content}
+                    onChange={handleContentChange}
+                    required
+                  />
+                </FormGroup>
+                <Button onClick={postBoard} className="btn-fill" color="primary">
+                  저장하기
+                </Button>
+              </Form>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  );
 }
 
-export default WCommunity;
+export default CommunityWrite;

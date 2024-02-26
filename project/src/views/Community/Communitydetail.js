@@ -1,105 +1,57 @@
-
-import React from "react";
-import {useNavigate} from "react-router-dom"
-import {Form} from 'react-bootstrap'
-
-// reactstrap components
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import {
   Card,
   CardHeader,
   CardBody,
   CardTitle,
   Row,
-  Col,
-  Button
+  Col
 } from "reactstrap";
 
+function CommunityDetail() {
+  let { id } = useParams();
+  const [boardDetail, setBoardDetail] = useState(null);
 
-
-function DeCommunity() {
-  let navigate = useNavigate()
-
-  let board =[
-    {
-      title : "집갈래",
-      content : "집집집",
-      author : "배별하",
-      comment :[
-        {
-            content: "나도",
-            author : "마우스"
-        },
-        {
-            content: "나도",
-            author : "키보드"
-        }
-      ]
-    }, 
-    {
-      title: "피곤하다",
-      content :"왕피곤",
-      author : "정해인"
+  useEffect(() => {
+    async function fetchBoardDetail() {
+      try {
+        const response = await axios.get(`/api/board/${id}`);
+        setBoardDetail(response.data);
+      } catch (error) {
+        console.error("Failed to fetch board details", error);
+        // 적절한 에러 처리 로직 추가
+      }
     }
-  ]
-  
+
+    fetchBoardDetail();
+  }, [id]); // 의존성 배열에 id를 추가하여 id가 변경될 때마다 새로운 상세 정보를 불러옵니다.
+
+  if (!boardDetail) {
+    return <div>Loading...</div>; // 로딩 상태 또는 데이터가 없는 경우를 처리
+  }
+
   return (
-    <>
-      <div className="content">
-        <Row>
-            <Col md="12">
-                <Button onClick={() => navigate(-1)} className="d-flex flex-column justify-content-center align-items-end">
-                    뒤로가기
-                </Button>
-            <Card>
-              <CardHeader style={{display: "flex"}}>
-                <CardTitle tag="h4">{board[0].title}</CardTitle>
-                
-              </CardHeader>
-              
-              <CardBody>
-                <ul className="list-unstyled team-members">
-                  <li> 
-                        <div>{board[0].content}</div>
-                  </li>
-                </ul>
-              </CardBody>
-                
-            </Card>
-
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1" style ={{display:"flex"}}>
-                <Form.Control placeholder="댓글을 입력해주세요"></Form.Control>
-                <Button>입력</Button>
-            </Form.Group>
-
-
-            <Card>
-              <CardHeader style={{display: "flex"}}>
-            
-              </CardHeader>
-              
-              <CardBody>
-                <ul className="list-unstyled team-members">
-                  <li> 
-                  <div md="2" xs="2">
-                        {board[0].comment.map((el)=>{return(
-                         <div md="2" xs="2">
-                         <div md="7" xs="7"><small>{el.author}</small></div>
-                         <div md="5" xs="5">
-                        <span className="text-muted">{el.content}</span>
-                        </div>
-                        </div>
-                        )
-                    })}
-                    </div>
-                  </li>
-                </ul>
-              </CardBody>
-            </Card>
-          </Col> 
-        </Row>
-      </div>
-    </>
+    <div className="content">
+      <Row>
+        <Col md="12">
+          <Card>
+            <CardHeader>
+              <h4 className="title">{boardDetail.title}</h4>
+            </CardHeader>
+            <CardBody>
+              <div>
+                <p>{boardDetail.content}</p>
+                <p>작성자: {boardDetail.nickname}</p>
+                <p>작성일: {boardDetail.createdAt}</p>
+              </div>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 }
 
-export default DeCommunity;
+export default CommunityDetail;

@@ -1,22 +1,22 @@
 import React, { useEffect } from "react";
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
 import {
-    ResponsiveContainer,
-	ComposedChart,
-	Line,
-	Bar,
-	XAxis,
-	YAxis,
-	CartesianGrid,
-	Tooltip,
-	Legend,
-    Area,
-    LineChart
-} from 'recharts';
+  ResponsiveContainer,
+  ComposedChart,
+  Line,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  Area,
+  LineChart,
+} from "recharts";
 import { useState } from "react";
 import News from "components/ETF/News";
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 import ETFSetting from "./ETFSetting";
 import axios, { Axios } from "axios";
 import ETFMaker from "./ETFmaker";
@@ -271,20 +271,20 @@ function ETFss() {
             // console.log(resp.data)
             // setEtfs(resp.data)
             
-            for(var i =0;i<resp.data.length;i++){ //포트폴리오 개수에 대해서 처리
-                // console.log(resp.data[i])
-                // console.log("i", i)
-                // console.log(resp.data[i])
-                const returnedPort = await processData(resp.data[i])
+    //         for(var i =0;i<resp.data.length;i++){ //포트폴리오 개수에 대해서 처리
+    //             // console.log(resp.data[i])
+    //             // console.log("i", i)
+    //             // console.log(resp.data[i])
+    //             const returnedPort = await processData(resp.data[i])
                 
-                // setEtfs( etfs.push(returnedPort) )
-                loadEtfs.push(returnedPort)
-                // console.log(etfs)
-            }
-            // loadEtfs = appendComp()  //ETF
-            setEtfs(loadEtfs)
-        })
-    }),[])
+    //             // setEtfs( etfs.push(returnedPort) )
+    //             loadEtfs.push(returnedPort)
+    //             // console.log(etfs)
+    //         }
+    //         // loadEtfs = appendComp()  //ETF
+    //         setEtfs(loadEtfs)
+    //     })
+    // }),[])
   //데이터 옆에 쌓기 함수
 //   const appendComp = async()=>{
 //     let tempEtfs = 
@@ -323,7 +323,7 @@ function ETFss() {
         console.log(date.slice(0,2), date.slice(3,5),date.slice(6,8))
         setClickedDate(date) //클릭한 점 기준 날짜가 나온다 (23-05-02 등)
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
     
     const news = ([
