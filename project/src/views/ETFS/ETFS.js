@@ -236,7 +236,9 @@ function ETFss() {
         // ]},
     ])
 
-    useEffect((()=>{
+
+    
+    useEffect(()=>{
         // console.log(localStorage.getItem('authToken'))
 
         // axios.post("http://127.0.0.1:3000/api/portfolios", 
@@ -268,30 +270,30 @@ function ETFss() {
 
         var loadEtfs = []
         axios.get('http://127.0.0.1:3000/api/portfolios',{headers : {Authorization: "Bearer "+localStorage.getItem('authToken')}}).then(async resp=>{
-            // console.log(resp.data)
+            console.log(resp.data)
             // setEtfs(resp.data)
             
-    //         for(var i =0;i<resp.data.length;i++){ //포트폴리오 개수에 대해서 처리
-    //             // console.log(resp.data[i])
-    //             // console.log("i", i)
-    //             // console.log(resp.data[i])
-    //             const returnedPort = await processData(resp.data[i])
+            for(var i =0;i<resp.data.length;i++){ //포트폴리오 개수에 대해서 처리
+                // console.log(resp.data[i])
+                // console.log("i", i)
+                // console.log(resp.data[i])
+                const returnedPort = await processData(resp.data[i])
                 
-    //             // setEtfs( etfs.push(returnedPort) )
-    //             loadEtfs.push(returnedPort)
-    //             // console.log(etfs)
-    //         }
-    //         // loadEtfs = appendComp()  //ETF
-    //         setEtfs(loadEtfs)
-    //     })
-    // }),[])
+                // setEtfs( etfs.push(returnedPort) )
+                loadEtfs.push(returnedPort)
+                // console.log(etfs)
+            }
+            // loadEtfs = appendComp()  //ETF
+            setEtfs(loadEtfs)
+        })
+    },[])
   //데이터 옆에 쌓기 함수
 //   const appendComp = async()=>{
 //     let tempEtfs = 
 //     for(let i=0;i<comparegroup.length();i++){
 
-//     }
-//   }
+//     })
+//   })
 
   //포르폴리오 1개당 데이터 처리하기
   const processData = async (data) =>{
@@ -469,4 +471,5 @@ function ETFss() {
     );
 
 };
+
 export default ETFss;
