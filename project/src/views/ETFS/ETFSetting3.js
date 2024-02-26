@@ -90,17 +90,11 @@ export default function ETFSetting3(){
                     </tbody>
                     </Table>
 
-
-
-                
-
                     <div style={{justifyContent: 'flex-end', display:"flex", gap:"2%"}}>
                     <Checkbox onClick={Percentavg}></Checkbox>
                     <Button onClick={() => setContextValue('2')}  className="d-flex flex-column justify-content-center align-items-end">이전</Button>
                     <Button href="/admin/myetfs"  className="d-flex flex-column justify-content-center align-items-end">ETF 만들기</Button>
-                    
-         
-
+ 
                 </div>
                 </div>
              

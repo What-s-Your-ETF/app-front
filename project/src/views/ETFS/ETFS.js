@@ -20,14 +20,11 @@ import Tabs from 'react-bootstrap/Tabs';
 import ETFSetting from "./ETFSetting";
 import axios, { Axios } from "axios";
 import ETFMaker from "./ETFmaker";
-
+import { getPortfolios } from "lib/api/portfolios";
 function ETFss() {
-
-    const [newsComponents, setNewsComponents] = useState([]) //전체 뉴스
-    const [clickedDate, setClickedDate] = useState('')
-    const [etfs, setEtfs] = useState([
+    const [ comparegroup, setComparegroup] = useState([ 
         {
-        title : "portfolio1",
+        title : "Kospi",
         data : [
             {name: '`23-06-02', ETF: 400, Your_ETF: 610},
             {name: '`23-01-02', ETF: 410, Your_ETF: 520},
@@ -73,7 +70,7 @@ function ETFss() {
             {name: '`23-01-07', ETF: 460, Your_ETF: 700},
         ]},
         {
-        title : "portfolio2",
+        title : "kosdaq",
         data : [
             {name: '`23-01-07', ETF: 416, Your_ETF: 200},
             {name: '`23-01-07', ETF: 516, Your_ETF: 210},
@@ -123,35 +120,190 @@ function ETFss() {
             {name: '`23-01-07', ETF: 316, Your_ETF: 100},
             {name: '`23-01-07', ETF: 416, Your_ETF: 290},
             {name: '`23-01-07', ETF: 816, Your_ETF: 340},
-        ]},
+        ]},])
+
+    const [newsComponents, setNewsComponents] = useState([]) //전체 뉴스
+    const [clickedDate, setClickedDate] = useState('')
+    const [etfs, setEtfs] = useState([
+        // {
+        // title : "portfolio1",
+        // data : [
+        //     {name: '`23-06-02', ETF: 400, Your_ETF: 610},
+        //     {name: '`23-01-02', ETF: 410, Your_ETF: 520},
+        //     {name: '`23-01-03', ETF: 420, Your_ETF: 240},
+        //     {name: '`23-07-02', ETF: 430, Your_ETF: 660},
+        //     {name: '`23-01-05', ETF: 440, Your_ETF: 770},
+        //     {name: '`23-01-06', ETF: 450, Your_ETF: 880},
+        //     {name: '`23-01-07', ETF: 460, Your_ETF: 700},
+        //     {name: '`23-08-02', ETF: 400, Your_ETF: 610},
+        //     {name: '`23-01-02', ETF: 410, Your_ETF: 520},
+        //     {name: '`23-01-03', ETF: 420, Your_ETF: 240},
+        //     {name: '`23-01-04', ETF: 430, Your_ETF: 660},
+        //     {name: '`23-01-05', ETF: 440, Your_ETF: 770},
+        //     {name: '`23-01-06', ETF: 450, Your_ETF: 880},
+        //     {name: '`23-01-07', ETF: 460, Your_ETF: 700},
+        //     {name: '`23-01-01', ETF: 400, Your_ETF: 610},
+        //     {name: '`23-01-02', ETF: 410, Your_ETF: 520},
+        //     {name: '`23-01-03', ETF: 420, Your_ETF: 240},
+        //     {name: '`23-01-04', ETF: 430, Your_ETF: 660},
+        //     {name: '`23-01-05', ETF: 440, Your_ETF: 770},
+        //     {name: '`23-01-06', ETF: 450, Your_ETF: 880},
+        //     {name: '`23-01-07', ETF: 460, Your_ETF: 700},
+        //     {name: '`23-01-01', ETF: 400, Your_ETF: 610},
+        //     {name: '`23-01-02', ETF: 410, Your_ETF: 520},
+        //     {name: '`23-01-03', ETF: 420, Your_ETF: 240},
+        //     {name: '`23-01-04', ETF: 430, Your_ETF: 660},
+        //     {name: '`23-01-05', ETF: 440, Your_ETF: 770},
+        //     {name: '`23-01-06', ETF: 450, Your_ETF: 880},
+        //     {name: '`23-01-07', ETF: 460, Your_ETF: 700},
+        //     {name: '`23-01-01', ETF: 400, Your_ETF: 610},
+        //     {name: '`23-01-02', ETF: 410, Your_ETF: 520},
+        //     {name: '`23-01-03', ETF: 420, Your_ETF: 240},
+        //     {name: '`23-01-04', ETF: 430, Your_ETF: 660},
+        //     {name: '`23-01-05', ETF: 440, Your_ETF: 770},
+        //     {name: '`23-01-06', ETF: 450, Your_ETF: 880},
+        //     {name: '`23-01-07', ETF: 460, Your_ETF: 700},
+        //     {name: '`23-01-01', ETF: 400, Your_ETF: 610},
+        //     {name: '`23-01-02', ETF: 410, Your_ETF: 520},
+        //     {name: '`23-01-03', ETF: 420, Your_ETF: 240},
+        //     {name: '`23-01-04', ETF: 430, Your_ETF: 660},
+        //     {name: '`23-01-05', ETF: 440, Your_ETF: 770},
+        //     {name: '`23-01-06', ETF: 450, Your_ETF: 880},
+        //     {name: '`23-01-07', ETF: 460, Your_ETF: 700},
+        // ]},
+        // {
+        // title : "portfolio2",
+        // data : [
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 200},
+        //     {name: '`23-01-07', ETF: 516, Your_ETF: 210},
+        //     {name: '`23-01-07', ETF: 616, Your_ETF: 260},
+        //     {name: '`23-01-07', ETF: 316, Your_ETF: 100},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 290},
+        //     {name: '`23-01-07', ETF: 816, Your_ETF: 340},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 200},
+        //     {name: '`23-01-07', ETF: 516, Your_ETF: 210},
+        //     {name: '`23-01-07', ETF: 616, Your_ETF: 260},
+        //     {name: '`23-01-07', ETF: 316, Your_ETF: 100},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 290},
+        //     {name: '`23-01-07', ETF: 816, Your_ETF: 340},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 200},
+        //     {name: '`23-01-07', ETF: 516, Your_ETF: 210},
+        //     {name: '`23-01-07', ETF: 616, Your_ETF: 260},
+        //     {name: '`23-01-07', ETF: 316, Your_ETF: 100},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 290},
+        //     {name: '`23-01-07', ETF: 816, Your_ETF: 340},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 200},
+        //     {name: '`23-01-07', ETF: 516, Your_ETF: 210},
+        //     {name: '`23-01-07', ETF: 616, Your_ETF: 260},
+        //     {name: '`23-01-07', ETF: 316, Your_ETF: 100},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 290},
+        //     {name: '`23-01-07', ETF: 816, Your_ETF: 340},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 200},
+        //     {name: '`23-01-07', ETF: 516, Your_ETF: 210},
+        //     {name: '`23-01-07', ETF: 616, Your_ETF: 260},
+        //     {name: '`23-01-07', ETF: 316, Your_ETF: 100},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 290},
+        //     {name: '`23-01-07', ETF: 816, Your_ETF: 340},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 200},
+        //     {name: '`23-01-07', ETF: 516, Your_ETF: 210},
+        //     {name: '`23-01-07', ETF: 616, Your_ETF: 260},
+        //     {name: '`23-01-07', ETF: 316, Your_ETF: 100},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 290},
+        //     {name: '`23-01-07', ETF: 816, Your_ETF: 340},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 200},
+        //     {name: '`23-01-07', ETF: 516, Your_ETF: 210},
+        //     {name: '`23-01-07', ETF: 616, Your_ETF: 260},
+        //     {name: '`23-01-07', ETF: 316, Your_ETF: 100},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 290},
+        //     {name: '`23-01-07', ETF: 816, Your_ETF: 340},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 200},
+        //     {name: '`23-01-07', ETF: 516, Your_ETF: 210},
+        //     {name: '`23-01-07', ETF: 616, Your_ETF: 260},
+        //     {name: '`23-01-07', ETF: 316, Your_ETF: 100},
+        //     {name: '`23-01-07', ETF: 416, Your_ETF: 290},
+        //     {name: '`23-01-07', ETF: 816, Your_ETF: 340},
+        // ]},
     ])
 
     useEffect((()=>{
         console.log(localStorage.getItem('authToken'))
 
-        axios.post("http://127.0.0.1:3000/api/portfolios", 
-        {body : {
-            name: "My Portfolio1",
-            duration: {
-                startDate: "2022-01-01",
-                endDate: "2022-12-31"
-            },
-            investAmounts: 1000000,
-            itemCodes: ["005930", "000660", "006400"],
-            weights: [0.3, 0.3, 0.4]
-        }},{headers : {Authorization: "Bearer "+localStorage.getItem('authToken')}}).then(resp=>
-            console.log(resp))
+        // axios.post("http://127.0.0.1:3000/api/portfolios", 
+        // {
+        //     name: "My Portfolio2",
+        //     duration: {
+        //         startDate: "2022-01-01",
+        //         endDate: "2022-12-31"
+        //     },
+        //     investAmounts: 1000000,
+        //     itemCodes: ["005930", "000660", "006400"],
+        //     weights: [0.3, 0.3, 0.4]
+        // },{headers : {Authorization : "bearer "+localStorage.getItem('authToken')}})
+        // .then(resp=>
+        //     console.log(resp))
 
-        // axios.get('http://127.0.0.1:3000/api/portfolios',{headers : {Authorization: "Bearer "+localStorage.getItem('authToken')}}).then(resp=>{
+        // getPortfolios({
+        //     name: "My Portfolio1",
+        //     duration: {
+        //         startDate: "2022-01-01",
+        //         endDate: "2022-12-31"
+        //     },
+        //     investAmounts: 1000000,
+        //     itemCodes: ["005930", "000660", "006400"],
+        //     weights: [0.3, 0.3, 0.4]
+        // }).then(resp=>{
         //     console.log(resp)
         // })
-
+        var loadEtfs = []
+        axios.get('http://127.0.0.1:3000/api/portfolios',{headers : {Authorization: "Bearer "+localStorage.getItem('authToken')}}).then(async resp=>{
+            console.log(resp.data)
+            // setEtfs(resp.data)
+            
+            for(var i =0;i<resp.data.length;i++){ //포트폴리오 개수에 대해서 처리
+                // console.log(resp.data[i])
+                // console.log("i", i)
+                // console.log(resp.data[i])
+                const returnedPort = await processData(resp.data[i])
+                
+                // setEtfs( etfs.push(returnedPort) )
+                loadEtfs.push(returnedPort)
+                // console.log(etfs)
+            }
+            // loadEtfs = appendComp()  //ETF
+            setEtfs(loadEtfs)
+        })
     }),[])
+  //데이터 옆에 쌓기 함수
+//   const appendComp = async()=>{
+//     let tempEtfs = 
+//     for(let i=0;i<comparegroup.length();i++){
 
+//     }
+//   }
+
+  //포르폴리오 1개당 데이터 처리하기
+  const processData = async (data) =>{
+    var totalData = {} //title : "", data : [] 오브젝트 타입으로 들어간다
+    totalData.title = data.name //title넣음 => 일별로 data만 넣어주면 된다
+    
+    var dailyDate = []
+    // console.log(data)
+    for(var i=0;i<data.returnRates.length;i++){
+        const elem = data.returnRates[i]
+        // console.log(elem.date.slice(2,10))
+        var tempData = {}
+        tempData.name = elem.date.slice(2,10)
+        tempData[data.name] = elem.rate.$numberDecimal*100
+        dailyDate.push(tempData)
+    }
+    totalData.data = dailyDate
+
+    return totalData // 1개의 ETF에 대해 전처리 완
+  }
   const handleDataClick = async (data, index) => {
     try {
         const date = data.activeLabel.slice(1)
-        console.log(date)
+        // console.log(date)
         setClickedDate(date) //클릭한 점 기준 날짜가 나온다 (23-05-02 등)
     } catch (error) {
         console.log(error)
@@ -178,6 +330,8 @@ function ETFss() {
   };
 
   const getGraph = (data)=>{
+    // console.log(Object.keys(data[0]))
+    const keys = Object.keys(data[0])
     return(
     <LineChart width={730} height={250} data={data} onClick={handleDataClick} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" />
@@ -185,8 +339,15 @@ function ETFss() {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="ETF" stroke="#8884d8" />
-        <Line type="monotone" dataKey="Your_ETF" stroke="#82ca9d" />
+        
+        {/* <Line type="monotone" dataKey="ETF" stroke="#8884d8" /> */}
+        {/* <Line type="monotone" dataKey="My Portfolio1" stroke="#82ca9d" /> */}
+
+        {keys.map((elem,idx)=>{
+            if(idx>=1)
+                return (<Line type="monotone" dataKey={elem} stroke="#82ca9d" />)
+        })}
+        {/* <Line type="monotone" dataKey="Kospi" stroke="#ffc658" /> */}
     </LineChart>
     )
   }
@@ -197,6 +358,7 @@ return (
 
     <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3" onSelect={(key) => console.log(key,"selected")}>
         {etfs.map((elem,idx)=>{
+            console.log(elem.data)
             return(<Tab eventKey={elem.title} title={elem.title}>{getGraph(elem.data)}</Tab>)
         })} 
         <Tab eventKey="add" title="+">

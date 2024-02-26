@@ -3,9 +3,19 @@ import axios from "axios";
 
 const BASE_URL = "http://127.0.0.1:3000/api/"; // Next 사용중인 프로젝트
 
+function getAxiosInstance() {
+    const instance = axios.create({
+        baseURL: BASE_URL,
+        headers : {'Authorization' : "bearer "+localStorage.getItem('authToken')}
+      });
+
+    return instance;
+}
+
 
 const instance = axios.create({
   baseURL: BASE_URL,
+  headers : {}
 });
 
 instance.interceptors.request.use(

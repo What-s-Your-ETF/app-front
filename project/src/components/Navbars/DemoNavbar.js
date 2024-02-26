@@ -55,7 +55,7 @@ function Header(props) {
 
   const handleLogout = async () => {
     try {        
-        const response = await axios.post('http://127.0.0.1:3000/api/user/logout');
+        // const response = await axios.post('http://127.0.0.1:3000/api/user/logout');
         localStorage.removeItem("authToken");
         localStorage.removeItem("nickname");
         console.log("삭제 완료");
