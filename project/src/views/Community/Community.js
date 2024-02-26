@@ -1,6 +1,7 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom"
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 // reactstrap components
 import {
@@ -16,71 +17,56 @@ import {
 
 
 function Community() {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
+  const [boardList, setBoardList] = useState([]);
 
-  let board =[
-    {
-      title : "집갈래",
-      content : "집집집",
-      author : "배별하"
-    }, 
-    {
-      title: "피곤하다",
-      content :"왕피곤",
-      author : "정해인"
+  useEffect(()=>{
+    async function getBoard(){
+      const response = await axios.get('/api/board');
+      setBoardList(response.data)
     }
-  ]
+    getBoard();
+  },[])
   
   return (
-    <>
-      <div className="content">
-        <Row>
-          <Col md="12">
-          
-            <Card>
-              <CardHeader>
-                <div style={{display : "flex", alignitem :"right"}}>
-                    <CardTitle tag="h4">Community Board</CardTitle>
-                    <Link to={"/admin/community/write"}><Button className="d-flex flex-column justify-content-center align-items-end">
-                    글 작성하기
-                    </Button>
-                    </Link>
+    <div className="content">
+      <Row>
+        <Col md="12">
+          <Card>
+            <CardHeader>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <h4>Community Board</h4>
+                <Link to={"/admin/community/write"}>
+                  <Button>글 작성하기</Button>
+                </Link>
+              </div>
+            </CardHeader>
+            <CardBody>
+              {boardList.map((el) => (
+                <div key={el.id} onClick={() => navigate(`/admin/community/detail/${el.id}`)} style={{ cursor: "pointer" ,border: "1px solid #ddd", borderRadius: "5px", padding: "10px", margin: "10px 0"}}>
+                  <Row>
+                  <Col md="9">
+                    <strong style={{fontSize: "16px"}}>{el.title}</strong>
+                    <p className="text-muted">
+                      <small>
+                        {el.content.length > 50 ? `${el.content.substring(0, 60)}...` : el.content}
+                      </small>
+                    </p>
+                  </Col>
+                    <Col md="3" className="text-right" >
+                      <div style={{display : "flex", justifyContent : "end", alignItems:"flex-end" , height: "100%"}}>
+                        작성자 : {el.nickname} <br/>
+                        {el.createdAt.substring(0,10)}
+                      </div>
+                    </Col>
+                  </Row>
                 </div>
-              </CardHeader>
-              <CardBody>
-                <ul className="list-unstyled team-members">
-                  <li>
-                    <div>
-
-                      <div md="2" xs="2">
-                        {board.map((el)=>{
-                          return (
-                            <div md="2" xs="2"  onClick={() => navigate('detail')}>
-                            <div md="7" xs="7">{el.title}</div>
-                            <div md="5" xs="5">
-                              <span className="text-muted"> <small>{el.content}</small></span>
-                              <div className="d-flex flex-column justify-content-center align-items-end">
-                                <div>{el.author}</div>
-                                </div>
-                            </div>
-                            </div>
-                  
-                          )
-                        
-                        })}
-                        
-                      </div>  
-                     
-                    </div>
-                  </li>
-                </ul>
-              </CardBody>
-            </Card>
-          </Col>
-         
-        </Row>
-      </div>
-    </>
+              ))}
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 }
 

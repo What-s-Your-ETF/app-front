@@ -25,6 +25,7 @@ export default function ETFSetting() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [investAmounts, setinvestAmounts] = useState(null);
+  const [name, setName] = useState(null);
   const { setContextValue } = useContext(MyContext);
   const { setEtfList } = useContext(ETFListContext);
 
@@ -47,7 +48,7 @@ export default function ETFSetting() {
 
   const page1 = () => {
     setContextValue("2");
-    setEtfList({ startDate, endDate, investAmounts });
+    setEtfList({ name, startDate, endDate, investAmounts });
   };
 
   return (
@@ -61,13 +62,19 @@ export default function ETFSetting() {
                   style={{ padding: "1%", textAlign: "center" }}
                   tag="h4"
                 >
-                  투자 금액과 기간을 입력해주세요
+                  포트폴리오 이름과 투자 금액, 기간을 입력해주세요
                 </CardTitle>
 
-                {/* <Button onClick={() => navigate('write')} className="d-flex flex-column justify-content-center align-items-end">
-                글 작성하기
-                </Button> */}
                 <div style={{ fontSize: "15px", padding: "4%" }}>
+
+                <div style={{ marginTop: "20px" }}>포트폴리오 이름</div>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <Form.Control style={{ width: "20%", marginRight: "4px" }} value={name}
+                      onChange={(e) => {setName(e.target.value);}}/>
+                    <Button onClick={() => {setName(name);}}>설정</Button>
+                  </div>
+
+
                   <div>
                     투자기간
                     <div style={{ display: "flex", gap: "2%" }}>
@@ -108,10 +115,9 @@ export default function ETFSetting() {
                   </div>
 
                   <div style={{ marginTop: "20px" }}>투자금액</div>
-                  <Form.Label htmlFor="inputPassword5"></Form.Label>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <Form.Control
-                      style={{ width: "20%", marginRight: "10px" }}
+                      style={{ width: "20%", marginRight: "4px" }}
                       value={investAmounts}
                       onChange={(e) => {
                         setinvestAmounts(e.target.value);

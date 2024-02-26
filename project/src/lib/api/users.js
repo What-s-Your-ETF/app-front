@@ -3,6 +3,7 @@ import instance from "./axios";
 export const login = async ({ email, password }) => {
     // 요청 보내기
     instance.post("user/login", { email: email, password: password })
+
     .then(response => {
         console.log('로그인 응답:', response.data);
         return response

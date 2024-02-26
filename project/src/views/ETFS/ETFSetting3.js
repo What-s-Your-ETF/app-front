@@ -3,7 +3,8 @@ import { Row, Col, Card, CardTitle, CardHeader, CardBody } from "reactstrap";
 import { useContext, useState, useEffect } from "react";
 import { MyContext, ETFListContext } from "./ETFmaker";
 import { Form, Table, Button } from "react-bootstrap";
-import { Checkbox } from "@mui/material";
+import { Checkbox, duration } from "@mui/material";
+import { postPortfolios } from "lib/api/portfolios";
 
 export default function ETFSetting3() {
   const { etfList, setEtfList } = useContext(ETFListContext);
@@ -30,7 +31,21 @@ export default function ETFSetting3() {
     setEtfList({ ...etfList, weights });
   }
 
-  console.log(etfList);
+  function addportfolios() {
+    const itemCodes = etfList.itemCodes.map((item) => item.num);
+    const postData = {
+      name: etfList.name,
+      duration: {
+        startDate: etfList.startDate,
+        endDate: etfList.endDate,
+      },
+      investAmounts: parseInt(etfList.investAmounts),
+      itemCodes: itemCodes,
+      weights: etfList.weights,
+    };
+
+    //postPortfolios(postData.name, postData.duration, postData.investAmounts, postData.itemCodes, postData.weights)
+  }
 
   return (
     <div className="content">
@@ -112,8 +127,11 @@ export default function ETFSetting3() {
                     이전
                   </Button>
                   <Button
-                    href="/admin/myetfs"
+                    //href="/admin/myetfs"
                     className="d-flex flex-column justify-content-center align-items-end"
+                    onClick={() => {
+                      addportfolios();
+                    }}
                   >
                     ETF 만들기
                   </Button>
