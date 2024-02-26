@@ -4,13 +4,16 @@ import { useContext, useState, useEffect } from "react";
 import { MyContext } from "./ETFmaker";
 import {Form, Table, Button} from 'react-bootstrap';
 import { Checkbox } from "@mui/material";
+import {ETFListContext } from "./ETFmaker";
 
 export default function ETFSetting3(){
 
-  
+  const {etfList} = useContext(ETFListContext)
     const { setContextValue } = useContext(MyContext);
     const [percentlist, setPercentlist] = useState([])
     const [isChecked, setIsChecked] = useState(false)
+
+    console.log(etfList)
 
     const PercentChange = (e, title) => {
       setPercentlist(prev => ({...prev, [title]: e.target.value/100}));

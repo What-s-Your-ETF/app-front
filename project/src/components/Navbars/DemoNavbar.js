@@ -54,13 +54,13 @@ function Header(props) {
   
 
   const handleLogout = async () => {
-    try {        
-        const response = await axios.post('http://127.0.0.1:3000/api/user/logout');
-        localStorage.removeItem("authToken");
-        localStorage.removeItem("nickname");
+    try {
+        const response = await axios.post('/api/user/logout');
+        localStorage.clear();
         console.log("삭제 완료");
-        setIsLogin(false)
-
+        setIsLogin(false);
+        window.location.href = 'http://localhost:3001/admin/dashboard';
+        
     } catch (error) {
         console.error("Error during logout:", error);
         alert('실패');
