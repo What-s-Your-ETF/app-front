@@ -111,7 +111,19 @@ export default function ETFSetting() {
               </div>
 
               <Link style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Button onClick={page1} className="d-flex flex-column justify-content-center align-items-end">
+              <Button className="d-flex flex-column justify-content-center align-items-end" onClick={(e)=>{
+                console.log(startDate, endDate, money)
+                const sdate = new Date(startDate)
+                const edate = new Date(endDate) 
+                if( sdate >= edate ){
+                    alert("날짜 다시입력해라~")
+                }
+                else if(startDate !==null && endDate !==null && money !==null)
+                    page1()
+                else{
+                    alert("다시입력해라~")
+                }
+              }}>
               다음
               </Button>
               </Link>
