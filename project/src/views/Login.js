@@ -33,25 +33,6 @@ export default function Login() {
             }
         }
 
-        const handleKaKaoLogin = async (e) => {
-          e.preventDefault();
-         try{
-              const response = await axios.post('/api/user/login',{
-                  email : idValue,
-                  password : pwValue
-              })
-              console.log(response.data)
-              console.log('로그인 성공')
-              navigate(-1)
-              localStorage.setItem("authToken",response.data.token)
-              localStorage.setItem("nickname",response.data.nickname)
-              localStorage.setItem("loginType",response.data.loginType)
-          }catch(error){
-              console.error(error)
-              alert('아이디나 비밀번호를 다시 입력해주세요')
-          }
-      }
-
       const handleKaKaoLogin = async (e) => {
         e.preventDefault();
         // 팝업 창을 열어 카카오 로그인 페이지를 표시하기.
