@@ -1,7 +1,7 @@
 import React, {useState, useContext} from "react";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
-import { MyContext } from "./ETFmaker";
+import { MyContext, ETFListContext } from "./ETFmaker";
 
 // reactstrap components
 import {
@@ -27,6 +27,7 @@ export default function ETFSetting() {
   const [endDate, setEndDate] =useState(null)
   const [money, setMoney] = useState(null)
   const { setContextValue } = useContext(MyContext);
+  const {setEtfList} = useContext(ETFListContext)
 
   const datePickerFormat = "YYYY-MM-DD";
   const datePickerUtils = {
@@ -46,6 +47,11 @@ export default function ETFSetting() {
     setEndDate(formattedDate);
 
   };
+
+  const page1 = ()=>{
+    setContextValue('2')
+    setEtfList({startDate,endDate,money})
+  }
   
 
   
@@ -105,7 +111,7 @@ export default function ETFSetting() {
               </div>
 
               <Link style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Button onClick={() => setContextValue('2')} className="d-flex flex-column justify-content-center align-items-end">
+              <Button onClick={page1} className="d-flex flex-column justify-content-center align-items-end">
               다음
               </Button>
               </Link>

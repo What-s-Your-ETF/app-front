@@ -59,8 +59,9 @@ function Header(props) {
         localStorage.removeItem("authToken");
         localStorage.removeItem("nickname");
         console.log("삭제 완료");
-        setIsLogin(false)
-
+        setIsLogin(false);
+        window.location.href = 'http://localhost:3001/admin/dashboard';
+        
     } catch (error) {
         console.error("Error during logout:", error);
         alert('실패');
