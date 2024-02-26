@@ -4,15 +4,12 @@ import ETFSetting2 from "./ETFSettiong2";
 import ETFSetting3 from "./ETFSetting3";
 
 export const MyContext = React.createContext();
-export const StartDateContext = React.createContext();
-export const EndDateContext = React.createContext();
-export const ETFMoneyContext = React.createContext();
 export const ETFListContext = React.createContext();
-export const ETFPercentContext = React.createContext();
+
 
 export default function ETFMaker(){
     const [contextValue, setContextValue] = useState('1');
-    const [etfList, setEtfList] = useState(null);
+    const [etfList, setEtfList] = useState();  //시작일, 종료일, 투자금액, 투자종목, 투자비중 저장
 
 
     return (
