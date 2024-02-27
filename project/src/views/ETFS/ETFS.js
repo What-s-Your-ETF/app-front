@@ -273,7 +273,7 @@ function ETFss() {
         // ]},
     ])
   
-    //const [news, setNews] = useState([])
+    const [news, setNews] = useState([])
 
     // useEffect(()=>{
     //     async function startETF(){
