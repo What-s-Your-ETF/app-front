@@ -51,7 +51,6 @@ const COLORS = [
     '#9900FF',
     '#00FF99'
   ];
-
   
   // 20개의 색상을 랜덤하게 선택하는 함수
   const getRandomColors = (count) => {
