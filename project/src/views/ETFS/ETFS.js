@@ -364,13 +364,16 @@ function ETFss() {
     // ])
     const inputDate = "20"+date.slice(0,2)+"."+date.slice(3,5)+"."+date.slice(6,8)
 
-    const inputKeyword = []
-    
+    var inputKeyword = []
+    // console.log(999,etfs)
+    for(let key in etfs[currentPortNum].stockItems){    
+        inputKeyword.push(etfs[currentPortNum].stockItems[key]['name'])
+        // console.log(etfs[currentPortNum].stockItems[key]['name'])
+    }
     var fetchedNews = []
 
-    axios.post("/api/news/getnews",{ "keywordArray" : ["삼성전자", "LG", "SK"], "day" : inputDate}).then(resp=>{
-        // console.log(resp.data)
-        
+    axios.post("/api/news/getnews",{ "keywordArray" : inputKeyword , "day" : inputDate}).then(resp=>{
+
         setNews(resp.data)
         for(const key in resp.data  ){
             resp.data[key].map((elem2,idx)=>{
@@ -412,7 +415,7 @@ function ETFss() {
     const keys = Object.keys(data[0])
     return(
     <>
-    <LineChart width={730} height={350} data={data} onClick={handleDataClick} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+    <LineChart width={730} height={350} data={data} onClick={handleDataClick} margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
@@ -428,21 +431,35 @@ function ETFss() {
     )
   }
   
-//   const handlePieClick = async (name, index) => {
-//     const stockName = name
-//   };
-  const handlePieClick = async (name,index)=>{
-    console.log(1)
-  }
+  const handlePieClick = async (data, index) => {
+    const stockName = data.name //누른 주식 이름
+    var tempNews = []
+
+    console.log(998)
+    for(let idx in news){
+        console.log(1234,idx)
+        console.log(4321,news[idx])
+        if(idx === stockName){
+            for(let i=0;i<news[idx].length;i++){
+                console.log(news[idx][i])
+                tempNews.push(<News key={i} data={news[idx][i]}></News>)
+            }
+            break;
+        }
+    }
+    setNewsComponents(tempNews)
+  };
+
   const PieChart2 = useMemo(() =>{
+    
     var data01 = []
-    // console.log(etfs)
-    etfs[currentPortNum].stockItems.map((elem,idx)=>{
+
+    etfs[currentPortNum]?.stockItems.map((elem,idx)=>{
         // const data = parseFloat(elem.weight.replace("$", ""))
         data01.push({name : elem.name, value : parseFloat(elem.weight['$numberDecimal']) })
-        console.log(elem.name)
-        console.log(elem.weight)
-        console.log(elem.weight['$numberDecimal'])
+        // console.log(elem.name)
+        // console.log(elem.weight)
+        // console.log(elem.weight['$numberDecimal'])
         // console.log(data)
     })
     console.log(data01)
@@ -458,38 +475,40 @@ function ETFss() {
         </Pie>
     </PieChart>
     )
-  }, [etfs, currentPortNum])
+  }, [etfs, currentPortNum, handlePieClick ])
 
     return (
         <>    
-            <div className="content" >           
-            <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3" onSelect={(key) => {
-                setCurrentPortNum(key)
-                console.log(key,"selected")}
-                }>
-                
-                {etfs.map((elem,idx)=>{
-                    console.log(idx)
-                    return(<Tab eventKey={idx} title={elem.title}>{getGraph(elem.data)}</Tab>)
-                })} 
-                
-                <Tab eventKey="add" title="+">
-                    <ETFMaker></ETFMaker>
-                </Tab>
-            </Tabs>
-            
-            {currentPortNum === 0 ? null : PieChart2 }
-            <div>
-                
-            </div>
-                {newsComponents.length === 0 ? null : <div>{clickedDate}일의 뉴스</div>}
+            <div className="content"> 
+            <div >
+                <Tabs  defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3" onSelect={(key) => {
+                    setCurrentPortNum(key)
+                    const startDate = etfs[key].data.slice(-1)['0'].name
+                    const endDate = etfs[key].data['0'].name
+                    // console.log(etfs[key].data.slice(-1)['0'].name)
+                    // console.log(etfs[key].data['0'].name)
+                    console.log(key,"selected")}
+                    }>
+                    
+                    {etfs.map((elem,idx)=>{
+                        console.log(idx)
+                        return(<Tab eventKey={idx} title={elem.title}>{getGraph(elem.data)}</Tab>)
+                    })} 
+                    
+                    <Tab eventKey="add" title="+">
+                        <ETFMaker></ETFMaker>
+                    </Tab>
+                </Tabs>
+                <div style={{display:"flex "}}>
+                {currentPortNum === 0 ? null : PieChart2 }
+                </div>
+            </div>    
                 <div>
+                    {newsComponents.length === 0 ? null : <div>{clickedDate}일의 뉴스</div>}
                     {newsComponents}
                 </div>
             </div>
         </>
     );
-
 };
-
 export default ETFss;
