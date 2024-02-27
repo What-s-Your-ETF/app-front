@@ -11,10 +11,9 @@ import {
   CardTitle,
   Row,
   Col,
-  Button,
   Tab,
 } from "reactstrap";
-import Form from "react-bootstrap/Form";
+import {Form,Button} from "react-bootstrap";
 
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";

@@ -5,16 +5,8 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
 // reactstrap components
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Row,
-  Col,
-  Button,
-} from "reactstrap";
-import { Form, Table } from "react-bootstrap";
+import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
+import { Form, Table, Button } from "react-bootstrap";
 import { ETFListContext } from "./ETFmaker";
 
 let list = [
@@ -241,9 +233,19 @@ export default function ETFSetting2() {
                     </Tab>
                   </Tabs>
 
-                  <div style={{ display: "flex" }}>
+                  <div style={{ display: "flex", marginTop: "3%" }}>
                     {ETFlist.map((item) => (
-                      <div style={{ marginRight: "10px" }}>{item.title}</div>
+                      <div
+                        style={{
+                          marginRight: "2%",
+                          background: "linear-gradient(#DAF4FF,#C2EDFF)",
+
+                          padding: "10px",
+                          borderRadius: "100px",
+                        }}
+                      >
+                        {item.title}
+                      </div>
                     ))}
                   </div>
 
@@ -264,7 +266,13 @@ export default function ETFSetting2() {
                     </Link>
                     <Link>
                       <Button
-                        onClick={() => setContextValue("3")}
+                        onClick={() => {
+                          if (!etfList.itemCodes) {
+                            alert("종목을 선택하지 않았습니다");
+                          } else {
+                            setContextValue("3");
+                          }
+                        }}
                         className="d-flex flex-column justify-content-center align-items-end"
                       >
                         다음

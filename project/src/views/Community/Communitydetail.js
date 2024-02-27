@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import {
   Card,
   CardHeader,
   CardBody,
   CardTitle,
   Row,
-  Col
-} from "reactstrap";
+  Col,
+  Button
+} from 'reactstrap';
 
-function CommunityDetail() {
+function BoardDetail() {
   let { id } = useParams();
   const [boardDetail, setBoardDetail] = useState(null);
 
@@ -20,16 +21,16 @@ function CommunityDetail() {
         const response = await axios.get(`/api/board/${id}`);
         setBoardDetail(response.data);
       } catch (error) {
-        console.error("Failed to fetch board details", error);
-        // 적절한 에러 처리 로직 추가
+        console.error("Error fetching board detail:", error);
+        // Handle error (e.g., showing an error message)
       }
     }
 
     fetchBoardDetail();
-  }, [id]); // 의존성 배열에 id를 추가하여 id가 변경될 때마다 새로운 상세 정보를 불러옵니다.
+  }, [id]);
 
   if (!boardDetail) {
-    return <div>Loading...</div>; // 로딩 상태 또는 데이터가 없는 경우를 처리
+    return <div>Loading...</div>;
   }
 
   return (
@@ -38,20 +39,19 @@ function CommunityDetail() {
         <Col md="12">
           <Card>
             <CardHeader>
-              <h4 className="title">{boardDetail.title}</h4>
+              <CardTitle tag="h4">{boardDetail.title}</CardTitle>
             </CardHeader>
             <CardBody>
-              <div>
-                <p>{boardDetail.content}</p>
-                <p>작성자: {boardDetail.nickname}</p>
-                <p>작성일: {boardDetail.createdAt}</p>
-              </div>
+              <p>{boardDetail.content}</p>
+              <div className="text-muted">작성자: {boardDetail.nickname}</div>
+              <div className="text-muted">작성일: {boardDetail.createdAt.substring(0, 10)}</div>
             </CardBody>
           </Card>
         </Col>
       </Row>
+      {/* Add any additional details or components you'd like to include here */}
     </div>
   );
 }
 
-export default CommunityDetail;
+export default BoardDetail;

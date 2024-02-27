@@ -34,6 +34,7 @@ import Signin from "views/Signin";
 import Profile from "views/Profile";
 import Signup from "views/Signup";
 import ETFss from "views/ETFS/ETFS";
+import BoardDetail from "views/Community/Communitydetail";
 
 export var navs = [
     {
@@ -57,13 +58,7 @@ export var navs = [
         component: <Thema />,
         layout: "/admin",
       },
-      {
-        path: "/ranking",
-        name: "ETF Ranking",
-        icon: "nc-icon nc-chart-bar-32",
-        component: <Rank />,
-        layout: "/admin",
-      },
+
       {
         path: "/community",
         name: "Community",
@@ -71,6 +66,15 @@ export var navs = [
         component: <Community />,
         layout: "/admin",
       },
+
+      {
+        path: "/etf",
+        name: "What's ETF",
+        icon: "nc-icon nc-chart-bar-32",
+        component: <Rank />,
+        layout: "/admin",
+      },
+     
 
 ]
 
@@ -137,8 +141,8 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/ranking",
-    name: "ETF Ranking",
+    path: "/etf",
+    name: "What's ETF",
     icon: "nc-icon nc-chart-bar-32",
     component: <Rank />,
     layout: "/admin",
@@ -161,11 +165,11 @@ var routes = [
   },
 
   {
-    path: "/community/detail",
+    path: "/community/detail/:id",
     name: "DeCommunity",
     icon: "nc-icon nc-single-02",
     layout: "/admin",
-    component: <DeCommunity/>
+    component: <BoardDetail/>
   },
 
 
