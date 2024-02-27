@@ -273,7 +273,7 @@ function ETFss() {
         // ]},
     ])
   
-    //const [news, setNews] = useState([])
+    const [news, setNews] = useState([])
 
     // useEffect(()=>{
     //     async function startETF(){
@@ -377,7 +377,7 @@ function ETFss() {
           for(var i =0; i<resp.data.length; i++){ //포트폴리오 개수에 대해서 처리
             const returnedPort = await processData(resp.data[i]);
               // setEtfs( etfs.push(returnedPort) )
-              loadEtfs.push(...returnedPort);
+              loadEtfs.push(returnedPort);
               console.log(etfs);
           }
           // loadEtfs = appendComp()  //ETF
@@ -556,8 +556,8 @@ function ETFss() {
                     const endDate = etfs[key].data['0'].name
                     // console.log(etfs[key].data.slice(-1)['0'].name)
                     // console.log(etfs[key].data['0'].name)
-                    console.log(key,"selected")}
-                    }>
+                    console.log(key,"selected")
+                }}>
                     
                     {etfs.map((elem,idx)=>{
                         console.log(idx)
