@@ -35,6 +35,7 @@ import Profile from "views/Profile";
 import Signup from "views/Signup";
 import ETFss from "views/ETFS/ETFS";
 import BoardDetail from "views/Community/Communitydetail";
+import BoardDetailEdit from "views/Community/CommunitydetailEdit";
 
 export var navs = [
     {
@@ -169,9 +170,16 @@ var routes = [
     name: "DeCommunity",
     icon: "nc-icon nc-single-02",
     layout: "/admin",
-    component: <BoardDetail/>
+    component: <BoardDetail/>,
   },
-
+  
+  {
+    path: "/community/detail/:id/edit",
+    name: "EditCommunity",
+    icon: "nc-icon nc-single-02",
+    layout: "/admin",
+    component: <BoardDetailEdit/>
+  },
 
   {
     path: "/setting",

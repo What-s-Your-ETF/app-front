@@ -10,12 +10,16 @@ import {
   Col,
   Button
 } from 'reactstrap';
-
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 function BoardDetail() {
+    const navigate = useNavigate();
+
   let { id } = useParams();
   const [boardDetail, setBoardDetail] = useState(null);
-
+  
   useEffect(() => {
+    console.log("useEffect")
     async function fetchBoardDetail() {
       try {
         const response = await axios.get(`/api/board/${id}`);
@@ -33,8 +37,22 @@ function BoardDetail() {
     return <div>Loading...</div>;
   }
 
+//   console.log(boardDetail.nickname)
   return (
     <div className="content">
+      <Button onClick={(e)=>navigate(-1)}>뒤로가기</Button>
+      <Link to={"/admin/community/detail/"+id+"/edit"}>
+        {localStorage.getItem("nickname")===boardDetail.nickname ? <Button onClick={(e)=>console.log(1)}>수정하기</Button> : null}
+      </Link>
+        {localStorage.getItem("nickname")===boardDetail.nickname ? <Button onClick={(e)=>{
+            axios.delete("http://127.0.0.1:3000/api/board/"+id).then(resp=>{
+                console.log(resp)
+                navigate(-1)
+            }).catch(err=>{
+                console.log(err)
+            })
+        }}>삭제하기</Button> : null}
+      {/* </Link> */}
       <Row>
         <Col md="12">
           <Card>
