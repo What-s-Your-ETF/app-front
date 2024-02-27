@@ -10,7 +10,6 @@ import Button from "react-bootstrap/Button";
 
 export default function StartETFS() {
 
-
   return (
     <>
       <div className="content">

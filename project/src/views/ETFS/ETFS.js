@@ -274,8 +274,34 @@ function ETFss() {
     ])
     const [news, setNews] = useState([])
 
+    // useEffect(()=>{
+    //     async function startETF(){
+    //       var loadEtfs = []
+    //       console.log("loginType : ", localStorage.getItem("loginType"));
+    //       try {
+    //         const resp = await axios.get("http://127.0.0.1:3000/api/portfolios",{
+    //           headers :
+    //             {
+    //               Authorization: "Bearer "+localStorage.getItem("authToken"),
+    //               logintype : localStorage.getItem("loginType")
+    //             }});
+    //         for(var i =0; i<resp.data.length; i++){ //포트폴리오 개수에 대해서 처리
+    //           const returnedPort = await processData(resp.data[i]);
+    //             // setEtfs( etfs.push(returnedPort) )
+    //             loadEtfs.push(...returnedPort);
+    //             console.log(etfs);
+    //         }
+    //         // loadEtfs = appendComp()  //ETF
+    //         setEtfs(loadEtfs)
+    //       }catch(err){
+    //         console.error(err);
+    //       }
+    //     }
+    //     startETF();
+    // },[])
+
     useEffect(()=>{
-        // console.log(localStorage.getItem('authToken'))
+        console.log(localStorage.getItem('authToken'))
 
         // axios.post("http://127.0.0.1:3000/api/portfolios", 
         // {
@@ -324,7 +350,8 @@ function ETFss() {
         })
     },[])
 
-  //포르폴리오 1개당 데이터 처리하기
+//   포르폴리오 1개당 데이터 처리하기
+    
   const processData = async (data) =>{
     var totalData = {} //title : "", data : [] 오브젝트 타입으로 들어간다
     totalData.title = data.name //title넣음 => 일별로 data만 넣어주면 된다

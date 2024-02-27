@@ -39,6 +39,8 @@ const developers = [
     name: "짱구",
     photourl:
       "https://upload.wikimedia.org/wikipedia/ko/thumb/4/4a/%EC%8B%A0%EC%A7%B1%EA%B5%AC.png/230px-%EC%8B%A0%EC%A7%B1%EA%B5%AC.png",
+    // "../../public/njeans.gif",
+    // "/njeans.gif",
     oneline: "떡잎방범대 개발자",
   },
   {
