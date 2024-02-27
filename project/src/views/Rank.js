@@ -24,8 +24,6 @@ import NotificationAlert from "react-notification-alert";
 import {
   UncontrolledAlert,
   Alert,
-  Button,
-  Card,
   CardHeader,
   CardBody,
   CardTitle,
@@ -33,247 +31,66 @@ import {
   Col,
 } from "reactstrap";
 
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+
+const developers = [
+  {
+    name: "짱구",
+    photourl:
+      "https://upload.wikimedia.org/wikipedia/ko/thumb/4/4a/%EC%8B%A0%EC%A7%B1%EA%B5%AC.png/230px-%EC%8B%A0%EC%A7%B1%EA%B5%AC.png",
+    oneline: "떡잎방범대 개발자",
+  },
+  {
+    name: "철수",
+    photourl:
+      "https://i.namu.wiki/i/Cv48b-WvD-d_C4Yt8LpyWygbM368tnEZ0XGbIcZw5ZaQxBlwHHu76LVJZrsMiP5DyEahwXyKkQJAnBHwsS2pyg.webp",
+    oneline: "떡잎방범대 개발자",
+  },
+  {
+    name: "맹구",
+    photourl:
+      "https://i.namu.wiki/i/hWLEwQhnjvdoRZQhrgHMKAZjiSVPO5D86_nBD6OCVLHamm0dM7Ssv2KTfYgjJj-V_X3hMsgV-LeIgI7lmbqzhA.webp",
+    oneline: "떡잎방범대 개발자",
+  },
+  {
+    name: "철수",
+    photourl:
+      "https://i.namu.wiki/i/zfd-NOPP39XJ49BUBLXu8d3SAPsYnpvqYviuQHzSe8FqI6DhYAaHp5Nx30dWi_Q5XGUcbczMfuSp1lOMAN3NvA.webp",
+    oneline: "떡잎방범대 개발자",
+  },
+];
+
 function Rank() {
   const notificationAlert = React.useRef();
-  const notify = (place) => {
-    var color = Math.floor(Math.random() * 5 + 1);
-    var type;
-    switch (color) {
-      case 1:
-        type = "primary";
-        break;
-      case 2:
-        type = "success";
-        break;
-      case 3:
-        type = "danger";
-        break;
-      case 4:
-        type = "warning";
-        break;
-      case 5:
-        type = "info";
-        break;
-      default:
-        break;
-    }
-    var options = {};
-    options = {
-      place: place,
-      message: (
-        <div>
-          <div>
-            Welcome to <b>Paper Dashboard React</b> - a beautiful freebie for
-            every web developer.
-          </div>
-        </div>
-      ),
-      type: type,
-      icon: "nc-icon nc-bell-55",
-      autoDismiss: 7,
-    };
-    notificationAlert.current.notificationAlert(options);
-  };
   return (
     <>
       <div className="content">
-        <NotificationAlert ref={notificationAlert} />
         <Row>
           <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h5">Notifications</CardTitle>
-                <p className="card-category">
-                  Handcrafted by our former colleague{" "}
-                  <a
-                    target="_blank"
-                    href="https://www.instagram.com/manu.nazare/"
-                  >
-                    Nazare Emanuel-Ioan (Manu)
-                  </a>
-                  . Please checkout the{" "}
-                  <a
-                    href="https://github.com/creativetimofficial/react-notification-alert"
-                    target="_blank"
-                  >
-                    full documentation.
-                  </a>
-                </p>
-              </CardHeader>
-              <CardBody>
-                <Row>
-                  <Col md="6">
-                    <Card className="card-plain">
-                      <CardHeader>
-                        <CardTitle tag="h5">Notifications Style</CardTitle>
-                      </CardHeader>
-                      <CardBody>
-                        <Alert color="info">
-                          <span>This is a plain notification</span>
-                        </Alert>
-                        <UncontrolledAlert color="info" fade={false}>
-                          <span>This is a notification with close button.</span>
-                        </UncontrolledAlert>
-                        <UncontrolledAlert
-                          className="alert-with-icon"
-                          color="info"
-                          fade={false}
-                        >
-                          <span
-                            data-notify="icon"
-                            className="nc-icon nc-bell-55"
-                          />
-                          <span data-notify="message">
-                            This is a notification with close button and icon.
-                          </span>
-                        </UncontrolledAlert>
-                        <UncontrolledAlert
-                          className="alert-with-icon"
-                          color="info"
-                          fade={false}
-                        >
-                          <span
-                            data-notify="icon"
-                            className="nc-icon nc-chart-pie-36"
-                          />
-                          <span data-notify="message">
-                            This is a notification with close button and icon
-                            and have many lines. You can see that the icon and
-                            the close button are always vertically aligned. This
-                            is a beautiful notification. So you don't have to
-                            worry about the style.
-                          </span>
-                        </UncontrolledAlert>
-                      </CardBody>
-                    </Card>
-                  </Col>
-                  <Col md="6">
-                    <Card className="card-plain">
-                      <CardHeader>
-                        <CardTitle tag="h5">Notification states</CardTitle>
-                      </CardHeader>
-                      <CardBody>
-                        <UncontrolledAlert color="primary" fade={false}>
-                          <span>
-                            <b>Primary - </b>
-                            This is a regular notification made with
-                            color="primary"
-                          </span>
-                        </UncontrolledAlert>
-                        <UncontrolledAlert color="info" fade={false}>
-                          <span>
-                            <b>Info - </b>
-                            This is a regular notification made with
-                            color="info"
-                          </span>
-                        </UncontrolledAlert>
-                        <UncontrolledAlert color="success" fade={false}>
-                          <span>
-                            <b>Success - </b>
-                            This is a regular notification made with
-                            color="success"
-                          </span>
-                        </UncontrolledAlert>
-                        <UncontrolledAlert color="warning" fade={false}>
-                          <span>
-                            <b>Warning - </b>
-                            This is a regular notification made with
-                            color="warning"
-                          </span>
-                        </UncontrolledAlert>
-                        <UncontrolledAlert color="danger" fade={false}>
-                          <span>
-                            <b>Danger - </b>
-                            This is a regular notification made with
-                            color="danger"
-                          </span>
-                        </UncontrolledAlert>
-                      </CardBody>
-                    </Card>
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col md="12">
-            <Card>
-              <CardBody>
-                <div className="places-buttons">
-                  <Row>
-                    <Col className="ml-auto mr-auto text-center" md="6">
-                      <CardTitle tag="h4">Notifications Places</CardTitle>
-                      <p className="category">Click to view notifications</p>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="ml-auto mr-auto" lg="8">
-                      <Row>
-                        <Col md="4">
-                          <Button
-                            block
-                            color="primary"
-                            onClick={() => notify("tl")}
-                          >
-                            Top Left
-                          </Button>
-                        </Col>
-                        <Col md="4">
-                          <Button
-                            block
-                            color="primary"
-                            onClick={() => notify("tc")}
-                          >
-                            Top Center
-                          </Button>
-                        </Col>
-                        <Col md="4">
-                          <Button
-                            block
-                            color="primary"
-                            onClick={() => notify("tr")}
-                          >
-                            Top Right
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="ml-auto mr-auto" lg="8">
-                      <Row>
-                        <Col md="4">
-                          <Button
-                            block
-                            color="primary"
-                            onClick={() => notify("bl")}
-                          >
-                            Bottom Left
-                          </Button>
-                        </Col>
-                        <Col md="4">
-                          <Button
-                            block
-                            color="primary"
-                            onClick={() => notify("bc")}
-                          >
-                            Bottom Center
-                          </Button>
-                        </Col>
-                        <Col md="4">
-                          <Button
-                            block
-                            color="primary"
-                            onClick={() => notify("br")}
-                          >
-                            Bottom Right
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <h4>Developers</h4>
                 </div>
+              </CardHeader>
+              <CardBody style={{ display: "flex", gap:"1%"}}>
+                {developers.map((info, id) => (
+                  <Card style={{ flex: 1, width: "18rem" }}>
+                    <Card.Img variant="top" src={info.photourl}  style={{ height: '150px' }}/>
+                    <Card.Body>
+                      <Card.Title>{info.name}</Card.Title>
+                      <Card.Text>{info.oneline}</Card.Text>
+                      <Button variant="primary">Git Hub</Button>
+                    </Card.Body>
+                  </Card>
+                ))}
               </CardBody>
             </Card>
           </Col>

@@ -1,0 +1,23 @@
+.slider {
+  overflow: hidden;
+}
+
+.slide-track {
+  display: flex;
+  animation: slide 20s linear infinite;
+}
+
+.slide {
+  width: 25%; /* 화면의 25% 너비를 가진 슬라이드 */
+  flex-shrink: 0; /* flex 아이템의 크기가 줄어들지 않도록 설정 */
+  height: 100%; /* 슬라이드의 높이를 부모 요소의 높이와 동일하게 설정 */
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

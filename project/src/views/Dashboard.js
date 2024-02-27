@@ -1,6 +1,7 @@
 import React from "react";
 // react plugin used to create charts
 import { Line, Pie } from "react-chartjs-2";
+import StartETFS from "./ETFS/ETFSstart";
 // reactstrap components
 import {
   Card,
@@ -11,129 +12,124 @@ import {
   Row,
   Col,
 } from "reactstrap";
-// core components
 import {
-  dashboard24HoursPerformanceChart,
   dashboardEmailStatisticsChart,
   dashboardNASDAQChart,
 } from "variables/charts.js";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import { useEffect } from "react";
 import axios from "axios";
+import "./Dash.css";
+import { useNavigate } from "react-router-dom";
+
+const cardInfo = [
+  {
+    backgroundColor: "#558FFF",
+    imgSrc: "/dash1.png",
+    category: "지금 핫한 테마는?",
+    stats: "🔺상승테마 보러가기",
+    href: "/admin/thema",
+  },
+  {
+    backgroundColor: "#C285FF",
+    imgSrc: "/dash2.png",
+    category: "다른 사람들은?",
+    stats: "📌 게시판 보러가기",
+    href: "/admin/community",
+  },
+  {
+    backgroundColor: "#FF74B7",
+    imgSrc: "/dash3_1.png",
+    category: "나의 ETF 수익률은?",
+    stats: "📁 포트폴리오 보러가기",
+    href: "/admin/myetfs",
+  },
+  {
+    backgroundColor: "#FFD64F",
+    imgSrc: "/dash4.png",
+    category: "고객문의",
+    stats: "📞 개발자 연락",
+    href: "admin/etf",
+  },
+  {
+    backgroundColor: "#558FFF",
+    imgSrc: "/dash1.png",
+    category: "지금 핫한 테마는?",
+    stats: "🔺상승테마 보러가기",
+    href: "/admin/thema",
+  },
+  {
+    backgroundColor: "#C285FF",
+    imgSrc: "/dash2.png",
+    category: "다른 사람들은?",
+    stats: "📌 게시판 보러가기",
+    href: "/admin/community",
+  },
+  {
+    backgroundColor: "#FF74B7",
+    imgSrc: "/dash3_1.png",
+    category: "나의 ETF 수익률은?",
+    stats: "📁 포트폴리오 보러가기",
+    href: "admin/myetfs",
+  },
+  {
+    backgroundColor: "#FFD64F",
+    imgSrc: "/dash4.png",
+    category: "고객문의",
+    stats: "📞",
+    href: "admin/etf",
+  },
+];
 
 function Dashboard() {
-
-  
+  const navigate = useNavigate();
   return (
     <>
       <div className="content">
         <Row>
-          <Col lg="3" md="6" sm="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col md="4" xs="5">
-                    <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-globe text-warning" />
-                    </div>
-                  </Col>
-                  <Col md="8" xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Capacity</p>
-                      <CardTitle tag="p">150GB</CardTitle>
-                      <p />
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">
-                  <i className="fas fa-sync-alt" /> Update Now
-                </div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col lg="3" md="6" sm="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col md="4" xs="5">
-                    <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-money-coins text-success" />
-                    </div>
-                  </Col>
-                  <Col md="8" xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Revenue</p>
-                      <CardTitle tag="p">$ 1,345</CardTitle>
-                      <p />
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">
-                  <i className="far fa-calendar" /> Last day
-                </div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col lg="3" md="6" sm="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col md="4" xs="5">
-                    <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-vector text-danger" />
-                    </div>
-                  </Col>
-                  <Col md="8" xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Errors</p>
-                      <CardTitle tag="p">23</CardTitle>
-                      <p />
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">
-                  <i className="far fa-clock" /> In the last hour
-                </div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col lg="3" md="6" sm="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col md="4" xs="5">
-                    <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-favourite-28 text-primary" />
-                    </div>
-                  </Col>
-                  <Col md="8" xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Followers</p>
-                      <CardTitle tag="p">+45K</CardTitle>
-                      <p />
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">
-                  <i className="fas fa-sync-alt" /> Update now
-                </div>
-              </CardFooter>
-            </Card>
-          </Col>
+          <div className="slider">
+            <div class="slide-track">
+              {cardInfo.map((info, index) => (
+                <Col key={index} lg="3" md="6" sm="6">
+                  <Card
+                    className="card-stats"
+                    style={{ backgroundColor: info.backgroundColor }}
+                    onClick={() => navigate(info.href)}
+                  >
+                    <CardBody>
+                      <Row>
+                        <Col md="4" xs="5">
+                          <div className="icon-big text-center icon-warning">
+                            <img src={info.imgSrc} />
+                          </div>
+                        </Col>
+                        <Col md="8" xs="7" style={{ padding: "3%" }}>
+                          <div className="numbers">
+                            <p
+                              className="card-category"
+                              style={{ color: "white" }}
+                            >
+                              {info.category}
+                            </p>
+                            <p />
+                          </div>
+                        </Col>
+                      </Row>
+                    </CardBody>
+                    <CardFooter>
+                      <hr />
+                      <div className="stats" style={{ color: "white" }}>
+                        {info.stats}
+                      </div>
+                    </CardFooter>
+                  </Card>
+                </Col>
+              ))}
+            </div>
+          </div>
         </Row>
-        <Row>
+        <StartETFS></StartETFS>
+        {/* <Row>
           <Col md="12">
             <Card>
               <CardHeader>
@@ -156,7 +152,7 @@ function Dashboard() {
               </CardFooter>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
         <Row>
           <Col md="4">
             <Card>

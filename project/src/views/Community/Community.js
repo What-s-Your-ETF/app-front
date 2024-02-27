@@ -15,7 +15,6 @@ import {
 } from "reactstrap";
 
 
-
 function Community() {
   let navigate = useNavigate();
   const [boardList, setBoardList] = useState([]);

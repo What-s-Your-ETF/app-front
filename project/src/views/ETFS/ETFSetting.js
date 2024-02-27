@@ -11,10 +11,9 @@ import {
   CardTitle,
   Row,
   Col,
-  Button,
   Tab,
 } from "reactstrap";
-import Form from "react-bootstrap/Form";
+import { Form, Button } from "react-bootstrap";
 
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -66,14 +65,23 @@ export default function ETFSetting() {
                 </CardTitle>
 
                 <div style={{ fontSize: "15px", padding: "4%" }}>
-
-                <div style={{ marginTop: "20px" }}>포트폴리오 이름</div>
+                  <div style={{ marginTop: "20px" }}>포트폴리오 이름</div>
                   <div style={{ display: "flex", alignItems: "center" }}>
-                    <Form.Control style={{ width: "20%", marginRight: "4px" }} value={name}
-                      onChange={(e) => {setName(e.target.value);}}/>
-                    <Button onClick={() => {setName(name);}}>설정</Button>
+                    <Form.Control
+                      style={{ width: "20%", marginRight: "4px" }}
+                      value={name}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                      }}
+                    />
+                    <Button
+                      onClick={() => {
+                        setName(name);
+                      }}
+                    >
+                      설정
+                    </Button>
                   </div>
-
 
                   <div>
                     투자기간
@@ -132,29 +140,32 @@ export default function ETFSetting() {
                     </Button>
                   </div>
 
-              <Link style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Button className="d-flex flex-column justify-content-center align-items-end" onClick={(e)=>{
-                console.log(startDate, endDate, investAmounts)
-                const sdate = new Date(startDate)
-                const edate = new Date(endDate) 
-                if( sdate >= edate ){
-                    alert("날짜 다시입력해라~")
-                }
-                else if(startDate !==null && endDate !==null && investAmounts !==null)
-                    page1()
-                else{
-                    alert("다시입력해라~")
-                }
-              }}>
-              다음
-              </Button>
-              </Link>
-
-
-              </div>
-
-             
-                
+                  <Link style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <Button
+                      className="d-flex flex-column justify-content-center align-items-end"
+                      onClick={(e) => {
+                        console.log(startDate, endDate, investAmounts);
+                        const sdate = new Date(startDate);
+                        const edate = new Date(endDate);
+                        if (sdate >= edate) {
+                          alert(
+                            "날짜를 다시 입력해주세요 (시작일은 종료일보다 빨라야합니다)"
+                          );
+                        } else if (
+                          startDate !== null &&
+                          endDate !== null &&
+                          investAmounts !== null
+                        )
+                          page1();
+                        else {
+                          alert("빈칸이 있습니다 다시 입력해주세요");
+                        }
+                      }}
+                    >
+                      다음
+                    </Button>
+                  </Link>
+                </div>
               </CardHeader>
               <CardBody></CardBody>
             </Card>

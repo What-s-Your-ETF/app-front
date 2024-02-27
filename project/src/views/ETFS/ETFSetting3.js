@@ -8,6 +8,7 @@ import { postPortfolios } from "lib/api/portfolios";
 
 export default function ETFSetting3() {
   const { etfList, setEtfList } = useContext(ETFListContext);
+  const [ETFList, setETFlist] = useState([]);
   const { setContextValue } = useContext(MyContext);
   const [percentlist, setPercentlist] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
@@ -31,6 +32,26 @@ export default function ETFSetting3() {
     setEtfList({ ...etfList, weights });
   }
 
+  function deleteitem(id) {
+    console.log(id);
+    let itemCodes = [...etfList.itemCodes];
+    itemCodes = itemCodes.filter((item, index) => index !== id);
+    setEtfList((prev) => ({
+      ...prev,
+      itemCodes: itemCodes,
+    }));
+
+    //setEtfList((etfList) => etfList.filter((item, index) => index !== id));
+    //console.log(etfList);
+    // setEtfList((prev) => {
+    //   let itemCodes;
+    //   itemCodes = prev.filter((item, index) => index === id);
+    //   console.log({ ...prev,itemCodes });
+    //   console.log(etfList);
+    //   return itemCodes;
+    // });
+  }
+
   function addportfolios() {
     const itemCodes = etfList.itemCodes.map((item) => item.num);
     const postData = {
@@ -43,8 +64,14 @@ export default function ETFSetting3() {
       itemCodes: itemCodes,
       weights: etfList.weights,
     };
-
-    //postPortfolios(postData.name, postData.duration, postData.investAmounts, postData.itemCodes, postData.weights)
+    console.log(postData);
+    // postPortfolios(
+    //   postData.name,
+    //   postData.duration,
+    //   postData.investAmounts,
+    //   postData.itemCodes,
+    //   postData.weights
+    // );
   }
 
   return (
@@ -104,7 +131,7 @@ export default function ETFSetting3() {
                             )}
                           </td>
                           <td>
-                            <Button>삭제</Button>
+                            <Button onClick={() => deleteitem(id)}>삭제</Button>
                           </td>
                         </tr>
                       </React.Fragment>

@@ -328,7 +328,7 @@ function ETFss() {
   const processData = async (data) =>{
     var totalData = {} //title : "", data : [] 오브젝트 타입으로 들어간다
     totalData.title = data.name //title넣음 => 일별로 data만 넣어주면 된다
-
+    
     totalData.stockItems = data.stockItems
     var dailyDate = []
     
