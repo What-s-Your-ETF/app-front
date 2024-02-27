@@ -306,7 +306,7 @@ function ETFss() {
 
         var loadEtfs = []
         axios.get('http://127.0.0.1:3000/api/portfolios',{headers : {Authorization: "Bearer "+localStorage.getItem('authToken')}}).then(async resp=>{
-            console.log(resp.data)
+            //console.log(resp.data)
             // setEtfs(resp.data)
             
             for(var i =0;i<resp.data.length;i++){ //포트폴리오 개수에 대해서 처리
@@ -317,7 +317,7 @@ function ETFss() {
                 
                 // setEtfs( etfs.push(returnedPort) )
                 loadEtfs.push(returnedPort)
-                console.log(etfs)
+                //console.log(etfs)
             }
             // loadEtfs = appendComp()  //ETF
             setEtfs(loadEtfs)
@@ -436,16 +436,16 @@ function ETFss() {
   }
   const PieChart2 = useMemo(() =>{
     var data01 = []
-     console.log(etfs)
+     //console.log(etfs)
     etfs[currentPortNum]?.stockItems.map((elem,idx)=>{
         // const data = parseFloat(elem.weight.replace("$", ""))
         data01.push({name : elem.name, value : parseFloat(elem.weight['$numberDecimal']) })
-        console.log(elem.name)
-        console.log(elem.weight)
-        console.log(elem.weight['$numberDecimal'])
+       // console.log(elem.name)
+        //console.log(elem.weight)
+        //console.log(elem.weight['$numberDecimal'])
         // console.log(data)
     })
-    console.log(data01)
+    //console.log(data01)
     return(
     <PieChart width={730} height={250} >
         <Legend layout="horizontal" verticalAlign="top" align="center" />
@@ -469,7 +469,7 @@ function ETFss() {
                 }>
                 
                 {etfs.map((elem,idx)=>{
-                    console.log(idx)
+                    //console.log(idx)
                     return(<Tab eventKey={idx} title={elem.title}>{getGraph(elem.data)}</Tab>)
                 })} 
                 
