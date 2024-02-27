@@ -44,6 +44,15 @@ function BoardDetail() {
       <Link to={"/admin/community/detail/"+id+"/edit"}>
         {localStorage.getItem("nickname")===boardDetail.nickname ? <Button onClick={(e)=>console.log(1)}>수정하기</Button> : null}
       </Link>
+        {localStorage.getItem("nickname")===boardDetail.nickname ? <Button onClick={(e)=>{
+            axios.delete("http://127.0.0.1:3000/api/board/"+id).then(resp=>{
+                console.log(resp)
+                navigate(-1)
+            }).catch(err=>{
+                console.log(err)
+            })
+        }}>삭제하기</Button> : null}
+      {/* </Link> */}
       <Row>
         <Col md="12">
           <Card>

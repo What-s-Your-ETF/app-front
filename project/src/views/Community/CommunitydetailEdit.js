@@ -44,6 +44,7 @@ function BoardDetailEdit({content}) {
   return (
     <div className="content">
       <Button onClick={(e)=>navigate(-1)}>뒤로가기</Button>
+      
       <Row md="12">
         <Col md="12">
           <Card>

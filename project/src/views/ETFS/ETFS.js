@@ -303,33 +303,6 @@ function ETFss() {
     useEffect(()=>{
         console.log(localStorage.getItem('authToken'))
 
-        // axios.post("http://127.0.0.1:3000/api/portfolios", 
-        // {
-        //     name: "My Portfolio1",
-        //     duration: {
-        //         startDate: "2022-01-01",
-        //         endDate: "2022-12-31"
-        //     },
-        //     investAmounts: 1000000,
-        //     itemCodes: ["005930", "000660", "006400"],
-        //     weights: [0.3, 0.3, 0.4]
-        // },{headers : {Authorization : "bearer "+localStorage.getItem('authToken')}})
-        // .then(resp=>
-        //     console.log(resp))
-
-        // getPortfolios({
-        //     name: "My Portfolio1",
-        //     duration: {
-        //         startDate: "2022-01-01",
-        //         endDate: "2022-12-31"
-        //     },
-        //     investAmounts: 1000000,
-        //     itemCodes: ["005930", "000660", "006400"],
-        //     weights: [0.3, 0.3, 0.4]
-        // }).then(resp=>{
-        //     console.log(resp)
-        // })
-
         var loadEtfs = []
         axios.get('http://127.0.0.1:3000/api/portfolios',{headers : {Authorization: "Bearer "+localStorage.getItem('authToken')}}).then(async resp=>{
             console.log(resp.data)
@@ -378,17 +351,11 @@ function ETFss() {
     
     const date = data.activeLabel
     try {
-        // console.log(date.slice(0,2), date.slice(3,5),date.slice(6,8))
         setClickedDate(date) //클릭한 점 기준 날짜가 나온다 (23-05-02 등)
     } catch (error) {
       console.log(error);
     }
-    
-    // const news = ([
-    //     {title : "삼성전자 주가 사상 최고치 달성 ㄷㄷ", content : "삼성전자가 이번 실적 발표에서 역대 최대 실적을 달성한것으로 알려졌다.", _date : "23-06-02"},
-    //     {title : "엔비디아 주가 떡상 ㄷㄷ", content : "엔비디아 짱짱맨입니다.", _date : "23-07-02"},
-    //     {title : "하이닉스 주가 뭐냐", content : "하이닉스 하이하이요.", _date : "23-08-02"},
-    // ])
+
     const inputDate = "20"+date.slice(0,2)+"."+date.slice(3,5)+"."+date.slice(6,8)
 
     var inputKeyword = []
@@ -441,7 +408,7 @@ function ETFss() {
     // console.log(Object.keys(data[0]))
     const keys = Object.keys(data[0])
     return(
-    <>
+    <div style={{display:"flex"}}>
     <LineChart width={730} height={350} data={data} onClick={handleDataClick} margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
@@ -454,7 +421,8 @@ function ETFss() {
         })}
         {/* <Line type="monotone" dataKey="Kospi" stroke="#ffc658" /> */}
     </LineChart>
-    </>
+    {currentPortNum === 0 ? null : PieChart2 }
+    </div>
     )
   }
   
@@ -477,21 +445,13 @@ function ETFss() {
     setNewsComponents(tempNews)
   };
 
-  const PieChart2 = useMemo(() =>{
-    
+  const PieChart2 = useMemo(() =>{ 
     var data01 = []
-
     etfs[currentPortNum]?.stockItems.map((elem,idx)=>{
-        // const data = parseFloat(elem.weight.replace("$", ""))
         data01.push({name : elem.name, value : parseFloat(elem.weight['$numberDecimal']) })
-        // console.log(elem.name)
-        // console.log(elem.weight)
-        // console.log(elem.weight['$numberDecimal'])
-        // console.log(data)
     })
-    console.log(data01)
     return(
-    <PieChart width={730} height={250} >
+    <PieChart width={300} height={250} style={{margin : "50px"}} >
         <Legend layout="horizontal" verticalAlign="top" align="center" />
         <Tooltip />
         {/* <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#8884d8" /> */}
@@ -507,14 +467,11 @@ function ETFss() {
     return (
         <>    
             <div className="content"> 
-            <div >
+            <div>
                 <Tabs  defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3" onSelect={(key) => {
                     setCurrentPortNum(key)
                     const startDate = etfs[key].data.slice(-1)['0'].name
-                    const endDate = etfs[key].data['0'].name
-                    // console.log(etfs[key].data.slice(-1)['0'].name)
-                    // console.log(etfs[key].data['0'].name)
-                    console.log(key,"selected")}
+                    const endDate = etfs[key].data['0'].name}
                     }>
                     
                     {etfs.map((elem,idx)=>{
@@ -526,12 +483,12 @@ function ETFss() {
                         <ETFMaker></ETFMaker>
                     </Tab>
                 </Tabs>
-                <div style={{display:"flex "}}>
-                {currentPortNum === 0 ? null : PieChart2 }
+                <div>
+                
                 </div>
             </div>    
-                <div>
-                    {newsComponents.length === 0 ? null : <div>{clickedDate}일의 뉴스</div>}
+                <div style={{margin : "0px 75px 0px 0px"}}>
+                    {newsComponents.length === 0 ? null : <h3>{clickedDate}일의 뉴스</h3>}
                     {newsComponents}
                 </div>
             </div>
@@ -539,3 +496,31 @@ function ETFss() {
     );
 };
 export default ETFss;
+
+
+        // axios.post("http://127.0.0.1:3000/api/portfolios", 
+        // {
+        //     name: "My Portfolio1",
+        //     duration: {
+        //         startDate: "2022-01-01",
+        //         endDate: "2022-12-31"
+        //     },
+        //     investAmounts: 1000000,
+        //     itemCodes: ["005930", "000660", "006400"],
+        //     weights: [0.3, 0.3, 0.4]
+        // },{headers : {Authorization : "bearer "+localStorage.getItem('authToken')}})
+        // .then(resp=>
+        //     console.log(resp))
+
+        // getPortfolios({
+        //     name: "My Portfolio1",
+        //     duration: {
+        //         startDate: "2022-01-01",
+        //         endDate: "2022-12-31"
+        //     },
+        //     investAmounts: 1000000,
+        //     itemCodes: ["005930", "000660", "006400"],
+        //     weights: [0.3, 0.3, 0.4]
+        // }).then(resp=>{
+        //     console.log(resp)
+        // })
