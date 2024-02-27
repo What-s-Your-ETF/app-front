@@ -272,6 +272,7 @@ function ETFss() {
         //     {name: '`23-01-07', ETF: 816, Your_ETF: 340},
         // ]},
     ])
+  
     const [news, setNews] = useState([])
 
     // useEffect(()=>{
@@ -300,8 +301,35 @@ function ETFss() {
     //     startETF();
     // },[])
 
-    useEffect(()=>{
-        console.log(localStorage.getItem('authToken'))
+   useEffect(()=>{
+       console.log(localStorage.getItem('authToken'))
+
+        axios.post("http://127.0.0.1:3000/api/portfolios", 
+        {
+            name: "My Portfolio1",
+            duration: {
+                startDate: "2022-01-01",
+                endDate: "2022-12-31"
+            },
+            investAmounts: 1000000,
+            itemCodes: ["005930", "000660", "006400"],
+            weights: [0.3, 0.3, 0.4]
+        },{headers : {Authorization : "bearer "+localStorage.getItem('authToken')}})
+        .then(resp=>
+            console.log(resp))
+
+        getPortfolios({
+            name: "My Portfolio1",
+            duration: {
+                startDate: "2022-01-01",
+                endDate: "2022-12-31"
+            },
+            investAmounts: 1000000,
+            itemCodes: ["005930", "000660", "006400"],
+            weights: [0.3, 0.3, 0.4]
+        }).then(resp=>{
+            console.log(resp)
+        })
 
         var loadEtfs = []
         axios.get('http://127.0.0.1:3000/api/portfolios',{headers : {Authorization: "Bearer "+localStorage.getItem('authToken')}}).then(async resp=>{
@@ -322,6 +350,47 @@ function ETFss() {
             setEtfs(loadEtfs)
         })
     },[])
+
+//   useEffect(()=>{
+//       async function startETF(){
+//         var loadEtfs = []
+//         try {
+//           const loginType = localStorage.getItem('loginType');
+//           let resp = null;
+
+//           if (loginType === 'kakao'){
+//             resp = await axios.get('http://127.0.0.1:3000/api/portfolios',{
+//               headers : 
+//                 {
+//                   Authorization: localStorage.getItem('authToken'), 
+//                   logintype : localStorage.getItem('loginType')
+//                 }});
+//           }else{
+//             resp = await axios.get('http://127.0.0.1:3000/api/portfolios',{
+//               headers : {
+//                 Authorization: "Bearer " + localStorage.getItem('authToken'), 
+//                 logintype : loginType,
+//               }});
+//           }
+          
+            
+//           for(var i =0; i<resp.data.length; i++){ //포트폴리오 개수에 대해서 처리
+//             const returnedPort = await processData(resp.data[i]);
+//               // setEtfs( etfs.push(returnedPort) )
+//               loadEtfs.push(...returnedPort);
+//               console.log(etfs);
+//           }
+//           // loadEtfs = appendComp()  //ETF
+//           setEtfs(loadEtfs)
+//         }catch(err){
+//           console.error(err);
+//         }
+
+
+//       }
+//       startETF();
+//   },[])
+
 
 //   포르폴리오 1개당 데이터 처리하기
     
