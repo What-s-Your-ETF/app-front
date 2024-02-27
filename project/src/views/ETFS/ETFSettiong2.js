@@ -105,11 +105,42 @@ let list2 = [
   },
 ];
 
+let list3 = [
+  {
+    title: "마우스그룹",
+    gijun: "9,326", //선택일자 마지막일 종가
+    suickpersent_1month: "9.32", //선택일자 마지막일 종가 / (선택일자-1달)종가
+    suickpersent_3month: "5.79",
+    suickpersent_6month: "2.73",
+    suickpersent_1year: "4.84",
+    num: "3000", //종목번호
+  },
+  {
+    title: "키보드그룹",
+    gijun: "9,326",
+    suickpersent_1month: "9.32",
+    suickpersent_3month: "5.79",
+    suickpersent_6month: "2.73",
+    suickpersent_1year: "4.84",
+    num: "3001", //종목번호
+  },
+  {
+    title: "단팥빵그룹",
+    gijun: "9,326",
+    suickpersent_1month: "9.32",
+    suickpersent_3month: "5.79",
+    suickpersent_6month: "2.73",
+    suickpersent_1year: "4.84",
+    num: "3002", //종목번호
+  },
+];
+
 export default function ETFSetting2() {
   const [ETFlist, setETFlist] = useState([]);
   const [SearchText, setSearchText] = useState();
   const [Searchlist, setSearchlist] = useState([]);
   const [Searchlist2, setSearchlist2] = useState([]);
+  const [Searchlist3, setSearchlist3] = useState([]);
   const { setContextValue } = useContext(MyContext);
   const { etfList, setEtfList } = useContext(ETFListContext);
 
@@ -135,8 +166,13 @@ export default function ETFSetting2() {
       item.hidden = item.title.includes(text) ? false : true;
     });
 
+    list3.forEach((item) => {
+      item.hidden = item.title.includes(text) ? false : true;
+    });
+
     setSearchlist([...list]);
     setSearchlist2([...list2]);
+    setSearchlist3([...list3]);
   }
 
   function KOSPI({ list }) {
@@ -200,7 +236,7 @@ export default function ETFSetting2() {
                 >
                   ETF 종목을 선택해주세요
                 </CardTitle>
-
+                {/* 검색창 */}
                 <div style={{ fontSize: "15px", padding: "4%" }}>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <Form.Control
@@ -219,16 +255,19 @@ export default function ETFSetting2() {
                     </Button>
                   </div>
                   <div style={{ marginTop: "20px" }}>ETF 상품</div>
-
+                  {/* 종목 보여주기 */}
                   <Tabs
                     defaultActiveKey="profile"
                     id="uncontrolled-tab-example"
                     className="mb-3"
                   >
-                    <Tab eventKey="home" title="코스피">
+                    <Tab eventKey="kospi" title="코스피">
                       <KOSPI list={list} />
                     </Tab>
-                    <Tab eventKey="profile" title="코스닥">
+                    <Tab eventKey="kospi200" title="코스피200">
+                      <KOSPI list={list3} />
+                    </Tab>
+                    <Tab eventKey="kosdaq" title="코스닥">
                       <KOSPI list={list2} />
                     </Tab>
                   </Tabs>
@@ -256,6 +295,7 @@ export default function ETFSetting2() {
                       gap: "2%",
                     }}
                   >
+                    {/* 페이지 이동 */}
                     <Link>
                       <Button
                         onClick={() => setContextValue("1")}

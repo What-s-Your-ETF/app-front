@@ -42,13 +42,14 @@ const cardInfo = [
     imgSrc: "/dash3_1.png",
     category: "나의 ETF 수익률은?",
     stats: "📁 포트폴리오 보러가기",
-    href: "/admin/etf",
+    href: "/admin/myetfs",
   },
   {
     backgroundColor: "#FFD64F",
     imgSrc: "/dash4.png",
     category: "고객문의",
-    stats: "📞",
+    stats: "📞 개발자 연락",
+    href: "admin/etf",
   },
   {
     backgroundColor: "#558FFF",
@@ -69,13 +70,14 @@ const cardInfo = [
     imgSrc: "/dash3_1.png",
     category: "나의 ETF 수익률은?",
     stats: "📁 포트폴리오 보러가기",
-    href: "admin/etf",
+    href: "admin/myetfs",
   },
   {
     backgroundColor: "#FFD64F",
     imgSrc: "/dash4.png",
     category: "고객문의",
     stats: "📞",
+    href: "admin/etf",
   },
 ];
 
