@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import instance from "lib/api/axios";
 import {
     Card,
     CardHeader,
@@ -26,10 +27,10 @@ function CommunityWrite() {
         setContent(e.target.value);
     }
 
-    async function postBoard() {
-        try {
-            const nickname = localStorage.getItem('nickname');
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/board`, {title: title, content: content, nickname: nickname});
+  async function postBoard(){
+    try{
+        const nickname = localStorage.getItem('nickname');
+        const response = await instance.post('/board',{title:title, content:content, nickname : nickname});
 
             navigate('/admin/community');
         } catch (err) {
