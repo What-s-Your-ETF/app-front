@@ -189,22 +189,14 @@ export default function ETFSetting2() {
                             <td
                               style={{
                                 color:
-                                  item.returnTrend["3"].rate > 0
+                                  item.returnTrend["0"].rate > 0
                                     ? "red"
                                     : "blue",
                               }}
                             >
-                              {item.returnTrend["3"].rate.toFixed(2)}%
-                            </td>
-                            <td
-                              style={{
-                                color:
-                                  item.returnTrend["2"].rate > 0
-                                    ? "red"
-                                    : "blue",
-                              }}
-                            >
-                              {item.returnTrend["2"].rate.toFixed(2)}%
+                              {Number(item.returnTrend["0"].rate.toFixed(4)) *
+                                100}
+                              %
                             </td>
                             <td
                               style={{
@@ -214,17 +206,33 @@ export default function ETFSetting2() {
                                     : "blue",
                               }}
                             >
-                              {item.returnTrend["1"].rate.toFixed(2)}%
+                              {Number(item.returnTrend["1"].rate.toFixed(4)) *
+                                100}
+                              %
                             </td>
                             <td
                               style={{
                                 color:
-                                  item.returnTrend["0"].rate > 0
+                                  item.returnTrend["2"].rate > 0
                                     ? "red"
                                     : "blue",
                               }}
                             >
-                              {item.returnTrend["0"].rate.toFixed(2)}%
+                              {Number(item.returnTrend["2"].rate.toFixed(4)) *
+                                100}
+                              %
+                            </td>
+                            <td
+                              style={{
+                                color:
+                                  item.returnTrend["3"].rate > 0
+                                    ? "red"
+                                    : "blue",
+                              }}
+                            >
+                              {Number(item.returnTrend["3"].rate.toFixed(4)) *
+                                100}
+                              %
                             </td>
                           </>
                         )}
