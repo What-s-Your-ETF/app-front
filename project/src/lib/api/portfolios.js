@@ -30,7 +30,10 @@ export async function postPortfolios(
       "/portfolios",
       {
         name: name,
-        duration: duration,
+        duration: {
+          startDate: duration.startDate,
+          endDate: duration.endDate,
+        },
         investAmounts: investAmounts,
         itemCodes: itemCodes,
         weights: weights,
