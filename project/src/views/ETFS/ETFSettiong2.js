@@ -60,15 +60,16 @@ export default function ETFSetting2() {
       let response = await fetchkospi200(page); // 페이지 번호를 인자로 넘깁니다.
       setList3(response.docs);
       setPages3(response.totalPages);
-
+  
       // 선택한 페이지에 해당하는 가격 정보 가져오기
       const priceArray = await returntrend(response.docs);
       setPagePrice(priceArray);
       console.log("price Array !!! ", priceArray);
     };
-
+  
     fetchData();
   }, [page, start, end]); // 페이지 번호가 변경될 때마다 useEffect가 다시 실행되도록 의존성 배열에 page 추가
+  
 
   //페이지 이동
   let items = [];
@@ -115,23 +116,22 @@ export default function ETFSetting2() {
   //종목 선택
   function check(item) {
     setETFlist((prev) => {
-      const itemExists = prev.some(
-        (prevItem) => prevItem.stockItem === item.stockItem
-      );
+      const itemExists = prev.some((prevItem) => prevItem.stockItem === item.stockItem);
       let itemCodes;
       if (itemExists) {
-        itemCodes = prev.filter(
-          (prevItem) => prevItem.stockItem !== item.stockItem
-        );
+        itemCodes = prev.filter((prevItem) => prevItem.stockItem !== item.stockItem);
       } else {
         itemCodes = [...prev, item];
       }
-
+  
       // 선택된 항목들을 etfList에 저장
       setEtfList({ ...etfList, itemCodes }); // etfList를 업데이트합니다.
+      
       return itemCodes;
     });
   }
+  
+  
 
   console.log(ETFlist);
 
@@ -145,6 +145,7 @@ export default function ETFSetting2() {
   }
 
   function KOSPI({ list }) {
+
     let pages;
     if (list == list1) {
       pages = pages1;
@@ -190,60 +191,16 @@ export default function ETFSetting2() {
                             type="checkbox"
                             onChange={() => check(item)}
                             checked={ETFlist.some(
-                              (listItem) =>
-                                listItem.stockItem === item.stockItem
+                              (listItem) => listItem.stockItem === item.stockItem
                             )}
                           />
                         </td>
-                        <td>{list3[index]?.name}</td>
-
-                        {list.length !== pagePrice.length ? (
-                          <></> // list와 pagePrice의 길이가 다를 때 보여줄 컴포넌트
-                        ) : (
-                          <>
-                            <td>{item.endPrice}</td>
-                            <td
-                              style={{
-                                color:
-                                  item.returnTrend["3"].rate > 0
-                                    ? "red"
-                                    : "blue",
-                              }}
-                            >
-                              {item.returnTrend["3"].rate.toFixed(2)}%
-                            </td>
-                            <td
-                              style={{
-                                color:
-                                  item.returnTrend["2"].rate > 0
-                                    ? "red"
-                                    : "blue",
-                              }}
-                            >
-                              {item.returnTrend["2"].rate.toFixed(2)}%
-                            </td>
-                            <td
-                              style={{
-                                color:
-                                  item.returnTrend["1"].rate > 0
-                                    ? "red"
-                                    : "blue",
-                              }}
-                            >
-                              {item.returnTrend["1"].rate.toFixed(2)}%
-                            </td>
-                            <td
-                              style={{
-                                color:
-                                  item.returnTrend["0"].rate > 0
-                                    ? "red"
-                                    : "blue",
-                              }}
-                            >
-                              {item.returnTrend["0"].rate.toFixed(2)}%
-                            </td>
-                          </> // list와 pagePrice의 길이가 같을 때 보여줄 컴포넌트
-                        )}
+                        <td>{list3[index].name}</td>
+                        <td>{item.endPrice}</td>
+                        <td style={{ color: item.returnTrend['3'].rate > 0 ? 'red' : 'blue' }}>{item.returnTrend['3'].rate.toFixed(2)}%</td>
+                        <td style={{ color: item.returnTrend['2'].rate > 0 ? 'red' : 'blue' }}>{item.returnTrend['2'].rate.toFixed(2)}%</td>
+                        <td style={{ color: item.returnTrend['1'].rate > 0 ? 'red' : 'blue' }}>{item.returnTrend['1'].rate.toFixed(2)}%</td>
+                        <td style={{ color: item.returnTrend['0'].rate > 0 ? 'red' : 'blue' }}>{item.returnTrend['0'].rate.toFixed(2)}%</td>
                       </tr>
                     </React.Fragment>
                   )

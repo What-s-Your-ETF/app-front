@@ -12,7 +12,6 @@ export default function ETFSetting3() {
   const { setContextValue } = useContext(MyContext);
   const [percentlist, setPercentlist] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
-  
   const PercentChange = (e, index) => {
     const weights = [...percentlist];
     weights[index] = e.target.value / 100;
