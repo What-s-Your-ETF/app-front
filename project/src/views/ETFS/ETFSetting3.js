@@ -19,6 +19,8 @@ export default function ETFSetting3() {
     setEtfList({ ...etfList, weights });
   };
 
+  console.log(etfList);
+
   function Percentavg() {
     setIsChecked(!isChecked);
     const weights = [];
@@ -50,7 +52,7 @@ export default function ETFSetting3() {
   }
 
   function addportfolios() {
-    const itemCodes = etfList.itemCodes.map((item) => item.stockItem.code);
+    const itemCodes = etfList.itemCodes.map((item) => item.code);
     const postData = {
       name: etfList.name,
       duration: {
@@ -111,7 +113,7 @@ export default function ETFSetting3() {
                     {etfList.itemCodes.map((item, id) => (
                       <React.Fragment key={item.id}>
                         <tr>
-                          <td>{item.stockItem.name}</td>
+                          <td>{item.name}</td>
                           <td>
                             {isChecked === false ? (
                               <Form.Control

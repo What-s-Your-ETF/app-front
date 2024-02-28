@@ -127,6 +127,7 @@ export default function ETFSetting2() {
       }
 
       // 선택된 항목들을 etfList에 저장
+      setEtfList({ ...etfList, itemCodes });
       return itemCodes;
     });
   }
@@ -194,8 +195,11 @@ export default function ETFSetting2() {
                                     : "blue",
                               }}
                             >
-                              {Number(item.returnTrend["0"].rate.toFixed(4)) *
-                                100}
+                              {Math.round(
+                                Number(item.returnTrend["0"].rate.toFixed(4)) *
+                                  100,
+                                2
+                              )}
                               %
                             </td>
                             <td
@@ -206,8 +210,11 @@ export default function ETFSetting2() {
                                     : "blue",
                               }}
                             >
-                              {Number(item.returnTrend["1"].rate.toFixed(4)) *
-                                100}
+                              {Math.round(
+                                Number(item.returnTrend["1"].rate.toFixed(4)) *
+                                  100,
+                                2
+                              )}
                               %
                             </td>
                             <td
@@ -218,8 +225,10 @@ export default function ETFSetting2() {
                                     : "blue",
                               }}
                             >
-                              {Number(item.returnTrend["2"].rate.toFixed(4)) *
-                                100}
+                              {Math.round(
+                                Number(item.returnTrend["2"].rate.toFixed(4)) *
+                                  100
+                              )}
                               %
                             </td>
                             <td
@@ -230,8 +239,11 @@ export default function ETFSetting2() {
                                     : "blue",
                               }}
                             >
-                              {Number(item.returnTrend["3"].rate.toFixed(4)) *
-                                100}
+                              {Math.round(
+                                Number(item.returnTrend["3"].rate.toFixed(4)) *
+                                  100,
+                                2
+                              )}
                               %
                             </td>
                           </>
