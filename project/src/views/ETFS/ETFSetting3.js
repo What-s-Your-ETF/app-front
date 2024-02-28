@@ -12,15 +12,11 @@ export default function ETFSetting3() {
   const { setContextValue } = useContext(MyContext);
   const [percentlist, setPercentlist] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
-
-  console.log(etfList);
-  console.log(percentlist);
-
+  
   const PercentChange = (e, index) => {
     const weights = [...percentlist];
     weights[index] = e.target.value / 100;
     setPercentlist(weights);
-    console.log(weights);
     setEtfList({ ...etfList, weights });
   };
 
@@ -30,7 +26,6 @@ export default function ETFSetting3() {
     for (let i = 0; i < etfList.itemCodes.length; i++) {
       weights[i] = 1 / etfList.itemCodes.length;
     }
-    console.log(weights);
     setPercentlist(weights);
     setEtfList({ ...etfList, weights });
   }
@@ -56,8 +51,7 @@ export default function ETFSetting3() {
   }
 
   function addportfolios() {
-    console.log(etfList);
-    const itemCodes = etfList.itemCodes.map((item) => item.code);
+    const itemCodes = etfList.itemCodes.map((item) => item.stockItem.code);
     const postData = {
       name: etfList.name,
       duration: {
@@ -118,7 +112,7 @@ export default function ETFSetting3() {
                     {etfList.itemCodes.map((item, id) => (
                       <React.Fragment key={item.id}>
                         <tr>
-                          <td>{item.name}</td>
+                          <td>{item.stockItem.name}</td>
                           <td>
                             {isChecked === false ? (
                               <Form.Control

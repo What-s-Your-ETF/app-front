@@ -25,6 +25,7 @@ export async function searchkospi200(id, keyword) {
 }
 
 export async function fetchkospi200price(item) {
+  console.log('aaa')
   console.log(item);
   return await instance
     .post("/stocks/return-trend", {

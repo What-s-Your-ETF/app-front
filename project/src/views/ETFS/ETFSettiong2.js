@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "./ETFmaker";
 import Tab from "react-bootstrap/Tab";
@@ -33,135 +33,110 @@ export default function ETFSetting2() {
   const [start, setStart] = useState(1);
   const [end, setEnd] = useState(5);
   //페이지 이동
+  const [pagePrice, setPagePrice] = useState([]);
 
   //수익률 들고오기
   async function returntrend(list) {
-    let a = list.map((item) => {
+    let idArray = list.map((item) => {
       return { _id: item._id };
     });
+
     const postData = {
-      stockItems: a,
+      stockItems: idArray,
       duration: {
         startDate: etfList.startDate,
         endDate: etfList.endDate,
       },
     };
-    
-    console.log(postData)
-    let price;
-    if (list === list1) {
-      price = await fetchkospi200price(postData);
-    } else if (list === list2) {
-      price = await fetchkospi200price(postData);
-    } else if (list === list3) {
-      price = await fetchkospi200price(postData);
-    }
+
+    let price = await fetchkospi200price(postData);
+    return price;
   }
 
   //리스트 들고오기
   useEffect(() => {
-    (async () => {
-      //코스피
-      let resp = await fetchkospi200(1);
-      setList1(resp.docs);
-      setPages1(resp.totalPages);
-      returntrend(list1);
-
-      // 코스피 200
-      let response = await fetchkospi200(1);
+    const fetchData = async () => {
+      // 코스피 200 데이터 가져오기
+      let response = await fetchkospi200(page); // 페이지 번호를 인자로 넘깁니다.
       setList3(response.docs);
       setPages3(response.totalPages);
-      returntrend(list3);
 
-      //코스닥
-      let respon = await fetchkospi200(1);
-      setList2(respon.docs);
-      setPages2(respon.totalPages);
-      returntrend(list2);
-    })();
-  }, []);
+      // 선택한 페이지에 해당하는 가격 정보 가져오기
+      const priceArray = await returntrend(response.docs);
+      setPagePrice(priceArray);
+      console.log("price Array !!! ", priceArray);
+    };
+
+    fetchData();
+  }, [page, start, end]); // 페이지 번호가 변경될 때마다 useEffect가 다시 실행되도록 의존성 배열에 page 추가
 
   //페이지 이동
-  let items = React.useMemo(() => {
-    let result = [];
-    for (let number = start; number <= end; number++) {
-      //console.log(start, end, page);
-      result.push(
-        <Pagination.Item
-          key={number}
-          active={number === page}
-          activeLabel=""
-          onClick={(e) => {
-            e.preventDefault();
-            paging(number);
-          }}
-        >
-          {number}
-        </Pagination.Item>
-      );
-    }
-    //console.log(result);
-    return result;
-  }, [page, end, start]);
+  let items = [];
+  for (let number = start; number <= end; number++) {
+    items.push(
+      <Pagination.Item
+        key={number}
+        active={number === page}
+        activeLabel=""
+        onClick={() => paging(number)}
+      >
+        {number}
+      </Pagination.Item>
+    );
+  }
 
   async function paging(id) {
     let response = await fetchkospi200(id);
-    setList1(response.docs);
-    setList2(response.docs);
     setList3(response.docs);
     setPage(id);
   }
 
   function pluspage(pages) {
-    let newEnd = end + 5;
-    let newStart = start + 5;
-    //console.log(newEnd, newStart);
-    setEnd(newEnd);
-    setStart(newStart);
-    paging(newStart);
+    if (end < pages) {
+      let newEnd = end + 5;
+      let newStart = start + 5;
+      setEnd(newEnd);
+      setStart(newStart);
+      paging(newStart);
+    }
   }
 
   function minuspage() {
-    let newEnd = end - 5;
-    let newStart = start - 5;
-    setEnd(newEnd);
-    setStart(newStart);
-    paging(newStart);
+    if (start > 1) {
+      let newEnd = end - 5;
+      let newStart = start - 5;
+      setEnd(newEnd);
+      setStart(newStart);
+      paging(newStart);
+    }
   }
-
-  //페이지 초기화
-  const rr = useCallback(function () {
-    setPage(1);
-    // paging(1);
-    setStart(1);
-    setEnd(5);
-  }, []);
 
   //종목 선택
   function check(item) {
     setETFlist((prev) => {
+      const itemExists = prev.some(
+        (prevItem) => prevItem.stockItem === item.stockItem
+      );
       let itemCodes;
-      const itemExists = prev.some((prevItem) => prevItem._id === item._id);
       if (itemExists) {
-        itemCodes = prev.filter((prevItem) => prevItem._id !== item._id);
+        itemCodes = prev.filter(
+          (prevItem) => prevItem.stockItem !== item.stockItem
+        );
       } else {
         itemCodes = [...prev, item];
       }
-      console.log(itemCodes);
-      setEtfList({ ...etfList, itemCodes });
+
+      // 선택된 항목들을 etfList에 저장
+      setEtfList({ ...etfList, itemCodes }); // etfList를 업데이트합니다.
       return itemCodes;
     });
   }
 
+  console.log(ETFlist);
+
   //종목검색??
   async function K(id, text) {
-    let resp = await searchkospi200(id, text);
-    console.log(resp);
-    setList1(resp.docs);
-
-    let respon = await searchkospi200(id, text);
-    console.log(respon);
-    setList1(respon.docs);
+    console.log(id, text);
 
     let response = await searchkospi200(id, text);
     console.log(response);
@@ -170,61 +145,111 @@ export default function ETFSetting2() {
 
   function KOSPI({ list }) {
     let pages;
-    if (list === list1) {
+    if (list == list1) {
       pages = pages1;
-    } else if (list === list2) {
+    } else if (list == list2) {
       pages = pages2;
-    } else if (list === list3) {
+    } else if (list == list3) {
       pages = pages3;
     }
+
+    console.log(list3);
 
     return (
       <div>
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
-              <th>선택</th>
-              <th>상품</th>
-              <th>기준</th>
-              <th colSpan="4">수익률</th>
-            </tr>            <tr>
+              <th style={{ width: "100px" }}>선택</th>
+              <th style={{ width: "200px" }}>상품</th>
+              <th style={{ width: "100px" }}>최종가</th>
+              <th colSpan="4" style={{ width: "400px" }}>
+                수익률
+              </th>
+            </tr>
+            <tr>
+              <td style={{ height: "50px" }}></td>
               <td></td>
               <td></td>
-              <td></td>
-              <th>1달</th>
-              <th>3달</th>
-              <th>6달</th>
-              <th>1년</th>
+              <th style={{ width: "100px" }}>1달전</th>
+              <th style={{ width: "100px" }}>3달전</th>
+              <th style={{ width: "100px" }}>6달전</th>
+              <th style={{ width: "100px" }}>1년전</th>
             </tr>
           </thead>
           <tbody>
-            {list &&
-              list.map(
-                (item) =>
+            {pagePrice &&
+              pagePrice.map(
+                (item, index) =>
                   !item.hidden && (
-                    <React.Fragment key={item.id}>
+                    <React.Fragment key={item.stockItem}>
                       <tr>
-                        <td>
+                        <td style={{ height: "50px" }}>
                           <input
                             type="checkbox"
                             onChange={() => check(item)}
                             checked={ETFlist.some(
-                              (listItem) => listItem._id === item._id
+                              (listItem) =>
+                                listItem.stockItem === item.stockItem
                             )}
                           />
                         </td>
-                        <td>{item.name}</td>
-                        <td>{item.gijun}</td>
-                        <td>{item.suickpersent_1month}</td>
-                        <td>{item.suickpersent_3month}</td>
-                        <td>{item.suickpersent_6month}</td>
-                        <td>{item.suickpersent_1year}</td>
+                        <td>{list3[index]?.name}</td>
+
+                        {list.length !== pagePrice.length ? (
+                          <></> // list와 pagePrice의 길이가 다를 때 보여줄 컴포넌트
+                        ) : (
+                          <>
+                            <td>{item.endPrice}</td>
+                            <td
+                              style={{
+                                color:
+                                  item.returnTrend["3"].rate > 0
+                                    ? "red"
+                                    : "blue",
+                              }}
+                            >
+                              {item.returnTrend["3"].rate.toFixed(2)}%
+                            </td>
+                            <td
+                              style={{
+                                color:
+                                  item.returnTrend["2"].rate > 0
+                                    ? "red"
+                                    : "blue",
+                              }}
+                            >
+                              {item.returnTrend["2"].rate.toFixed(2)}%
+                            </td>
+                            <td
+                              style={{
+                                color:
+                                  item.returnTrend["1"].rate > 0
+                                    ? "red"
+                                    : "blue",
+                              }}
+                            >
+                              {item.returnTrend["1"].rate.toFixed(2)}%
+                            </td>
+                            <td
+                              style={{
+                                color:
+                                  item.returnTrend["0"].rate > 0
+                                    ? "red"
+                                    : "blue",
+                              }}
+                            >
+                              {item.returnTrend["0"].rate.toFixed(2)}%
+                            </td>
+                          </> // list와 pagePrice의 길이가 같을 때 보여줄 컴포넌트
+                        )}
                       </tr>
                     </React.Fragment>
                   )
               )}
           </tbody>
         </Table>
+
         <div
           style={{
             display: "flex",
@@ -243,11 +268,9 @@ export default function ETFSetting2() {
             </Button>
           )}
           <Pagination size="sm">{items}</Pagination>
-          {end >= pages ? null : (
+          {end > pages ? null : (
             <Button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
+              onClick={() => {
                 pluspage(pages);
               }}
             >
@@ -296,35 +319,13 @@ export default function ETFSetting2() {
                     defaultActiveKey="profile"
                     id="uncontrolled-tab-example"
                     className="mb-3"
-                    onSelect={(k) => rr()}
                   >
-                    <Tab eventKey="kospi" title="코스피" onClick={rr}>
-                      <KOSPI list={list1} />
-                    </Tab>
-                    <Tab eventKey="kospi200" title="코스피200" onClick={rr}>
+                    <Tab eventKey="kospi200" title="코스피200">
                       <KOSPI list={list3} />
-                    </Tab>
-                    <Tab eventKey="kosdaq" title="코스닥" onClick={rr}>
-                      <KOSPI list={list2} />
                     </Tab>
                   </Tabs>
 
                   {/* 선택종목 보여주기 */}
-                  <div style={{ display: "flex", marginTop: "3%" }}>
-                    {ETFlist.map((item) => (
-                      <div
-                        style={{
-                          marginRight: "2%",
-                          background: "linear-gradient(#DAF4FF,#C2EDFF)",
-
-                          padding: "10px",
-                          borderRadius: "100px",
-                        }}
-                      >
-                        {item.name}
-                      </div>
-                    ))}
-                  </div>
 
                   <div
                     style={{
