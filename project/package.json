@@ -32,7 +32,8 @@
     "react-scripts": "5.0.1",
     "reactstrap": "^8.10.0",
     "recharts": "^2.12.1",
-    "sass": "1.62.1"
+    "sass": "1.62.1",
+    "vite": "^5.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

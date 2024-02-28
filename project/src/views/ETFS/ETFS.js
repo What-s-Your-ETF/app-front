@@ -169,8 +169,10 @@ function ETFss() {
     const [currentPortNum, setCurrentPortNum ] = useState(0)
     const [newsComponents, setNewsComponents] = useState([]) //전체 뉴스
     const [clickedDate, setClickedDate] = useState('')
+
     const [etfs, setEtfs] = useState([])
     const [news, setNews] = useState([])
+
 
   useEffect(()=>{
       async function startETF(){
@@ -180,35 +182,32 @@ function ETFss() {
           console.log(loginType)
           let resp = null;
 
-        if (loginType === "kakao") {
-          resp = await axios.get("http://127.0.0.1:3000/api/portfolios", {
-            headers: {
-              Authorization: localStorage.getItem("authToken"),
-              logintype: localStorage.getItem("loginType"),
-            },
-          });
-        } else {
-          resp = await axios.get("http://127.0.0.1:3000/api/portfolios", {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("authToken"),
-              logintype: loginType,
-            },
-          });
-        }
-
-        //   console.log()
-
-        for (var i = 0; i < resp.data.length; i++) {
-          //포트폴리오 개수에 대해서 처리
-          const returnedPort = await processData(resp.data[i]);
-          // setEtfs( etfs.push(returnedPort) )
-          loadEtfs.push(returnedPort);
-          console.log(etfs);
-        }
-        // loadEtfs = appendComp()  //ETF
-        setEtfs(loadEtfs);
-      } catch (err) {
-        console.error(err);
+          if (loginType === 'kakao'){
+            resp = await axios.get('http://127.0.0.1:3000/api/portfolios',{
+              headers : 
+                {
+                  Authorization: localStorage.getItem('authToken'), 
+                  logintype : localStorage.getItem('loginType')
+                }});
+          }else{
+            resp = await axios.get('http://127.0.0.1:3000/api/portfolios',{
+              headers : {
+                Authorization: "Bearer " + localStorage.getItem('authToken'), 
+                logintype : loginType,
+              }});
+          }
+          
+            
+          for(var i =0; i<resp.data.length; i++){ //포트폴리오 개수에 대해서 처리
+            const returnedPort = await processData(resp.data[i]);
+              // setEtfs( etfs.push(returnedPort) )
+              loadEtfs.push(returnedPort);
+              console.log(etfs);
+          }
+          // loadEtfs = appendComp()  //ETF
+          setEtfs(loadEtfs)
+        }catch(err){
+          console.error(err);
       }
     }
 
@@ -393,9 +392,11 @@ function ETFss() {
             <div>
                 <Tabs  defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3" onSelect={(key) => {
                     setCurrentPortNum(key)
+
                     const startDate = etfs[key]?.data.slice(-1)['0'].name
                     const endDate = etfs[key]?.data['0'].name
                     console.log(startDate)
+
                 }}>
                     
                     {etfs.map((elem,idx)=>{
