@@ -589,8 +589,8 @@ function ETFss() {
             className="mb-3"
             onSelect={(key) => {
               setCurrentPortNum(key);
-              const startDate = etfs[key].data.slice(-1)["0"].name;
-              const endDate = etfs[key].data["0"].name;
+              //const startDate = etfs[key].data.slice(-1)["0"].name;
+              //const endDate = etfs[key].data["0"].name;
             }}
           >
             {etfs.map((elem, idx) => {
