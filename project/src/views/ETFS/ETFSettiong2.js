@@ -37,7 +37,7 @@ export default function ETFSetting2() {
 
   //수익률 들고오기
   async function returntrend(list) {
-    let idArray= list.map((item) => {
+    let idArray = list.map((item) => {
       return { _id: item._id };
     });
 
@@ -49,7 +49,11 @@ export default function ETFSetting2() {
       },
     };
 
+<<<<<<< HEAD
     let price =  await fetchkospi200price(postData);
+=======
+    let price = await fetchkospi200price(postData);
+>>>>>>> 9c7d83c5ee76afc830dfd9ebe6bd51dd7aed514c
     return price;
   }
 
@@ -60,16 +64,26 @@ export default function ETFSetting2() {
       let response = await fetchkospi200(page); // 페이지 번호를 인자로 넘깁니다.
       setList3(response.docs);
       setPages3(response.totalPages);
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 9c7d83c5ee76afc830dfd9ebe6bd51dd7aed514c
       // 선택한 페이지에 해당하는 가격 정보 가져오기
       const priceArray = await returntrend(response.docs);
       setPagePrice(priceArray);
       console.log("price Array !!! ", priceArray);
     };
+<<<<<<< HEAD
   
     fetchData();
   }, [page, start, end]); // 페이지 번호가 변경될 때마다 useEffect가 다시 실행되도록 의존성 배열에 page 추가
   
+=======
+
+    fetchData();
+  }, [page, start, end]); // 페이지 번호가 변경될 때마다 useEffect가 다시 실행되도록 의존성 배열에 page 추가
+>>>>>>> 9c7d83c5ee76afc830dfd9ebe6bd51dd7aed514c
 
   //페이지 이동
   let items = [];
@@ -111,17 +125,12 @@ export default function ETFSetting2() {
       paging(newStart);
     }
   }
-
-  //페이지 초기화
-  function rr() {
-    setPage(1);
-    setStart(1);
-    setEnd(5);
-  }
+ 
 
   //종목 선택
   function check(item) {
     setETFlist((prev) => {
+<<<<<<< HEAD
       const itemExists = prev.some((prevItem) => prevItem.stockItem === item.stockItem);
       let itemCodes;
       if (itemExists) {
@@ -133,21 +142,33 @@ export default function ETFSetting2() {
       // 선택된 항목들을 etfList에 저장
       setEtfList({ ...etfList, itemCodes }); // etfList를 업데이트합니다.
       
+=======
+      const itemExists = prev.some(
+        (prevItem) => prevItem.stockItem === item.stockItem
+      );
+      let itemCodes;
+      if (itemExists) {
+        itemCodes = prev.filter(
+          (prevItem) => prevItem.stockItem !== item.stockItem
+        );
+      } else {
+        itemCodes = [...prev, item];
+      }
+
+      // 선택된 항목들을 etfList에 저장
+      setEtfList({ ...etfList, itemCodes }); // etfList를 업데이트합니다.
+>>>>>>> 9c7d83c5ee76afc830dfd9ebe6bd51dd7aed514c
       return itemCodes;
     });
   }
   
   
 
+  console.log(ETFlist);
+
   //종목검색??
   async function K(id, text) {
-    let resp = await searchkospi200(id, text);
-    console.log(resp);
-    setList1(resp.docs);
-
-    let respon = await searchkospi200(id, text);
-    console.log(respon);
-    setList1(respon.docs);
+    console.log(id, text);
 
     let response = await searchkospi200(id, text);
     console.log(response);
@@ -165,24 +186,28 @@ export default function ETFSetting2() {
       pages = pages3;
     }
 
+    console.log(list3);
+
     return (
       <div>
         <Table striped bordered hover size="sm">
           <thead>
             <tr>
-              <th style={{ width: '100px' }}>선택</th>
-              <th style={{ width: '200px' }}>상품</th>
-              <th style={{ width: '100px' }}>최종가</th>
-              <th colSpan="4" style={{ width: '400px' }}>수익률</th>
+              <th style={{ width: "100px" }}>선택</th>
+              <th style={{ width: "200px" }}>상품</th>
+              <th style={{ width: "100px" }}>최종가</th>
+              <th colSpan="4" style={{ width: "400px" }}>
+                수익률
+              </th>
             </tr>
             <tr>
-              <td style={{ height: '50px' }}></td>
+              <td style={{ height: "50px" }}></td>
               <td></td>
               <td></td>
-              <th style={{ width: '100px' }}>1달전</th>
-              <th style={{ width: '100px' }}>3달전</th>
-              <th style={{ width: '100px' }}>6달전</th>
-              <th style={{ width: '100px' }}>1년전</th>
+              <th style={{ width: "100px" }}>1달전</th>
+              <th style={{ width: "100px" }}>3달전</th>
+              <th style={{ width: "100px" }}>6달전</th>
+              <th style={{ width: "100px" }}>1년전</th>
             </tr>
           </thead>
           <tbody>
@@ -192,11 +217,12 @@ export default function ETFSetting2() {
                   !item.hidden && (
                     <React.Fragment key={item.stockItem}>
                       <tr>
-                        <td style={{ height: '50px' }}>
+                        <td style={{ height: "50px" }}>
                           <input
                             type="checkbox"
                             onChange={() => check(item)}
                             checked={ETFlist.some(
+<<<<<<< HEAD
                               (listItem) => listItem.stockItem === item.stockItem
                             )}
                           />
@@ -207,6 +233,62 @@ export default function ETFSetting2() {
                         <td style={{ color: item.returnTrend['2'].rate > 0 ? 'red' : 'blue' }}>{item.returnTrend['2'].rate.toFixed(2)}%</td>
                         <td style={{ color: item.returnTrend['1'].rate > 0 ? 'red' : 'blue' }}>{item.returnTrend['1'].rate.toFixed(2)}%</td>
                         <td style={{ color: item.returnTrend['0'].rate > 0 ? 'red' : 'blue' }}>{item.returnTrend['0'].rate.toFixed(2)}%</td>
+=======
+                              (listItem) =>
+                                listItem.stockItem === item.stockItem
+                            )}
+                          />
+                        </td>
+                        <td>{list3[index]?.name}</td>
+
+                        {list.length !== pagePrice.length ? (
+                          <></> // list와 pagePrice의 길이가 다를 때 보여줄 컴포넌트
+                        ) : (
+                          <>
+                            <td>{item.endPrice}</td>
+                            <td
+                              style={{
+                                color:
+                                  item.returnTrend["3"].rate > 0
+                                    ? "red"
+                                    : "blue",
+                              }}
+                            >
+                              {item.returnTrend["3"].rate.toFixed(2)}%
+                            </td>
+                            <td
+                              style={{
+                                color:
+                                  item.returnTrend["2"].rate > 0
+                                    ? "red"
+                                    : "blue",
+                              }}
+                            >
+                              {item.returnTrend["2"].rate.toFixed(2)}%
+                            </td>
+                            <td
+                              style={{
+                                color:
+                                  item.returnTrend["1"].rate > 0
+                                    ? "red"
+                                    : "blue",
+                              }}
+                            >
+                              {item.returnTrend["1"].rate.toFixed(2)}%
+                            </td>
+                            <td
+                              style={{
+                                color:
+                                  item.returnTrend["0"].rate > 0
+                                    ? "red"
+                                    : "blue",
+                              }}
+                            >
+                              {item.returnTrend["0"].rate.toFixed(2)}%
+                            </td>
+                          </> // list와 pagePrice의 길이가 같을 때 보여줄 컴포넌트
+                        )}
+>>>>>>> 9c7d83c5ee76afc830dfd9ebe6bd51dd7aed514c
                       </tr>
                     </React.Fragment>
                   )
@@ -284,33 +366,13 @@ export default function ETFSetting2() {
                     id="uncontrolled-tab-example"
                     className="mb-3"
                   >
-                    <Tab eventKey="kospi" title="코스피" onClick={rr}>
-                      <KOSPI list={list1} />
-                    </Tab>
-                    <Tab eventKey="kospi200" title="코스피200" onClick={rr}>
+                    <Tab eventKey="kospi200" title="코스피200">
                       <KOSPI list={list3} />
                     </Tab>
-                    <Tab eventKey="kosdaq" title="코스닥" onClick={rr}>
-                      <KOSPI list={list2} />
-                    </Tab>
+          
                   </Tabs>
 
                   {/* 선택종목 보여주기 */}
-                  <div style={{ display: "flex", marginTop: "3%" }}>
-                    {ETFlist.map((item) => (
-                      <div
-                        style={{
-                          marginRight: "2%",
-                          background: "linear-gradient(#DAF4FF,#C2EDFF)",
-
-                          padding: "10px",
-                          borderRadius: "100px",
-                        }}
-                      >
-                        {item.name}
-                      </div>
-                    ))}
-                  </div>
 
                   <div
                     style={{

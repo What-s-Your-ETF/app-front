@@ -66,6 +66,7 @@ export default function ETFSetting() {
 
                 <div style={{ fontSize: "15px", padding: "4%" }}>
                   <div style={{ marginTop: "20px" }}>포트폴리오 이름</div>
+                  <div style={{fontSize:"10px", color:"gray"}}>이름은 숫자를 제외한 문자열로 작성해주세요</div>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <Form.Control
                       style={{ width: "20%", marginRight: "4px" }}
@@ -82,6 +83,7 @@ export default function ETFSetting() {
                       설정
                     </Button>
                   </div>
+                  
 
                   <div>
                     투자기간
