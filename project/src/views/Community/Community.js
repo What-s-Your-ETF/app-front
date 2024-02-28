@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import instance from "lib/api/axios";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom"
 
 // reactstrap components
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Row,
-  Col,
-  Button,
-} from "reactstrap";
+import {Button, Card, CardBody, CardHeader, Col, Row,} from "reactstrap";
+import instance from "../../lib/api/axios";
+
 
 function Community() {
   let navigate = useNavigate();
