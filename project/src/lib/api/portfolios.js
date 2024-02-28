@@ -24,7 +24,7 @@ export async function postPortfolios(
   itemCodes,
   weights
 ) {
-  //console.log(`Bearer ${localStorage.getItem("authToken")}`);
+
   const respo = await instance
     .post(
       "/portfolios",
@@ -41,6 +41,7 @@ export async function postPortfolios(
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          loginType: localStorage.getItem("loginType"),
         },
       }
     )

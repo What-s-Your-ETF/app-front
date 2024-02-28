@@ -30,18 +30,18 @@ import { useRef } from "react";
 import { PieChart } from "recharts";
 import { Pie } from "recharts";
 const COLORS = [
-  "#FF5733",
-  "#33FF57",
-  "#3366FF",
-  "#FF33E9",
-  "#FFFF33",
-  "#33FFFF",
-  "#FF3333",
-  "#33FF33",
-  "#3333FF",
-  "#FF33FF",
-  "#FFFF00",
-  "#00FFFF",
+  "#40A2E3",
+  "#0D9276",
+  "#BBE2EC",
+  "#B5C0D0",
+  "#FFF6E9",
+  "#CCD3CA",
+  "#FB88B4",
+  "#B7C9F2",
+  "#98ABEE",
+  "#FFCAD4",
+  "#C5EBAA",
+  "#A5DD9B",
   "#FF6600",
   "#6600FF",
   "#FF0099",
@@ -52,46 +52,46 @@ const COLORS = [
   "#00FF99",
 ];
 
-function post() {
-  axios
-    .post(
-      "http://127.0.0.1:3000/api/portfolios",
-      {
-        name: "Yoon's Port",
-        duration: {
-          startDate: "2022-01-01",
-          endDate: "2022-12-31",
-        },
-        investAmounts: 1000000,
-        itemCodes: ["055550", "105560", "005930", "000660"],
-        weights: [0.3, 0.3, 0.3, 0.1],
-      },
-      {
-        headers: {
-          Authorization: "bearer " + localStorage.getItem("authToken"),
-        },
-      }
-    )
-    .then((resp) => console.log(resp));
-}
+const lineColor = ["#EE4266", "#0C359E"];
+
+// function post() {
+//   axios
+//     .post(
+//       "http://127.0.0.1:3000/api/portfolios",
+//       {
+//         name: "Yoon's Port",
+//         duration: {
+//           startDate: "2022-01-01",
+//           endDate: "2022-12-31",
+//         },
+//         investAmounts: 1000000,
+//         itemCodes: ["055550", "105560", "005930", "000660"],
+//         weights: [0.3, 0.3, 0.3, 0.1],
+//       },
+//       {
+//         headers: {
+//           Authorization: "bearer " + localStorage.getItem("authToken"),
+//         },
+//       }
+//     )
+//     .then((resp) => console.log(resp));
+// }
 
 function ETFss() {
-    
-    const [currentPortNum, setCurrentPortNum ] = useState(0)
-    const [newsComponents, setNewsComponents] = useState([]) //전체 뉴스
-    const [clickedDate, setClickedDate] = useState('')
-    const [Kospi, setKospi] = useState([])
-    const [etfs, setEtfs] = useState([])
-    const [news, setNews] = useState([])
+  const [currentPortNum, setCurrentPortNum] = useState(0);
+  const [newsComponents, setNewsComponents] = useState([]); //전체 뉴스
+  const [clickedDate, setClickedDate] = useState("");
+  const [Kospi, setKospi] = useState([]);
+  const [etfs, setEtfs] = useState([]);
+  const [news, setNews] = useState([]);
 
-
-  useEffect(()=>{
-      async function startETF(){
-        var loadEtfs = []
-        try {
-          const loginType = localStorage.getItem('loginType');
-          console.log(loginType)
-          let resp = null;
+  useEffect(() => {
+    async function startETF() {
+      var loadEtfs = [];
+      try {
+        const loginType = localStorage.getItem("loginType");
+        console.log(loginType);
+        let resp = null;
 
         if (loginType === "kakao") {
           resp = await axios.get("http://127.0.0.1:3000/api/portfolios", {
@@ -114,12 +114,12 @@ function ETFss() {
         for (var i = 0; i < resp.data.length; i++) {
           //포트폴리오 개수에 대해서 처리
           const returnedPort = await processData(resp.data[i]);
-          console.log(returnedPort)
+          console.log(returnedPort);
           // setEtfs( etfs.push(returnedPort) )
           loadEtfs.push(returnedPort);
         }
         // loadEtfs = appendComp()  //ETF
-        console.log(loadEtfs)
+        console.log(loadEtfs);
         setEtfs(loadEtfs);
       } catch (err) {
         console.error(err);
@@ -135,7 +135,7 @@ function ETFss() {
   const processData = async (data) => {
     var totalData = {}; //title : "", data : [] 오브젝트 타입으로 들어간다
     totalData.title = data.name; //title넣음 => 일별로 data만 넣어주면 된다
-    totalData._id = data._id
+    totalData._id = data._id;
 
     totalData.stockItems = data.stockItems;
     var dailyDate = [];
@@ -147,58 +147,74 @@ function ETFss() {
       var tempData = {};
       tempData.name = elem.date.slice(2, 10);
       tempData[data.name] = elem.rate.$numberDecimal * 100;
-    //   tempData.KOSPI = kospiData[i]
+      //   tempData.KOSPI = kospiData[i]
       dailyDate.push(tempData);
     }
     totalData.data = dailyDate;
 
-    console.log("rd",totalData.title)
+    console.log("rd", totalData.title);
 
-
-    var kospiData = []
-    await axios.get("http://127.0.0.1:3000/api/portfolios/"+totalData._id+"/kospi-index", {
-        headers: {
+    var kospiData = [];
+    await axios
+      .get(
+        "http://127.0.0.1:3000/api/portfolios/" +
+          totalData._id +
+          "/kospi-index",
+        {
+          headers: {
             Authorization: "Bearer " + localStorage.getItem("authToken"),
-        }}
-        ).then(resp=>{
+            logintype: localStorage.getItem("loginType"),
+          },
+        }
+      )
+      .then((resp) => {
         // console.log(resp.data[0])
-        kospiData = resp.data
+        kospiData = resp.data;
         // console.log(kospiData)
-        kospiData = kospiData.map((elem,idx)=>{
-            // console.log(elem)
-            return {name : elem.date.slice(2,10), "KOSPI" : (elem.endPrice/kospiData[0].endPrice -1)*100 }
-        })
-    }).catch(err=>{
-        console.log(err)
-    })
+        kospiData = kospiData.map((elem, idx) => {
+          // console.log(elem)
+          return {
+            name: elem.date.slice(2, 10),
+            KOSPI: (elem.endPrice / kospiData[0].endPrice - 1) * 100,
+          };
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // console.log("KD",kospiData)
     // // 두 배열에서 'name'을 기준으로 매핑된 객체 생성
     const kospiIndex = {};
-    kospiData.forEach(data => kospiIndex[data.name] = data.KOSPI);
+    kospiData.forEach((data) => (kospiIndex[data.name] = data.KOSPI));
 
     const etfIndex = {};
-    totalData.data.forEach(data => etfIndex[data.name] = data[totalData.title]);
-    console.log("TT",etfIndex)
+    totalData.data.forEach(
+      (data) => (etfIndex[data.name] = data[totalData.title])
+    );
+    console.log("TT", etfIndex);
     // // 공통된 'name' 찾기
-    const commonNames = Object.keys(kospiIndex).filter(name => etfIndex.hasOwnProperty(name));
+    const commonNames = Object.keys(kospiIndex).filter((name) =>
+      etfIndex.hasOwnProperty(name)
+    );
     // console.log(commonNames)
     // // 공통된 'name'에 해당하는 값을 출력 또는 저장
 
-    var TotalData = []
-    commonNames.forEach(name => {
-        const kospiValue = kospiIndex[name];
-        const etfValue = etfIndex[name];
-        // console.log(`Name: ${name}, KOSPI: ${kospiValue}, ${totalData.title}: ${etfValue}`);
-        TotalData.push({"Name" : name, "KOSPI": kospiValue, "ETF" : etfValue})
+    var TotalData = [];
+    commonNames.forEach((name) => {
+      const kospiValue = kospiIndex[name];
+      const etfValue = etfIndex[name];
+      // console.log(`Name: ${name}, KOSPI: ${kospiValue}, ${totalData.title}: ${etfValue}`);
+      TotalData.push({ Name: name, KOSPI: kospiValue, ETF: etfValue });
     });
     // console.log("TotalData",TotalData)
-        // console.log("totalData", totalData)
-    totalData.data = TotalData
+    // console.log("totalData", totalData)
+    totalData.data = TotalData;
     return totalData; // 1개의 ETF에 대해 전처리 완
   };
 
   const handleDataClick = async (data, index) => {
+    console.log("날짜!!!!!!!!!", data.activeLabel);
     const date = data.activeLabel;
     try {
       setClickedDate(date); //클릭한 점 기준 날짜가 나온다 (23-05-02 등)
@@ -272,7 +288,7 @@ function ETFss() {
   };
 
   const getGraph = (data) => {
-    // console.log(data)
+    console.log(data);
     const keys = Object.keys(data[0]);
     // console.log(keys)
     return (
@@ -295,7 +311,7 @@ function ETFss() {
                 <Line
                   type="monotone"
                   dataKey={elem}
-                  stroke="#82ca9d"
+                  stroke={lineColor[idx]}
                   dot={<CustomizedDot />}
                 />
               );
@@ -349,6 +365,7 @@ function ETFss() {
           outerRadius={80}
           onClick={handlePieClick}
           label
+          stroke="none"
         >
           {data01.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index]} />
@@ -358,62 +375,87 @@ function ETFss() {
     );
   }, [etfs, currentPortNum, handlePieClick]);
 
-    return (
-        <>    
-            <div className="content"> 
-            <div>
-                <Tabs  defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3" onSelect={(key) => {
-                    setCurrentPortNum(key)
-                    // console.log(etfs)
-                    // console.log(Kospi)
-                }}>
-                    
-                    {etfs.map((elem,idx)=>{
-                        // console.log(idx)
-                        return(
-                            <Tab eventKey={idx} title={
-                            <div>{elem.title}
-                            <button value = {idx} style={{border : "1px solid", backgroundColor : "transparent", marginLeft : "2px"}} onClick={(e)=>{
-                                
-                                const etfIdx = e.target.value
-                                const etfId = etfs[etfIdx]._id
-                                
+  return (
+    <>
+      <div className="content">
+        <div>
+          <Tabs
+            defaultActiveKey="profile"
+            id="uncontrolled-tab-example"
+            className="mb-3"
+            onSelect={(key) => {
+              setCurrentPortNum(key);
+              // console.log(etfs)
+              // console.log(Kospi)
+            }}
+          >
+            {etfs.map((elem, idx) => {
+              // console.log(idx)
+              return (
+                <Tab
+                  eventKey={idx}
+                  title={
+                    <div>
+                      {elem.title}
+                      <button
+                        value={idx}
+                        style={{
+                          border: "1px solid",
+                          backgroundColor: "transparent",
+                          marginLeft: "2px",
+                        }}
+                        onClick={(e) => {
+                          const etfIdx = e.target.value;
+                          const etfId = etfs[etfIdx]._id;
 
-                                axios.delete("http://127.0.0.1:3000/api/portfolios/"+etfId, { headers: {
-                                    Authorization: "Bearer " + localStorage.getItem("authToken")
-                                  }} ).then(resp=>{
-                                    console.log(resp)
-                                })
-                                
-                                const newEtfs = etfs.filter((value,index)=>{
-                                    console.log(index, etfIdx)
-                                    return index != etfIdx
-                                    console.log(index)
-                                })
-                                console.log(etfs,newEtfs)
-                                setEtfs(newEtfs)
-                            }}>X</button>    
-                            </div>
-                            }>{getGraph(elem.data)}</Tab>
-                        )
-                    })} 
-                    
-                    <Tab eventKey="add" title="+">
-                        <ETFMaker></ETFMaker>
-                    </Tab>
-                </Tabs>
-                <div>
-                
-                </div>
-            </div>    
-                <div style={{margin : "0px 75px 0px 0px"}}>
-                    {newsComponents.length === 0 ? null : <h3>{clickedDate}일의 뉴스</h3>}
-                    {newsComponents}
-                </div>
-            </div>
-        </>
-    );
-};
+                          axios
+                            .delete(
+                              "http://127.0.0.1:3000/api/portfolios/" + etfId,
+                              {
+                                headers: {
+                                  Authorization:
+                                    "Bearer " +
+                                    localStorage.getItem("authToken"),
+                                },
+                              }
+                            )
+                            .then((resp) => {
+                              console.log(resp);
+                            });
+
+                          const newEtfs = etfs.filter((value, index) => {
+                            console.log(index, etfIdx);
+                            return index != etfIdx;
+                            console.log(index);
+                          });
+                          console.log(etfs, newEtfs);
+                          setEtfs(newEtfs);
+                        }}
+                      >
+                        X
+                      </button>
+                    </div>
+                  }
+                >
+                  {getGraph(elem.data)}
+                </Tab>
+              );
+            })}
+
+            <Tab eventKey="add" title="+">
+              <ETFMaker></ETFMaker>
+            </Tab>
+          </Tabs>
+          <div></div>
+        </div>
+        <div style={{ margin: "0px 75px 0px 0px" }}>
+          {newsComponents.length === 0 ? null : <h3>{clickedDate}일의 뉴스</h3>}
+          {newsComponents}
+        </div>
+      </div>
+    </>
+  );
+}
 export default ETFss;
 
 // axios.post("http://127.0.0.1:3000/api/portfolios",

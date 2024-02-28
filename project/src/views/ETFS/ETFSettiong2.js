@@ -60,6 +60,7 @@ export default function ETFSetting2() {
       let response = await fetchkospi200(page); // 페이지 번호를 인자로 넘깁니다.
       setList3(response.docs);
       setPages3(response.totalPages);
+      console.log(list3);
 
       // 선택한 페이지에 해당하는 가격 정보 가져오기
       const priceArray = await returntrend(response.docs);
@@ -110,7 +111,6 @@ export default function ETFSetting2() {
       paging(newStart);
     }
   }
- 
 
   //종목 선택
   function check(item) {
@@ -154,7 +154,7 @@ export default function ETFSetting2() {
       pages = pages3;
     }
 
-    console.log(list3);
+    console.log(list.length, pagePrice.length);
 
     return (
       <div>
@@ -197,7 +197,7 @@ export default function ETFSetting2() {
                         </td>
                         <td>{list3[index]?.name}</td>
 
-                        {list.length !== pagePrice.length ? (
+                        {list.length < pagePrice.length ? (
                           <></> // list와 pagePrice의 길이가 다를 때 보여줄 컴포넌트
                         ) : (
                           <>
@@ -324,7 +324,6 @@ export default function ETFSetting2() {
                     <Tab eventKey="kospi200" title="코스피200">
                       <KOSPI list={list3} />
                     </Tab>
-          
                   </Tabs>
 
                   {/* 선택종목 보여주기 */}
