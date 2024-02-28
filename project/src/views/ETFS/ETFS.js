@@ -29,6 +29,7 @@ import { useRef } from "react";
 // import { Chart } from "react-chartjs-2";
 import { PieChart } from "recharts";
 import { Pie } from "recharts";
+import instance from "lib/api/axios";
 const COLORS = [
   "#40A2E3",
   "#0D9276",
@@ -94,14 +95,14 @@ function ETFss() {
         let resp = null;
 
         if (loginType === "kakao") {
-          resp = await axios.get("http://127.0.0.1:3000/api/portfolios", {
+          resp = await instance.get("/portfolios", {
             headers: {
               Authorization: localStorage.getItem("authToken"),
               logintype: localStorage.getItem("loginType"),
             },
           });
         } else {
-          resp = await axios.get("http://127.0.0.1:3000/api/portfolios", {
+          resp = await instance.get("/portfolios", {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("authToken"),
               logintype: loginType,
@@ -155,22 +156,17 @@ function ETFss() {
     console.log("rd", totalData.title);
 
     var kospiData = [];
-    await axios
-      .get(
-        "http://127.0.0.1:3000/api/portfolios/" +
-          totalData._id +
-          "/kospi-index",
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("authToken"),
-            logintype: localStorage.getItem("loginType"),
-          },
-        }
-      )
+    await instance
+      .get("/portfolios/" + totalData._id + "/kospi-index", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("authToken"),
+          logintype: localStorage.getItem("loginType"),
+        },
+      })
       .then((resp) => {
         // console.log(resp.data[0])
         kospiData = resp.data;
-        // console.log(kospiData)
+        //console.log(kospiData);
         kospiData = kospiData.map((elem, idx) => {
           // console.log(elem)
           return {
@@ -214,7 +210,6 @@ function ETFss() {
   };
 
   const handleDataClick = async (data, index) => {
-    console.log("날짜!!!!!!!!!", data.activeLabel);
     const date = data.activeLabel;
     try {
       setClickedDate(date); //클릭한 점 기준 날짜가 나온다 (23-05-02 등)
@@ -233,9 +228,10 @@ function ETFss() {
     }
     var fetchedNews = [];
 
-    axios
-      .post("/api/news/getnews", { keywordArray: inputKeyword, day: inputDate })
+    instance
+      .post("/news/getnews", { keywordArray: inputKeyword, day: inputDate })
       .then((resp) => {
+        console.log("response", resp.data);
         setNews(resp.data);
         for (const key in resp.data) {
           resp.data[key].map((elem2, idx) => {
@@ -288,7 +284,6 @@ function ETFss() {
   };
 
   const getGraph = (data) => {
-    console.log(data);
     const keys = Object.keys(data[0]);
     // console.log(keys)
     return (
@@ -301,7 +296,7 @@ function ETFss() {
           margin={{ top: 5, right: 0, left: 0, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="Name" />
           <YAxis />
           <Tooltip />
           <Legend />
@@ -408,17 +403,13 @@ function ETFss() {
                           const etfIdx = e.target.value;
                           const etfId = etfs[etfIdx]._id;
 
-                          axios
-                            .delete(
-                              "http://127.0.0.1:3000/api/portfolios/" + etfId,
-                              {
-                                headers: {
-                                  Authorization:
-                                    "Bearer " +
-                                    localStorage.getItem("authToken"),
-                                },
-                              }
-                            )
+                          instance
+                            .delete("/portfolios/" + etfId, {
+                              headers: {
+                                Authorization:
+                                  "Bearer " + localStorage.getItem("authToken"),
+                              },
+                            })
                             .then((resp) => {
                               console.log(resp);
                             });
