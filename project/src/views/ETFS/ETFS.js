@@ -76,131 +76,22 @@ function post() {
 }
 
 function ETFss() {
-  const [comparegroup, setComparegroup] = useState([
-    {
-      title: "Kospi",
-      data: [
-        { name: "`23-06-02", ETF: 400, Your_ETF: 610 },
-        { name: "`23-01-02", ETF: 410, Your_ETF: 520 },
-        { name: "`23-01-03", ETF: 420, Your_ETF: 240 },
-        { name: "`23-07-02", ETF: 430, Your_ETF: 660 },
-        { name: "`23-01-05", ETF: 440, Your_ETF: 770 },
-        { name: "`23-01-06", ETF: 450, Your_ETF: 880 },
-        { name: "`23-01-07", ETF: 460, Your_ETF: 700 },
-        { name: "`23-08-02", ETF: 400, Your_ETF: 610 },
-        { name: "`23-01-02", ETF: 410, Your_ETF: 520 },
-        { name: "`23-01-03", ETF: 420, Your_ETF: 240 },
-        { name: "`23-01-04", ETF: 430, Your_ETF: 660 },
-        { name: "`23-01-05", ETF: 440, Your_ETF: 770 },
-        { name: "`23-01-06", ETF: 450, Your_ETF: 880 },
-        { name: "`23-01-07", ETF: 460, Your_ETF: 700 },
-        { name: "`23-01-01", ETF: 400, Your_ETF: 610 },
-        { name: "`23-01-02", ETF: 410, Your_ETF: 520 },
-        { name: "`23-01-03", ETF: 420, Your_ETF: 240 },
-        { name: "`23-01-04", ETF: 430, Your_ETF: 660 },
-        { name: "`23-01-05", ETF: 440, Your_ETF: 770 },
-        { name: "`23-01-06", ETF: 450, Your_ETF: 880 },
-        { name: "`23-01-07", ETF: 460, Your_ETF: 700 },
-        { name: "`23-01-01", ETF: 400, Your_ETF: 610 },
-        { name: "`23-01-02", ETF: 410, Your_ETF: 520 },
-        { name: "`23-01-03", ETF: 420, Your_ETF: 240 },
-        { name: "`23-01-04", ETF: 430, Your_ETF: 660 },
-        { name: "`23-01-05", ETF: 440, Your_ETF: 770 },
-        { name: "`23-01-06", ETF: 450, Your_ETF: 880 },
-        { name: "`23-01-07", ETF: 460, Your_ETF: 700 },
-        { name: "`23-01-01", ETF: 400, Your_ETF: 610 },
-        { name: "`23-01-02", ETF: 410, Your_ETF: 520 },
-        { name: "`23-01-03", ETF: 420, Your_ETF: 240 },
-        { name: "`23-01-04", ETF: 430, Your_ETF: 660 },
-        { name: "`23-01-05", ETF: 440, Your_ETF: 770 },
-        { name: "`23-01-06", ETF: 450, Your_ETF: 880 },
-        { name: "`23-01-07", ETF: 460, Your_ETF: 700 },
-        { name: "`23-01-01", ETF: 400, Your_ETF: 610 },
-        { name: "`23-01-02", ETF: 410, Your_ETF: 520 },
-        { name: "`23-01-03", ETF: 420, Your_ETF: 240 },
-        { name: "`23-01-04", ETF: 430, Your_ETF: 660 },
-        { name: "`23-01-05", ETF: 440, Your_ETF: 770 },
-        { name: "`23-01-06", ETF: 450, Your_ETF: 880 },
-        { name: "`23-01-07", ETF: 460, Your_ETF: 700 },
-      ],
-    },
-    {
-      title: "kosdaq",
-      data: [
-        { name: "`23-01-07", ETF: 416, Your_ETF: 200 },
-        { name: "`23-01-07", ETF: 516, Your_ETF: 210 },
-        { name: "`23-01-07", ETF: 616, Your_ETF: 260 },
-        { name: "`23-01-07", ETF: 316, Your_ETF: 100 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 290 },
-        { name: "`23-01-07", ETF: 816, Your_ETF: 340 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 200 },
-        { name: "`23-01-07", ETF: 516, Your_ETF: 210 },
-        { name: "`23-01-07", ETF: 616, Your_ETF: 260 },
-        { name: "`23-01-07", ETF: 316, Your_ETF: 100 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 290 },
-        { name: "`23-01-07", ETF: 816, Your_ETF: 340 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 200 },
-        { name: "`23-01-07", ETF: 516, Your_ETF: 210 },
-        { name: "`23-01-07", ETF: 616, Your_ETF: 260 },
-        { name: "`23-01-07", ETF: 316, Your_ETF: 100 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 290 },
-        { name: "`23-01-07", ETF: 816, Your_ETF: 340 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 200 },
-        { name: "`23-01-07", ETF: 516, Your_ETF: 210 },
-        { name: "`23-01-07", ETF: 616, Your_ETF: 260 },
-        { name: "`23-01-07", ETF: 316, Your_ETF: 100 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 290 },
-        { name: "`23-01-07", ETF: 816, Your_ETF: 340 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 200 },
-        { name: "`23-01-07", ETF: 516, Your_ETF: 210 },
-        { name: "`23-01-07", ETF: 616, Your_ETF: 260 },
-        { name: "`23-01-07", ETF: 316, Your_ETF: 100 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 290 },
-        { name: "`23-01-07", ETF: 816, Your_ETF: 340 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 200 },
-        { name: "`23-01-07", ETF: 516, Your_ETF: 210 },
-        { name: "`23-01-07", ETF: 616, Your_ETF: 260 },
-        { name: "`23-01-07", ETF: 316, Your_ETF: 100 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 290 },
-        { name: "`23-01-07", ETF: 816, Your_ETF: 340 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 200 },
-        { name: "`23-01-07", ETF: 516, Your_ETF: 210 },
-        { name: "`23-01-07", ETF: 616, Your_ETF: 260 },
-        { name: "`23-01-07", ETF: 316, Your_ETF: 100 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 290 },
-        { name: "`23-01-07", ETF: 816, Your_ETF: 340 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 200 },
-        { name: "`23-01-07", ETF: 516, Your_ETF: 210 },
-        { name: "`23-01-07", ETF: 616, Your_ETF: 260 },
-        { name: "`23-01-07", ETF: 316, Your_ETF: 100 },
-        { name: "`23-01-07", ETF: 416, Your_ETF: 290 },
-        { name: "`23-01-07", ETF: 816, Your_ETF: 340 },
-      ],
-    },
-  ]);
-  const [currentPortNum, setCurrentPortNum] = useState(0);
-  const [newsComponents, setNewsComponents] = useState([]); //전체 뉴스
-  const [clickedDate, setClickedDate] = useState("");
+    
+    const [currentPortNum, setCurrentPortNum ] = useState(0)
+    const [newsComponents, setNewsComponents] = useState([]) //전체 뉴스
+    const [clickedDate, setClickedDate] = useState('')
+    const [Kospi, setKospi] = useState([])
+    const [etfs, setEtfs] = useState([])
+    const [news, setNews] = useState([])
 
-  const [etfs, setEtfs] = useState([]);
-  const [news, setNews] = useState([]);
 
-  useEffect(() => {
-    // post();
-    axios
-      .get("http//127.0.0.1:3000/api/portfolios/getkospi")
-      .then((resp) => {
-        console.log(resp);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    async function startETF() {
-      var loadEtfs = [];
-      try {
-        const loginType = localStorage.getItem("loginType");
-        console.log(loginType);
-        let resp = null;
+  useEffect(()=>{
+      async function startETF(){
+        var loadEtfs = []
+        try {
+          const loginType = localStorage.getItem('loginType');
+          console.log(loginType)
+          let resp = null;
 
         if (loginType === "kakao") {
           resp = await axios.get("http://127.0.0.1:3000/api/portfolios", {
@@ -223,11 +114,12 @@ function ETFss() {
         for (var i = 0; i < resp.data.length; i++) {
           //포트폴리오 개수에 대해서 처리
           const returnedPort = await processData(resp.data[i]);
+          console.log(returnedPort)
           // setEtfs( etfs.push(returnedPort) )
           loadEtfs.push(returnedPort);
-          console.log(etfs);
         }
         // loadEtfs = appendComp()  //ETF
+        console.log(loadEtfs)
         setEtfs(loadEtfs);
       } catch (err) {
         console.error(err);
@@ -243,7 +135,8 @@ function ETFss() {
   const processData = async (data) => {
     var totalData = {}; //title : "", data : [] 오브젝트 타입으로 들어간다
     totalData.title = data.name; //title넣음 => 일별로 data만 넣어주면 된다
-    totalData._id = data._id;
+    totalData._id = data._id
+
     totalData.stockItems = data.stockItems;
     var dailyDate = [];
 
@@ -254,10 +147,54 @@ function ETFss() {
       var tempData = {};
       tempData.name = elem.date.slice(2, 10);
       tempData[data.name] = elem.rate.$numberDecimal * 100;
+    //   tempData.KOSPI = kospiData[i]
       dailyDate.push(tempData);
     }
     totalData.data = dailyDate;
 
+    console.log("rd",totalData.title)
+
+
+    var kospiData = []
+    await axios.get("http://127.0.0.1:3000/api/portfolios/"+totalData._id+"/kospi-index", {
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("authToken"),
+        }}
+        ).then(resp=>{
+        // console.log(resp.data[0])
+        kospiData = resp.data
+        // console.log(kospiData)
+        kospiData = kospiData.map((elem,idx)=>{
+            // console.log(elem)
+            return {name : elem.date.slice(2,10), "KOSPI" : (elem.endPrice/kospiData[0].endPrice -1)*100 }
+        })
+    }).catch(err=>{
+        console.log(err)
+    })
+
+    // console.log("KD",kospiData)
+    // // 두 배열에서 'name'을 기준으로 매핑된 객체 생성
+    const kospiIndex = {};
+    kospiData.forEach(data => kospiIndex[data.name] = data.KOSPI);
+
+    const etfIndex = {};
+    totalData.data.forEach(data => etfIndex[data.name] = data[totalData.title]);
+    console.log("TT",etfIndex)
+    // // 공통된 'name' 찾기
+    const commonNames = Object.keys(kospiIndex).filter(name => etfIndex.hasOwnProperty(name));
+    // console.log(commonNames)
+    // // 공통된 'name'에 해당하는 값을 출력 또는 저장
+
+    var TotalData = []
+    commonNames.forEach(name => {
+        const kospiValue = kospiIndex[name];
+        const etfValue = etfIndex[name];
+        // console.log(`Name: ${name}, KOSPI: ${kospiValue}, ${totalData.title}: ${etfValue}`);
+        TotalData.push({"Name" : name, "KOSPI": kospiValue, "ETF" : etfValue})
+    });
+    // console.log("TotalData",TotalData)
+        // console.log("totalData", totalData)
+    totalData.data = TotalData
     return totalData; // 1개의 ETF에 대해 전처리 완
   };
 
@@ -421,89 +358,62 @@ function ETFss() {
     );
   }, [etfs, currentPortNum, handlePieClick]);
 
-  return (
-    <>
-      <div className="content">
-        <div>
-          <Tabs
-            defaultActiveKey="profile"
-            id="uncontrolled-tab-example"
-            className="mb-3"
-            onSelect={(key) => {
-              setCurrentPortNum(key);
-              const startDate = etfs[key]?.data.slice(-1)["0"].name;
-              const endDate = etfs[key]?.data["0"].name;
-              console.log(startDate);
-            }}
-          >
-            {etfs.map((elem, idx) => {
-              // console.log(idx)
-              return (
-                <Tab
-                  eventKey={idx}
-                  title={
-                    <div>
-                      {elem.title}
-                      <button
-                        value={idx}
-                        style={{
-                          border: "1px solid",
-                          backgroundColor: "transparent",
-                          marginLeft: "2px",
-                        }}
-                        onClick={(e) => {
-                          const etfIdx = e.target.value;
-                          const etfId = etfs[etfIdx]._id;
-                          // console.log(etfIdx)
+    return (
+        <>    
+            <div className="content"> 
+            <div>
+                <Tabs  defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3" onSelect={(key) => {
+                    setCurrentPortNum(key)
+                    // console.log(etfs)
+                    // console.log(Kospi)
+                }}>
+                    
+                    {etfs.map((elem,idx)=>{
+                        // console.log(idx)
+                        return(
+                            <Tab eventKey={idx} title={
+                            <div>{elem.title}
+                            <button value = {idx} style={{border : "1px solid", backgroundColor : "transparent", marginLeft : "2px"}} onClick={(e)=>{
+                                
+                                const etfIdx = e.target.value
+                                const etfId = etfs[etfIdx]._id
+                                
 
-                          axios
-                            .delete(
-                              "http://127.0.0.1:3000/api/portfolios/" + etfId,
-                              {
-                                headers: {
-                                  Authorization:
-                                    "Bearer " +
-                                    localStorage.getItem("authToken"),
-                                },
-                              }
-                            )
-                            .then((resp) => {
-                              console.log(resp);
-                            });
-
-                          const newEtfs = etfs.filter((value, index) => {
-                            console.log(index, etfIdx);
-                            return index != etfIdx;
-                            console.log(index);
-                          });
-                          console.log(etfs, newEtfs);
-                          setEtfs(newEtfs);
-                        }}
-                      >
-                        X
-                      </button>
-                    </div>
-                  }
-                >
-                  {getGraph(elem.data)}
-                </Tab>
-              );
-            })}
-
-            <Tab eventKey="add" title="+">
-              <ETFMaker></ETFMaker>
-            </Tab>
-          </Tabs>
-          <div></div>
-        </div>
-        <div style={{ margin: "0px 75px 0px 0px" }}>
-          {newsComponents.length === 0 ? null : <h3>{clickedDate}일의 뉴스</h3>}
-          {newsComponents}
-        </div>
-      </div>
-    </>
-  );
-}
+                                axios.delete("http://127.0.0.1:3000/api/portfolios/"+etfId, { headers: {
+                                    Authorization: "Bearer " + localStorage.getItem("authToken")
+                                  }} ).then(resp=>{
+                                    console.log(resp)
+                                })
+                                
+                                const newEtfs = etfs.filter((value,index)=>{
+                                    console.log(index, etfIdx)
+                                    return index != etfIdx
+                                    console.log(index)
+                                })
+                                console.log(etfs,newEtfs)
+                                setEtfs(newEtfs)
+                            }}>X</button>    
+                            </div>
+                            }>{getGraph(elem.data)}</Tab>
+                        )
+                    })} 
+                    
+                    <Tab eventKey="add" title="+">
+                        <ETFMaker></ETFMaker>
+                    </Tab>
+                </Tabs>
+                <div>
+                
+                </div>
+            </div>    
+                <div style={{margin : "0px 75px 0px 0px"}}>
+                    {newsComponents.length === 0 ? null : <h3>{clickedDate}일의 뉴스</h3>}
+                    {newsComponents}
+                </div>
+            </div>
+        </>
+    );
+};
 export default ETFss;
 
 // axios.post("http://127.0.0.1:3000/api/portfolios",
