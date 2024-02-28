@@ -171,8 +171,10 @@ function ETFss() {
     const [currentPortNum, setCurrentPortNum ] = useState(0)
     const [newsComponents, setNewsComponents] = useState([]) //전체 뉴스
     const [clickedDate, setClickedDate] = useState('')
+
     const [etfs, setEtfs] = useState([])
     const [news, setNews] = useState([])
+
 
   useEffect(()=>{
     // post();
@@ -204,16 +206,14 @@ function ETFss() {
           });
         }
 
-          console.log(resp)
+        //   console.log()
 
         for (var i = 0; i < resp.data.length; i++) {
           //포트폴리오 개수에 대해서 처리
-        //   console.log(resp.data[i]._id)
           const returnedPort = await processData(resp.data[i]);
           // setEtfs( etfs.push(returnedPort) )
           loadEtfs.push(returnedPort);
-        //   console.log(returnedPort)
-        //   console.log(etfs);
+          console.log(etfs);
         }
         // loadEtfs = appendComp()  //ETF
         setEtfs(loadEtfs);
@@ -405,10 +405,9 @@ function ETFss() {
             <div>
                 <Tabs  defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3" onSelect={(key) => {
                     setCurrentPortNum(key)
-                    console.log(etfs)
                     const startDate = etfs[key]?.data.slice(-1)['0'].name
                     const endDate = etfs[key]?.data['0'].name
-                    // console.log(startDate)
+                    console.log(startDate)
                 }}>
                     
                     {etfs.map((elem,idx)=>{
