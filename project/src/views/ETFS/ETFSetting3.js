@@ -12,13 +12,6 @@ export default function ETFSetting3() {
   const { setContextValue } = useContext(MyContext);
   const [percentlist, setPercentlist] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
-<<<<<<< HEAD
-
-  console.log(etfList);
-
-=======
-  
->>>>>>> 9c7d83c5ee76afc830dfd9ebe6bd51dd7aed514c
   const PercentChange = (e, index) => {
     const weights = [...percentlist];
     weights[index] = e.target.value / 100;
@@ -76,10 +69,6 @@ export default function ETFSetting3() {
       postData.itemCodes,
       postData.weights
     );
-<<<<<<< HEAD
-    
-=======
->>>>>>> 9c7d83c5ee76afc830dfd9ebe6bd51dd7aed514c
   }
 
   return (
