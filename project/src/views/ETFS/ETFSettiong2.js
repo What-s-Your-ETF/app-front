@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "./ETFmaker";
 import Tab from "react-bootstrap/Tab";
@@ -8,218 +8,245 @@ import Tabs from "react-bootstrap/Tabs";
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
 import { Form, Table, Button } from "react-bootstrap";
 import { ETFListContext } from "./ETFmaker";
-
-let list = [
-  {
-    title: "삼성그룹",
-    gijun: "9,326", //선택일자 마지막일 종가
-    suickpersent_1month: "9.32", //선택일자 마지막일 종가 / (선택일자-1달)종가
-    suickpersent_3month: "5.79",
-    suickpersent_6month: "2.73",
-    suickpersent_1year: "4.84",
-    num: "1000", //종목번호
-  },
-  {
-    title: "샘성그룹",
-    gijun: "9,326",
-    suickpersent_1month: "9.32",
-    suickpersent_3month: "5.79",
-    suickpersent_6month: "2.73",
-    suickpersent_1year: "4.84",
-    num: "1001", //종목번호
-  },
-  {
-    title: "삼송그룹",
-    gijun: "9,326",
-    suickpersent_1month: "9.32",
-    suickpersent_3month: "5.79",
-    suickpersent_6month: "2.73",
-    suickpersent_1year: "4.84",
-    num: "1002", //종목번호
-  },
-  {
-    title: "생성그룹",
-    gijun: "9,326",
-    suickpersent_1month: "9.32",
-    suickpersent_3month: "5.79",
-    suickpersent_6month: "2.73",
-    suickpersent_1year: "4.84",
-    num: "1003", //종목번호
-  },
-  {
-    title: "샘송그룹",
-    gijun: "9,326",
-    suickpersent_1month: "9.32",
-    suickpersent_3month: "5.79",
-    suickpersent_6month: "2.73",
-    suickpersent_1year: "4.84",
-    num: "1004", //종목번호
-  },
-  {
-    title: "상성그룹",
-    gijun: "9,326",
-    suickpersent_1month: "9.32",
-    suickpersent_3month: "5.79",
-    suickpersent_6month: "2.73",
-    suickpersent_1year: "4.84",
-    num: "1005", //종목번호
-  },
-  {
-    title: "삼상그룹",
-    gijun: "9,326",
-    suickpersent_1month: "9.32",
-    suickpersent_3month: "5.79",
-    suickpersent_6month: "2.73",
-    suickpersent_1year: "4.84",
-    num: "1006", //종목번호
-  },
-];
-
-let list2 = [
-  {
-    title: "키켓그룹",
-    gijun: "9,326", //선택일자 마지막일 종가
-    suickpersent_1month: "9.32", //선택일자 마지막일 종가 / (선택일자-1달)종가
-    suickpersent_3month: "5.79",
-    suickpersent_6month: "2.73",
-    suickpersent_1year: "4.84",
-    num: "2000", //종목번호
-  },
-  {
-    title: "초콜릿그룹",
-    gijun: "9,326",
-    suickpersent_1month: "9.32",
-    suickpersent_3month: "5.79",
-    suickpersent_6month: "2.73",
-    suickpersent_1year: "4.84",
-    num: "2001", //종목번호
-  },
-  {
-    title: "찰리그룹",
-    gijun: "9,326",
-    suickpersent_1month: "9.32",
-    suickpersent_3month: "5.79",
-    suickpersent_6month: "2.73",
-    suickpersent_1year: "4.84",
-    num: "2002", //종목번호
-  },
-];
-
-let list3 = [
-  {
-    title: "마우스그룹",
-    gijun: "9,326", //선택일자 마지막일 종가
-    suickpersent_1month: "9.32", //선택일자 마지막일 종가 / (선택일자-1달)종가
-    suickpersent_3month: "5.79",
-    suickpersent_6month: "2.73",
-    suickpersent_1year: "4.84",
-    num: "3000", //종목번호
-  },
-  {
-    title: "키보드그룹",
-    gijun: "9,326",
-    suickpersent_1month: "9.32",
-    suickpersent_3month: "5.79",
-    suickpersent_6month: "2.73",
-    suickpersent_1year: "4.84",
-    num: "3001", //종목번호
-  },
-  {
-    title: "단팥빵그룹",
-    gijun: "9,326",
-    suickpersent_1month: "9.32",
-    suickpersent_3month: "5.79",
-    suickpersent_6month: "2.73",
-    suickpersent_1year: "4.84",
-    num: "3002", //종목번호
-  },
-];
+import {
+  fetchkospi200,
+  searchkospi200,
+  fetchkospi200price,
+} from "lib/api/stock";
+import Pagination from "react-bootstrap/Pagination";
+import { convertCompilerOptionsFromJson } from "typescript";
 
 export default function ETFSetting2() {
-  const [ETFlist, setETFlist] = useState([]);
-  const [SearchText, setSearchText] = useState();
-  const [Searchlist, setSearchlist] = useState([]);
-  const [Searchlist2, setSearchlist2] = useState([]);
-  const [Searchlist3, setSearchlist3] = useState([]);
-  const { setContextValue } = useContext(MyContext);
-  const { etfList, setEtfList } = useContext(ETFListContext);
+  const [ETFlist, setETFlist] = useState([]); //선택 종목
+  const [SearchText, setSearchText] = useState(); //검색 키워드
+  const [list1, setList1] = useState([]);
+  const [list2, setList2] = useState([]);
+  const [list3, setList3] = useState([]);
+  //불러오는 전체 리스트 (코스피, 코스피200, 코스닥)
+  const { setContextValue } = useContext(MyContext); //페이지 이동
+  const { etfList, setEtfList } = useContext(ETFListContext); //post데이터 저장
+  const [page, setPage] = useState(1); //현재 페이지
+  const [pages1, setPages1] = useState(0);
+  const [pages2, setPages2] = useState(0);
+  const [pages3, setPages3] = useState(0);
+  //총페이지
+  const [start, setStart] = useState(1);
+  const [end, setEnd] = useState(5);
+  //페이지 이동
 
-  function check(checked) {
+  //수익률 들고오기
+  async function returntrend(list) {
+    let a = list.map((item) => {
+      return { _id: item._id };
+    });
+    const postData = {
+      stockItems: a,
+      duration: {
+        startDate: etfList.startDate,
+        endDate: etfList.endDate,
+      },
+    };
+
+    let price;
+    if (list == list1) {
+      price = await fetchkospi200price(postData);
+    } else if (list2 == list2) {
+      price = await fetchkospi200price(postData);
+    } else if (list3 == list3) {
+      price = await fetchkospi200price(postData);
+    }
+  }
+
+  //리스트 들고오기
+  useEffect(() => {
+    (async () => {
+      //코스피
+      let resp = await fetchkospi200(1);
+      setList1(resp.docs);
+      setPages1(resp.totalPages);
+      returntrend(list1);
+
+      // 코스피 200
+      let response = await fetchkospi200(1);
+      setList3(response.docs);
+      setPages3(response.totalPages);
+      returntrend(list3);
+
+      //코스닥
+      let respon = await fetchkospi200(1);
+      setList2(respon.docs);
+      setPages2(respon.totalPages);
+      returntrend(list2);
+    })();
+  }, [start, end]);
+
+  //페이지 이동
+  let items = [];
+  for (let number = start; number <= end; number++) {
+    console.log(page);
+    items.push(
+      <Pagination.Item
+        key={number}
+        active={number === page}
+        activeLabel=""
+        onClick={() => paging(number)}
+      >
+        {number}
+      </Pagination.Item>
+    );
+  }
+
+  async function paging(id) {
+    let response = await fetchkospi200(id);
+    setList3(response.docs);
+    setPage(id);
+  }
+
+  function pluspage(pages) {
+    if (end < pages) {
+      let newEnd = end + 5;
+      let newStart = start + 5;
+      setEnd(newEnd);
+      setStart(newStart);
+      paging(newStart);
+    }
+  }
+
+  function minuspage() {
+    if (start > 1) {
+      let newEnd = end - 5;
+      let newStart = start - 5;
+      setEnd(newEnd);
+      setStart(newStart);
+      paging(newStart);
+    }
+  }
+
+  //페이지 초기화
+  function rr() {
+    setPage(1);
+    setStart(1);
+    setEnd(5);
+  }
+
+  //종목 선택
+  function check(item) {
     setETFlist((prev) => {
       let itemCodes;
-      if (prev.includes(checked)) {
-        itemCodes = prev.filter((item) => item !== checked);
+      const itemExists = prev.some((prevItem) => prevItem._id === item._id);
+      if (itemExists) {
+        itemCodes = prev.filter((prevItem) => prevItem._id !== item._id);
       } else {
-        itemCodes = [...prev, checked];
+        itemCodes = [...prev, item];
       }
+      console.log(itemCodes);
       setEtfList({ ...etfList, itemCodes });
       return itemCodes;
     });
   }
 
-  function K(text) {
-    list.forEach((item) => {
-      item.hidden = item.title.includes(text) ? false : true;
-    });
+  //종목검색??
+  async function K(id, text) {
+    let resp = await searchkospi200(id, text);
+    console.log(resp);
+    setList1(resp.docs);
 
-    list2.forEach((item) => {
-      item.hidden = item.title.includes(text) ? false : true;
-    });
+    let respon = await searchkospi200(id, text);
+    console.log(respon);
+    setList1(respon.docs);
 
-    list3.forEach((item) => {
-      item.hidden = item.title.includes(text) ? false : true;
-    });
-
-    setSearchlist([...list]);
-    setSearchlist2([...list2]);
-    setSearchlist3([...list3]);
+    let response = await searchkospi200(id, text);
+    console.log(response);
+    setList3(response.docs);
   }
 
   function KOSPI({ list }) {
+    let pages;
+    if (list == list1) {
+      pages = pages1;
+    } else if (list2 == list2) {
+      pages = pages2;
+    } else if (list3 == list3) {
+      pages = pages3;
+    }
+
     return (
-      <Table striped bordered hover size="sm">
-        <thead>
-          <tr>
-            <th>선택</th>
-            <th>상품</th>
-            <th>기준</th>
-            <th colSpan="4">수익률</th>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <th>1달</th>
-            <th>3달</th>
-            <th>6달</th>
-            <th>1년</th>
-          </tr>
-        </thead>
-        <tbody>
-          {list.map(
-            (item) =>
-              !item.hidden && (
-                <React.Fragment key={item.id}>
-                  <tr>
-                    <td>
-                      <input
-                        type="checkbox"
-                        onChange={() => check(item)}
-                        checked={ETFlist.includes(item)}
-                      />
-                    </td>
-                    <td>{item.title}</td>
-                    <td>{item.gijun}</td>
-                    <td>{item.suickpersent_1month}</td>
-                    <td>{item.suickpersent_3month}</td>
-                    <td>{item.suickpersent_6month}</td>
-                    <td>{item.suickpersent_1year}</td>
-                  </tr>
-                </React.Fragment>
-              )
+      <div>
+        <Table striped bordered hover size="sm">
+          <thead>
+            <tr>
+              <th>선택</th>
+              <th>상품</th>
+              <th>기준</th>
+              <th colSpan="4">수익률</th>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <th>1달</th>
+              <th>3달</th>
+              <th>6달</th>
+              <th>1년</th>
+            </tr>
+          </thead>
+          <tbody>
+            {list &&
+              list.map(
+                (item) =>
+                  !item.hidden && (
+                    <React.Fragment key={item.id}>
+                      <tr>
+                        <td>
+                          <input
+                            type="checkbox"
+                            onChange={() => check(item)}
+                            checked={ETFlist.some(
+                              (listItem) => listItem._id === item._id
+                            )}
+                          />
+                        </td>
+                        <td>{item.name}</td>
+                        <td>{item.gijun}</td>
+                        <td>{item.suickpersent_1month}</td>
+                        <td>{item.suickpersent_3month}</td>
+                        <td>{item.suickpersent_6month}</td>
+                        <td>{item.suickpersent_1year}</td>
+                      </tr>
+                    </React.Fragment>
+                  )
+              )}
+          </tbody>
+        </Table>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "2%",
+            alignItems: "center",
+          }}
+        >
+          {end === 5 ? null : (
+            <Button
+              onClick={() => {
+                minuspage();
+              }}
+            >
+              이전
+            </Button>
           )}
-        </tbody>
-      </Table>
+          <Pagination size="sm">{items}</Pagination>
+          {end > pages ? null : (
+            <Button
+              onClick={() => {
+                pluspage(pages);
+              }}
+            >
+              이후
+            </Button>
+          )}
+        </div>
+      </div>
     );
   }
 
@@ -248,7 +275,7 @@ export default function ETFSetting2() {
                       variant="light"
                       style={{ background: "none", border: "none" }}
                       onClick={() => {
-                        K(SearchText);
+                        K(page, SearchText);
                       }}
                     >
                       🔍️
@@ -261,17 +288,18 @@ export default function ETFSetting2() {
                     id="uncontrolled-tab-example"
                     className="mb-3"
                   >
-                    <Tab eventKey="kospi" title="코스피">
-                      <KOSPI list={list} />
+                    <Tab eventKey="kospi" title="코스피" onClick={rr}>
+                      <KOSPI list={list1} />
                     </Tab>
-                    <Tab eventKey="kospi200" title="코스피200">
+                    <Tab eventKey="kospi200" title="코스피200" onClick={rr}>
                       <KOSPI list={list3} />
                     </Tab>
-                    <Tab eventKey="kosdaq" title="코스닥">
+                    <Tab eventKey="kosdaq" title="코스닥" onClick={rr}>
                       <KOSPI list={list2} />
                     </Tab>
                   </Tabs>
 
+                  {/* 선택종목 보여주기 */}
                   <div style={{ display: "flex", marginTop: "3%" }}>
                     {ETFlist.map((item) => (
                       <div
@@ -283,7 +311,7 @@ export default function ETFSetting2() {
                           borderRadius: "100px",
                         }}
                       >
-                        {item.title}
+                        {item.name}
                       </div>
                     ))}
                   </div>
@@ -307,11 +335,12 @@ export default function ETFSetting2() {
                     <Link>
                       <Button
                         onClick={() => {
-                          if (!etfList.itemCodes) {
-                            alert("종목을 선택하지 않았습니다");
-                          } else {
-                            setContextValue("3");
-                          }
+                          // if (!etfList.itemCodes) {
+                          //   alert("종목을 선택하지 않았습니다");
+                          // } else {
+                          //   setContextValue("3");
+                          // }
+                          setContextValue("3");
                         }}
                         className="d-flex flex-column justify-content-center align-items-end"
                       >

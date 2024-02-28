@@ -24,7 +24,7 @@ export async function postPortfolios(
   itemCodes,
   weights
 ) {
-  console.log(`Bearer ${localStorage.getItem("authToken")}`);
+  //console.log(`Bearer ${localStorage.getItem("authToken")}`);
   const respo = await instance
     .post(
       "/portfolios",
@@ -43,7 +43,7 @@ export async function postPortfolios(
     )
     .then((respo) => {
       console.log("포트폴리오 등록 성공:", respo.data);
-      return respo;
+      return respo.data;
       // 여기에 로그인 성공 시 처리할 코드를 추가합니다.
     })
 
