@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import axios from "axios";
+import instance from "lib/api/axios";
 export default function Signup() {
   const [idValue, setIdValue] = useState("");
   const [pwValue, setPwValue] = useState("");
@@ -19,15 +20,12 @@ export default function Signup() {
     }
 
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:3000/api/user/signup",
-        {
-          email: idValue,
-          password: pwValue,
-          name: name,
-          nickname: Nickname,
-        }
-      );
+      const response = await instance.post("/user/signup", {
+        email: idValue,
+        password: pwValue,
+        name: name,
+        nickname: Nickname,
+      });
       console.log(response.data);
       console.log("회원가입 성공");
       navigate(-1);
