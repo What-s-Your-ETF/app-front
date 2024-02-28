@@ -21,7 +21,7 @@ function Community() {
 
   useEffect(()=>{
     async function getBoard(){
-      const response = await axios.get('/api/board');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/board`);
       setBoardList(response.data)
     }
     getBoard();

@@ -22,7 +22,7 @@ function BoardDetail() {
     console.log("useEffect")
     async function fetchBoardDetail() {
       try {
-        const response = await axios.get(`/api/board/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/board/${id}`);
         setBoardDetail(response.data);
       } catch (error) {
         console.error("Error fetching board detail:", error);
@@ -45,7 +45,7 @@ function BoardDetail() {
         {localStorage.getItem("nickname")===boardDetail.nickname ? <Button onClick={(e)=>console.log(1)}>수정하기</Button> : null}
       </Link>
         {localStorage.getItem("nickname")===boardDetail.nickname ? <Button onClick={(e)=>{
-            axios.delete("http://127.0.0.1:3000/api/board/"+id).then(resp=>{
+            axios.delete(`${process.env.REACT_APP_API_URL}/board/${id}`).then(resp=>{
                 console.log(resp)
                 navigate(-1)
             }).catch(err=>{

@@ -14,7 +14,7 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/user/login", {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/user/login`, {
         email: idValue,
         password: pwValue,
       });
@@ -36,7 +36,7 @@ export default function Login() {
 
     // 팝업 창을 열어 카카오 로그인 페이지를 표시하기.
     const popup = window.open(
-      "http://localhost:3000/api/kakao",
+        `${process.env.REACT_APP_API_URL}/kakao`,
       "_blank",
       "width=800, height=600, top=100, left=100"
     );
@@ -48,7 +48,7 @@ export default function Login() {
       localStorage.setItem("authToken", userData.authToken);
       localStorage.setItem("nickname", userData.nickname);
       localStorage.setItem("loginType", userData.loginType);
-      window.location.href = "http://localhost:3001/admin/dashboard"; // 확인하시고 이거 지워주세요!!!!!!!
+      navigate('/admin/dashboard');
       // 이벤트 리스너를 제거합니다.
       window.removeEventListener("message", handleMessage);
     };

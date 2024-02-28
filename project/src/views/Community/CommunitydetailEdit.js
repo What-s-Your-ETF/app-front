@@ -24,7 +24,7 @@ function BoardDetailEdit({content}) {
     console.log(id)
     async function fetchBoardDetail() {
       try {
-        const response = await axios.get(`/api/board/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/board/${id}`);
         setBoardDetail(response.data);
         setBoardTitle(response.data.title)
         setBoardContent(response.data.content)
@@ -70,7 +70,7 @@ function BoardDetailEdit({content}) {
       
       <Button onClick={(e)=>{
         console.log(boardTitle, boardContent, localStorage.getItem('nickname'))
-        axios.put("http://127.0.0.1:3000/api/board/"+id,
+        axios.put(`${process.env.REACT_APP_API_URL}/board/${id}`,
             { "title" : boardTitle,
             "content" : boardContent,
             "nickname" : localStorage.getItem("nickname") 
