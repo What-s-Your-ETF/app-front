@@ -13,11 +13,12 @@ export default function ETFSetting3() {
   const [percentlist, setPercentlist] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
 
+  console.log(etfList);
+
   const PercentChange = (e, index) => {
     const weights = [...percentlist];
     weights[index] = e.target.value / 100;
     setPercentlist(weights);
-    console.log(weights);
     setEtfList({ ...etfList, weights });
   };
 
@@ -27,7 +28,6 @@ export default function ETFSetting3() {
     for (let i = 0; i < etfList.itemCodes.length; i++) {
       weights[i] = 1 / etfList.itemCodes.length;
     }
-    console.log(weights);
     setPercentlist(weights);
     setEtfList({ ...etfList, weights });
   }
@@ -53,7 +53,7 @@ export default function ETFSetting3() {
   }
 
   function addportfolios() {
-    const itemCodes = etfList.itemCodes.map((item) => item.num);
+    const itemCodes = etfList.itemCodes.map((item) => item.stockItem.code);
     const postData = {
       name: etfList.name,
       duration: {
@@ -65,13 +65,14 @@ export default function ETFSetting3() {
       weights: etfList.weights,
     };
     console.log(postData);
-    // postPortfolios(
-    //   postData.name,
-    //   postData.duration,
-    //   postData.investAmounts,
-    //   postData.itemCodes,
-    //   postData.weights
-    // );
+    postPortfolios(
+      postData.name,
+      postData.duration,
+      postData.investAmounts,
+      postData.itemCodes,
+      postData.weights
+    );
+    
   }
 
   return (
