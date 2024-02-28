@@ -110,6 +110,7 @@ export default function ETFSetting2() {
       paging(newStart);
     }
   }
+ 
 
   //종목 선택
   function check(item) {
@@ -323,6 +324,7 @@ export default function ETFSetting2() {
                     <Tab eventKey="kospi200" title="코스피200">
                       <KOSPI list={list3} />
                     </Tab>
+          
                   </Tabs>
 
                   {/* 선택종목 보여주기 */}

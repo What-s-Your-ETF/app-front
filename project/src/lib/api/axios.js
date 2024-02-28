@@ -1,7 +1,6 @@
-
 import axios from "axios";
 
-const BASE_URL = "http://127.0.0.1:3000/api/"; // Next 사용중인 프로젝트
+const BASE_URL = process.env.REACT_APP_API_URL; // Next 사용중인 프로젝트
 
 function getAxiosInstance() {
     const instance = axios.create({
