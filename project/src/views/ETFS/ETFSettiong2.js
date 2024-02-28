@@ -62,6 +62,7 @@ export default function ETFSetting2() {
     (async () => {
       //코스피
       let resp = await fetchkospi200(1);
+      console.log(resp)
       setList1(resp.docs);
       setPages1(resp.totalPages);
       returntrend(list1);

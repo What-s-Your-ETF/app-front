@@ -52,19 +52,21 @@ const COLORS = [
   "#00FF99",
 ];
 
-// 20개의 색상을 랜덤하게 선택하는 함수
-const getRandomColors = (count) => {
-  const randomColors = [];
-  const maxIndex = COLORS.length - 1;
-  for (let i = 0; i < count; i++) {
-    const randomIndex = Math.floor(Math.random() * (maxIndex + 1));
-    randomColors.push(COLORS[randomIndex]);
-  }
-  return randomColors;
-};
-
-const randomColors = getRandomColors(20);
-console.log(randomColors);
+function post(){
+    axios.post("http://127.0.0.1:3000/api/portfolios",
+    {
+        name: "Yoon's Port",
+        duration: {
+            startDate: "2022-01-01",
+            endDate: "2022-12-31"
+        },
+        investAmounts: 1000000,
+        itemCodes: ["055550", "105560", "005930","000660"],
+        weights: [0.3, 0.3, 0.3, 0.1]
+    },{headers : {Authorization : "bearer "+localStorage.getItem('authToken')}})
+    .then(resp=>
+        console.log(resp))
+}
 
 function ETFss() {
     const [ comparegroup, setComparegroup] = useState([ 
@@ -173,6 +175,12 @@ function ETFss() {
     const [news, setNews] = useState([])
 
   useEffect(()=>{
+    // post();
+    axios.get("http//127.0.0.1:3000/api/portfolios/getkospi").then(resp=>{
+        console.log(resp)
+    }).catch(err=>{
+        console.log(err)
+    })
       async function startETF(){
         var loadEtfs = []
         try {
@@ -196,14 +204,16 @@ function ETFss() {
           });
         }
 
-        //   console.log()
+          console.log(resp)
 
         for (var i = 0; i < resp.data.length; i++) {
           //포트폴리오 개수에 대해서 처리
+        //   console.log(resp.data[i]._id)
           const returnedPort = await processData(resp.data[i]);
           // setEtfs( etfs.push(returnedPort) )
           loadEtfs.push(returnedPort);
-          console.log(etfs);
+        //   console.log(returnedPort)
+        //   console.log(etfs);
         }
         // loadEtfs = appendComp()  //ETF
         setEtfs(loadEtfs);
@@ -213,6 +223,7 @@ function ETFss() {
     }
 
     startETF();
+    // console.log(etfs)
   }, []);
 
   //   포르폴리오 1개당 데이터 처리하기
@@ -220,7 +231,7 @@ function ETFss() {
   const processData = async (data) => {
     var totalData = {}; //title : "", data : [] 오브젝트 타입으로 들어간다
     totalData.title = data.name; //title넣음 => 일별로 data만 넣어주면 된다
-
+    totalData._id = data._id
     totalData.stockItems = data.stockItems;
     var dailyDate = [];
 
@@ -312,8 +323,9 @@ function ETFss() {
   };
 
   const getGraph = (data) => {
-    // console.log(Object.keys(data[0]))
+    // console.log(data)
     const keys = Object.keys(data[0]);
+    // console.log(keys)
     return (
       <div style={{ display: "flex" }}>
         <LineChart
@@ -393,14 +405,40 @@ function ETFss() {
             <div>
                 <Tabs  defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3" onSelect={(key) => {
                     setCurrentPortNum(key)
+                    console.log(etfs)
                     const startDate = etfs[key]?.data.slice(-1)['0'].name
                     const endDate = etfs[key]?.data['0'].name
-                    console.log(startDate)
+                    // console.log(startDate)
                 }}>
                     
                     {etfs.map((elem,idx)=>{
-                        console.log(idx)
-                        return(<Tab eventKey={idx} title={elem.title}>{getGraph(elem.data)}</Tab>)
+                        // console.log(idx)
+                        return(
+                            <Tab eventKey={idx} title={
+                            <div>{elem.title}
+                            <button value = {idx} style={{border : "1px solid", backgroundColor : "transparent", marginLeft : "2px"}} onClick={(e)=>{
+                                
+                                const etfIdx = e.target.value
+                                const etfId = etfs[etfIdx]._id
+                                // console.log(etfIdx)
+                                
+                                axios.delete("http://127.0.0.1:3000/api/portfolios/"+etfId, { headers: {
+                                    Authorization: "Bearer " + localStorage.getItem("authToken")
+                                  }} ).then(resp=>{
+                                    console.log(resp)
+                                })
+                                
+                                const newEtfs = etfs.filter((value,index)=>{
+                                    console.log(index, etfIdx)
+                                    return index != etfIdx
+                                    console.log(index)
+                                })
+                                console.log(etfs,newEtfs)
+                                setEtfs(newEtfs)
+                            }}>X</button>    
+                            </div>
+                            }>{getGraph(elem.data)}</Tab>
+                        )
                     })} 
                     
                     <Tab eventKey="add" title="+">
