@@ -13,6 +13,9 @@ export default function ETFSetting3() {
   const [percentlist, setPercentlist] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
 
+  console.log(etfList);
+  console.log(percentlist);
+
   const PercentChange = (e, index) => {
     const weights = [...percentlist];
     weights[index] = e.target.value / 100;
@@ -53,7 +56,8 @@ export default function ETFSetting3() {
   }
 
   function addportfolios() {
-    const itemCodes = etfList.itemCodes.map((item) => item.num);
+    console.log(etfList);
+    const itemCodes = etfList.itemCodes.map((item) => item.code);
     const postData = {
       name: etfList.name,
       duration: {
@@ -65,13 +69,13 @@ export default function ETFSetting3() {
       weights: etfList.weights,
     };
     console.log(postData);
-    // postPortfolios(
-    //   postData.name,
-    //   postData.duration,
-    //   postData.investAmounts,
-    //   postData.itemCodes,
-    //   postData.weights
-    // );
+    postPortfolios(
+      postData.name,
+      postData.duration,
+      postData.investAmounts,
+      postData.itemCodes,
+      postData.weights
+    );
   }
 
   return (
@@ -114,7 +118,7 @@ export default function ETFSetting3() {
                     {etfList.itemCodes.map((item, id) => (
                       <React.Fragment key={item.id}>
                         <tr>
-                          <td>{item.title}</td>
+                          <td>{item.name}</td>
                           <td>
                             {isChecked === false ? (
                               <Form.Control
@@ -154,7 +158,7 @@ export default function ETFSetting3() {
                     이전
                   </Button>
                   <Button
-                    //href="/admin/myetfs"
+                    href="/admin/myetfs"
                     className="d-flex flex-column justify-content-center align-items-end"
                     onClick={() => {
                       addportfolios();
