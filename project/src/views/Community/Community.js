@@ -12,7 +12,7 @@ function Community() {
 
   useEffect(() => {
     async function getBoard() {
-      const response = await instance.get("/api/board");
+      const response = await instance.get("/board");
       setBoardList(response.data);
     }
     getBoard();
