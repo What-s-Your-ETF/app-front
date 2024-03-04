@@ -30,14 +30,14 @@ export default function Login() {
     }
   };
 
-  const popup = null;
+  let popup = null;
 
   const handleKaKaoLogin = async (e) => {
     e.preventDefault();
 
     // 팝업 창을 열어 카카오 로그인 페이지를 표시하기.
-    const popup = window.open(
-        `${process.env.REACT_APP_API_URL}/kakao`,
+    popup = window.open(
+      `${process.env.REACT_APP_API_URL}/kakao`,
       "_blank",
       "width=800, height=600, top=100, left=100"
     );
@@ -51,11 +51,13 @@ export default function Login() {
       localStorage.setItem("authToken", userData.authToken);
       localStorage.setItem("nickname", userData.nickname);
       localStorage.setItem("loginType", userData.loginType);
-      navigate('/admin/dashboard');
-    }
-    if(popup){
+      navigate("/admin/dashboard");
+
+      if (popup) {
       popup.close();
+      }
     }
+    
     // 이벤트 리스너를 제거합니다.
     window.removeEventListener("message", handleMessage);
   };
