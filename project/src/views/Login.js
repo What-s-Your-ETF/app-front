@@ -39,7 +39,7 @@ export default function Login() {
     e.preventDefault();
 
     // 팝업 창을 열어 카카오 로그인 페이지를 표시하기.
-    const popup = window.open(
+    popup = window.open(
       `${process.env.REACT_APP_API_URL}/kakao`,
       "_blank",
       "width=800, height=600, top=100, left=100"
