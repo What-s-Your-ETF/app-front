@@ -55,10 +55,12 @@ export default function Login() {
       localStorage.setItem("nickname", userData.nickname);
       localStorage.setItem("loginType", userData.loginType);
       navigate("/admin/dashboard");
-    }
-    if (popup) {
+
+      if (popup) {
       popup.close();
+      }
     }
+    
     // 이벤트 리스너를 제거합니다.
     window.removeEventListener("message", handleMessage);
   };
