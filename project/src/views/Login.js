@@ -33,7 +33,7 @@ export default function Login() {
     }
   };
 
-  const popup = null;
+  let popup = null;
 
   const handleKaKaoLogin = async (e) => {
     e.preventDefault();
