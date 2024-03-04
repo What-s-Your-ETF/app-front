@@ -2,8 +2,6 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import { MyContext, ETFListContext } from "./ETFmaker";
-
-// reactstrap components
 import {
   Card,
   CardHeader,
@@ -11,23 +9,23 @@ import {
   CardTitle,
   Row,
   Col,
-  Tab,
 } from "reactstrap";
 import { Form, Button } from "react-bootstrap";
-
+//날짜 선택에 필요한 것들
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 export default function ETFSetting() {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [investAmounts, setinvestAmounts] = useState(null);
-  const [name, setName] = useState(null);
-  const { setContextValue } = useContext(MyContext);
-  const { setEtfList } = useContext(ETFListContext);
+  const [startDate, setStartDate] = useState(null);  //시작일
+  const [endDate, setEndDate] = useState(null); //종료일
+  const [investAmounts, setinvestAmounts] = useState(null);  //투자금액
+  const [name, setName] = useState(null); //포트폴리오 이름
+  const { setContextValue } = useContext(MyContext); // 페이지 이동
+  const { setEtfList } = useContext(ETFListContext); //post데이터 저장
 
+  //선택 날짜 형식
   const datePickerFormat = "YYYY-MM-DD";
   const datePickerUtils = {
     format: datePickerFormat,
@@ -35,16 +33,19 @@ export default function ETFSetting() {
     // You can add other utils as needed, such as `isValid`, etc.
   };
 
+  //시작일 state
   const setstartDateValue = (date) => {
     const formattedDate = dayjs(date).format(datePickerFormat);
     setStartDate(formattedDate);
   };
 
+  //종료일 state
   const setendDateValue = (date) => {
     const formattedDate = dayjs(date).format(datePickerFormat);
     setEndDate(formattedDate);
   };
 
+  // 다음 페이지로 이동시 넘겨줄 data
   const page1 = () => {
     setContextValue("2");
     setEtfList({ name, startDate, endDate, investAmounts });

@@ -13,13 +13,10 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/user/login`,
-        {
-          email: idValue,
-          password: pwValue,
-        }
-      );
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/user/login`, {
+        email: idValue,
+        password: pwValue,
+      });
       console.log(response.data);
       console.log("로그인 성공");
       navigate(-1);
@@ -40,23 +37,23 @@ export default function Login() {
 
     // 팝업 창을 열어 카카오 로그인 페이지를 표시하기.
     const popup = window.open(
-      `${process.env.REACT_APP_API_URL}/kakao`,
+        `${process.env.REACT_APP_API_URL}/kakao`,
       "_blank",
       "width=800, height=600, top=100, left=100"
     );
     window.addEventListener("message", handleMessage, false);
-  };
+  }
 
-  // 메시지 이벤트 리스너를 추가하여, 팝업 창으로부터 메시지를 받기.
+    // 메시지 이벤트 리스너를 추가하여, 팝업 창으로부터 메시지를 받기.
   const handleMessage = (event) => {
-    if (event.data.message === "success") {
+    if(event.data.message === "success"){
       const userData = event.data; // 이게 response 값입니다. 이거 사용하시면 돼용.
       localStorage.setItem("authToken", userData.authToken);
       localStorage.setItem("nickname", userData.nickname);
       localStorage.setItem("loginType", userData.loginType);
-      navigate("/admin/dashboard");
+      navigate('/admin/dashboard');
     }
-    if (popup) {
+    if(popup){
       popup.close();
     }
     // 이벤트 리스너를 제거합니다.

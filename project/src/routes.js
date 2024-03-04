@@ -19,18 +19,11 @@
 import Dashboard from "views/Dashboard.js";
 import Rank from "views/Rank.js";
 import StartETFS from "views/ETFS/ETFSstart";
-import ETFSetting from "views/ETFS/ETFSetting";
-import ETFSetting2 from "views/ETFS/ETFSettiong2";
-import ETFS from "views/ETFS/ETFSresult.js";
-import Typography from "views/Typography.js";
 import Setting from "views/Setting.js";
 import Thema from "views/Thema.js";
 import Community from "views/Community/Community";
 import WCommunity from "views/Community/WriteCommunity";
-import DeCommunity from "views/Community/Communitydetail";
-import UpgradeToPro from "views/Upgrade.js";
 import Login from "views/Login";
-import Signin from "views/Signin";
 import Profile from "views/Profile";
 import Signup from "views/Signup";
 import ETFss from "views/ETFS/ETFS";
@@ -38,55 +31,6 @@ import BoardDetail from "views/Community/Communitydetail";
 import BoardDetailEdit from "views/Community/CommunitydetailEdit";
 
 export var navs = [
-    {
-        path: "/dashboard",
-        name: "Dashboard",
-        icon: "nc-icon nc-bank",
-        component: <Dashboard />,
-        layout: "/admin",
-      },
-      {
-        path: "/myetfs",
-        name: "ETFS",
-        icon: "nc-icon nc-diamond",
-        component: <StartETFS />,
-        layout: "/admin",
-      },
-      {
-        path: "/thema",
-        name: "HOT Thema",
-        icon: "nc-icon nc-pin-3",
-        component: <Thema />,
-        layout: "/admin",
-      },
-
-      {
-        path: "/community",
-        name: "Community",
-        icon: "nc-icon nc-single-02",
-        component: <Community />,
-        layout: "/admin",
-      },
-
-      {
-        path: "/etf",
-        name: "What's ETF",
-        icon: "nc-icon nc-chart-bar-32",
-        component: <Rank />,
-        layout: "/admin",
-      },
-     
-
-]
-
-var routes = [
-    {
-        path: "/signup",
-        name: "회원가입",
-        icon: "nc-icon nc-settings-gear-65",
-        component: <Signup />,
-        layout: "/admin",
-    },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -94,46 +38,60 @@ var routes = [
     component: <Dashboard />,
     layout: "/admin",
   },
-//   {
-//     path: "/myetfs",
-//     name: "ETFS",
-//     icon: "nc-icon nc-diamond",
-//     component: <StartETFS />,
-//     layout: "/admin",
-//   },
   {
     path: "/myetfs",
     name: "ETFS",
     icon: "nc-icon nc-diamond",
-    component: <ETFss/>,
+    component: <StartETFS />,
     layout: "/admin",
   },
-
-
   {
-    path: "/myetfs/setting",
-    name: "ETFS",
-    icon: "nc-icon nc-diamond",
-    component: <ETFSetting />,
+    path: "/thema",
+    name: "HOT Thema",
+    icon: "nc-icon nc-pin-3",
+    component: <Thema />,
     layout: "/admin",
   },
 
   {
-    path: "/myetfs/setting2",
-    name: "ETFS",
-    icon: "nc-icon nc-diamond",
-    component: <ETFSetting2 />,
+    path: "/community",
+    name: "Community",
+    icon: "nc-icon nc-single-02",
+    component: <Community />,
     layout: "/admin",
   },
 
   {
-    path: "/myetfs/result",
-    name: "ETFS",
-    icon: "nc-icon nc-diamond",
-    component: <ETFS />,
+    path: "/etf",
+    name: "What's ETF",
+    icon: "nc-icon nc-chart-bar-32",
+    component: <Rank />,
     layout: "/admin",
   },
+];
 
+var routes = [
+  {
+    path: "/signup",
+    name: "회원가입",
+    icon: "nc-icon nc-settings-gear-65",
+    component: <Signup />,
+    layout: "/admin",
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    icon: "nc-icon nc-bank",
+    component: <Dashboard />,
+    layout: "/admin",
+  },
+  {
+    path: "/myetfs",
+    name: "ETFS",
+    icon: "nc-icon nc-diamond",
+    component: <ETFss />,
+    layout: "/admin",
+  },
   {
     path: "/thema",
     name: "HOT Thema",
@@ -154,7 +112,7 @@ var routes = [
     name: "Community",
     icon: "nc-icon nc-single-02",
     layout: "/admin",
-    component: <Community/>
+    component: <Community />,
   },
 
   {
@@ -162,7 +120,7 @@ var routes = [
     name: "WCommunity",
     icon: "nc-icon nc-single-02",
     layout: "/admin",
-    component: <WCommunity/>
+    component: <WCommunity />,
   },
 
   {
@@ -170,15 +128,15 @@ var routes = [
     name: "DeCommunity",
     icon: "nc-icon nc-single-02",
     layout: "/admin",
-    component: <BoardDetail/>,
+    component: <BoardDetail />,
   },
-  
+
   {
     path: "/community/detail/:id/edit",
     name: "EditCommunity",
     icon: "nc-icon nc-single-02",
     layout: "/admin",
-    component: <BoardDetailEdit/>
+    component: <BoardDetailEdit />,
   },
 
   {
@@ -201,24 +159,6 @@ var routes = [
     name: "Login",
     icon: "nc-icon nc-settings-gear-65",
     component: <Login />,
-    layout: "/admin",
-  },
-
-  
-
-  // {
-  //   path: "/typography",
-  //   name: "Typography",
-  //   icon: "nc-icon nc-caps-small",
-  //   component: <Typography />,
-  //   layout: "/admin",
-  // },
-  {
-    pro: true,
-    path: "/upgrade",
-    name: "Upgrade to PRO",
-    icon: "nc-icon nc-spaceship",
-    component: <UpgradeToPro />,
     layout: "/admin",
   },
 ];

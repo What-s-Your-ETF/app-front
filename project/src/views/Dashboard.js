@@ -1,8 +1,7 @@
 import React from "react";
-// react plugin used to create charts
 import { Line, Pie } from "react-chartjs-2";
 import StartETFS from "./ETFS/ETFSstart";
-// reactstrap components
+
 import {
   Card,
   CardHeader,
@@ -16,9 +15,6 @@ import {
   dashboardEmailStatisticsChart,
   dashboardNASDAQChart,
 } from "variables/charts.js";
-import Cookies from "js-cookie";
-import { useEffect } from "react";
-import axios from "axios";
 import "./Dash.css";
 import { useNavigate } from "react-router-dom";
 
@@ -100,7 +96,10 @@ function Dashboard() {
                       <Row>
                         <Col md="4" xs="5">
                           <div className="icon-big text-center icon-warning">
-                            <img src={info.imgSrc} />
+                            <img
+                              style={{ width: "80%", height: "80%" }}
+                              src={info.imgSrc}
+                            />
                           </div>
                         </Col>
                         <Col md="8" xs="7" style={{ padding: "3%" }}>

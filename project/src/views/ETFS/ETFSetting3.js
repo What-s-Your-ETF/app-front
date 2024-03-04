@@ -1,25 +1,26 @@
 import React from "react";
 import { Row, Col, Card, CardTitle, CardHeader, CardBody } from "reactstrap";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState,} from "react";
 import { MyContext, ETFListContext } from "./ETFmaker";
 import { Form, Table, Button } from "react-bootstrap";
 import { Checkbox} from "@mui/material";
 import { postPortfolios } from "lib/api/portfolios";
 
 export default function ETFSetting3() {
-  const { etfList, setEtfList } = useContext(ETFListContext);
-  const { setContextValue } = useContext(MyContext);
-  const [percentlist, setPercentlist] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
+  const { etfList, setEtfList } = useContext(ETFListContext); //post데이터 저장
+  const { setContextValue } = useContext(MyContext);  // 페이지 데이터
+  const [percentlist, setPercentlist] = useState([]); // 종목 비중
+  const [isChecked, setIsChecked] = useState(false);  //1/n 버튼 클릭 여부
+
+  // 종목 비중 수정 및 추가
   const PercentChange = (e, index) => {
     const weights = [...percentlist];
-    weights[index] = e.target.value / 100;
+    weights[index] = e.target.value / 100;  //50 입력시 0.5로 저장되야함
     setPercentlist(weights);
     setEtfList({ ...etfList, weights });
   };
 
-  console.log(etfList);
-
+  //체크 눌렀을 때 종목 비중 1/n로
   function Percentavg() {
     setIsChecked(!isChecked);
     const weights = [];
@@ -30,28 +31,20 @@ export default function ETFSetting3() {
     setEtfList({ ...etfList, weights });
   }
 
+  // 삭제버튼 눌렀을 때 item 삭제
   function deleteitem(id) {
     console.log(id);
     let itemCodes = [...etfList.itemCodes];
-    itemCodes = itemCodes.filter((item, index) => index !== id);
+    itemCodes = itemCodes.filter((index) => index !== id);
     setEtfList((prev) => ({
       ...prev,
       itemCodes: itemCodes,
     }));
-
-    //setEtfList((etfList) => etfList.filter((item, index) => index !== id));
-    //console.log(etfList);
-    // setEtfList((prev) => {
-    //   let itemCodes;
-    //   itemCodes = prev.filter((item, index) => index === id);
-    //   console.log({ ...prev,itemCodes });
-    //   console.log(etfList);
-    //   return itemCodes;
-    // });
   }
 
+  // 포트폴리오 등록
   function addportfolios() {
-    const itemCodes = etfList.itemCodes.map((item) => item.code);
+    const itemCodes = etfList.itemCodes.map((item) => item.code);  //etfList에 저장된 itemCodes
     const postData = {
       name: etfList.name,
       duration: {
@@ -63,7 +56,7 @@ export default function ETFSetting3() {
       weights: etfList.weights,
     };
     console.log(postData);
-    postPortfolios(
+    postPortfolios(      //post
       postData.name,
       postData.duration,
       postData.investAmounts,
@@ -97,7 +90,7 @@ export default function ETFSetting3() {
                 </div>
 
                 <div style={{ marginTop: "20px" }}>
-                  총 {etfList.itemCodes.length}개
+                  총 {etfList.itemCodes.length}개  
                 </div>
 
                 <Table striped bordered hover size="sm">
