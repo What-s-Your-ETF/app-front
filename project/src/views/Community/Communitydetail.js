@@ -23,7 +23,7 @@ function BoardDetail() {
     console.log("useEffect");
     async function fetchBoardDetail() {
       try {
-        const response = await instance.get(`/api/board/${id}`);
+        const response = await instance.get(`/board/${id}`);
         setBoardDetail(response.data);
       } catch (error) {
         console.error("Error fetching board detail:", error);
