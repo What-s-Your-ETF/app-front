@@ -404,7 +404,12 @@ function ETFss() {
                           const etfId = etfs[etfIdx]._id;
                           console.log("delete", etfId);
                           instance
-                            .delete("/portfolios/" + etfId)
+                            .delete("/portfolios/" + etfId, {
+                                headers: {
+                                  Authorization: "Bearer " + localStorage.getItem("authToken"),
+                                  logintype: localStorage.getItem("loginType"),
+                                },
+                              })
                             .then((resp) => {
                               console.log(resp);
                             });
