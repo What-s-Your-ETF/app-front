@@ -1,15 +1,21 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { MyContext } from "./ETFmaker";
-import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
-import { Form, Table, Button, Tab, Tabs } from "react-bootstrap";
-import { ETFListContext } from "./ETFmaker";
+import { MyContext, ETFListContext } from "./ETFmaker";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardTitle,
+  Row,
+  Col,
+  Pagination,
+} from "reactstrap";
+import { Form, Button, Tab, Tabs } from "react-bootstrap";
 import {
   fetchkospi200,
   searchkospi200,
   fetchkospi200price,
 } from "lib/api/stock";
-import Pagination from "react-bootstrap/Pagination";
 import KOSPI from "./ETFSetting2_list";
 
 export default function ETFSetting2() {
@@ -114,7 +120,7 @@ export default function ETFSetting2() {
         itemCodes = [...prev, item.stockItem];
       }
 
-      // 선택된 종목 코드를 etfList에 저장
+      // 선택된 종목 코드를 전역변수인 etfList에 저장
       setEtfList({ ...etfList, itemCodes });
       return itemCodes;
     });
