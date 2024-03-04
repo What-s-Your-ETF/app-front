@@ -60,10 +60,9 @@ export default function Login() {
       if (popup) {
       popup.close();
       }
+      // 이벤트 리스너를 제거합니다.
+     window.removeEventListener("message", handleMessage);
     }
-    
-    // 이벤트 리스너를 제거합니다.
-    window.removeEventListener("message", handleMessage);
   };
   
 
