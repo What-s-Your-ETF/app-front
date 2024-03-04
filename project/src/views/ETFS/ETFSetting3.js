@@ -3,12 +3,11 @@ import { Row, Col, Card, CardTitle, CardHeader, CardBody } from "reactstrap";
 import { useContext, useState, useEffect } from "react";
 import { MyContext, ETFListContext } from "./ETFmaker";
 import { Form, Table, Button } from "react-bootstrap";
-import { Checkbox, duration } from "@mui/material";
+import { Checkbox} from "@mui/material";
 import { postPortfolios } from "lib/api/portfolios";
 
 export default function ETFSetting3() {
   const { etfList, setEtfList } = useContext(ETFListContext);
-  const [ETFList, setETFlist] = useState([]);
   const { setContextValue } = useContext(MyContext);
   const [percentlist, setPercentlist] = useState([]);
   const [isChecked, setIsChecked] = useState(false);

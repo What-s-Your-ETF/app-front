@@ -1,12 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "./ETFmaker";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
-
-// reactstrap components
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
-import { Form, Table, Button } from "react-bootstrap";
+import { Form, Table, Button, Tab, Tabs } from "react-bootstrap";
 import { ETFListContext } from "./ETFmaker";
 import {
   fetchkospi200,
@@ -14,26 +10,22 @@ import {
   fetchkospi200price,
 } from "lib/api/stock";
 import Pagination from "react-bootstrap/Pagination";
-import { convertCompilerOptionsFromJson } from "typescript";
+import KOSPI from "./ETFSetting2_list";
 
 export default function ETFSetting2() {
   const [ETFlist, setETFlist] = useState([]); //선택 종목
   const [SearchText, setSearchText] = useState(); //검색 키워드
-  const [list1, setList1] = useState([]);
-  const [list2, setList2] = useState([]);
-  const [list3, setList3] = useState([]);
-  //불러오는 전체 리스트 (코스피, 코스피200, 코스닥)
-  const { setContextValue } = useContext(MyContext); //페이지 이동
+  const [list_kospi200, setList] = useState([]);
+  //불러오는 전체 리스트 (코스피200)
+  const { setContextValue } = useContext(MyContext); // 설정 페이지 이동
   const { etfList, setEtfList } = useContext(ETFListContext); //post데이터 저장
   const [page, setPage] = useState(1); //현재 페이지
-  const [pages1, setPages1] = useState(0);
-  const [pages2, setPages2] = useState(0);
-  const [pages3, setPages3] = useState(0);
+  const [pages_kospi200, setPages] = useState(0);
   //총페이지
   const [start, setStart] = useState(1);
   const [end, setEnd] = useState(5);
-  //페이지 이동
-  const [pagePrice, setPagePrice] = useState([]);
+  //종목 페이지 이동
+  const [pagePrice, setPagePrice] = useState([]); // 종목 가격 list
 
   //수익률 들고오기
   async function returntrend(list) {
@@ -58,8 +50,8 @@ export default function ETFSetting2() {
     const fetchData = async () => {
       // 코스피 200 데이터 가져오기
       let response = await fetchkospi200(page); // 페이지 번호를 인자로 넘깁니다.
-      setList3(response.docs);
-      setPages3(response.totalPages);
+      setList(response.docs);
+      setPages(response.totalPages);
 
       // 선택한 페이지에 해당하는 가격 정보 가져오기
       const priceArray = await returntrend(response.docs);
@@ -70,7 +62,7 @@ export default function ETFSetting2() {
     fetchData();
   }, [page, start, end]); // 페이지 번호가 변경될 때마다 useEffect가 다시 실행되도록 의존성 배열에 page 추가
 
-  //페이지 이동
+  //종목 페이지 이동
   let items = [];
   for (let number = start; number <= end; number++) {
     items.push(
@@ -85,206 +77,53 @@ export default function ETFSetting2() {
     );
   }
 
+  //페이지별 종목 들고오기
   async function paging(id) {
     let response = await fetchkospi200(id);
-    setList3(response.docs);
+    setList(response.docs);
     setPage(id);
   }
 
-  function pluspage(pages) {
-    if (end < pages) {
-      let newEnd = end + 5;
-      let newStart = start + 5;
-      setEnd(newEnd);
-      setStart(newStart);
-      paging(newStart);
-    }
+  //종목 페이지 이동 (이전, 이후)
+  function pluspage() {
+    let newEnd = end + 5;
+    let newStart = start + 5;
+    setEnd(newEnd);
+    setStart(newStart);
+    paging(newStart);
   }
 
   function minuspage() {
-    if (start > 1) {
-      let newEnd = end - 5;
-      let newStart = start - 5;
-      setEnd(newEnd);
-      setStart(newStart);
-      paging(newStart);
-    }
+    let newEnd = end - 5;
+    let newStart = start - 5;
+    setEnd(newEnd);
+    setStart(newStart);
+    paging(newStart);
   }
 
-  //종목 선택
+  //선택 종목 리스트 만들기
   function check(item) {
-    console.log(item.stockItem);
     setETFlist((prev) => {
       const itemExists = prev.some(
         (prevItem) => prevItem.name === item.stockItem.name
       );
       let itemCodes;
-      console.log(itemExists);
       if (itemExists) {
         itemCodes = prev.filter((prevItem) => prevItem !== item.stockItem);
       } else {
         itemCodes = [...prev, item.stockItem];
       }
 
-      // 선택된 항목들을 etfList에 저장
+      // 선택된 종목 코드를 etfList에 저장
       setEtfList({ ...etfList, itemCodes });
       return itemCodes;
     });
   }
 
-  //종목검색??
+  //종목검색
   async function K(id, text) {
     let response = await searchkospi200(id, text);
-    setList3(response.docs);
-  }
-
-  function KOSPI({ list }) {
-    let pages;
-    pages = pages3;
-
-    console.log(list.length, pagePrice.length);
-
-    return (
-      <div>
-        <Table striped bordered hover size="sm">
-          <thead>
-            <tr>
-              <th style={{ width: "100px" }}>선택</th>
-              <th style={{ width: "200px" }}>상품</th>
-              <th style={{ width: "100px" }}>최종가</th>
-              <th colSpan="4" style={{ width: "400px" }}>
-                수익률
-              </th>
-            </tr>
-            <tr>
-              <td style={{ height: "50px" }}></td>
-              <td></td>
-              <td></td>
-              <th style={{ width: "100px" }}>1달전</th>
-              <th style={{ width: "100px" }}>3달전</th>
-              <th style={{ width: "100px" }}>6달전</th>
-              <th style={{ width: "100px" }}>1년전</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pagePrice &&
-              pagePrice.map(
-                (item, index) =>
-                  !item.hidden && (
-                    <React.Fragment key={item.stockItem}>
-                      <tr>
-                        <td style={{ height: "50px" }}>
-                          <input
-                            type="checkbox"
-                            onChange={() => check(item)}
-                            checked={ETFlist.some(
-                              (listItem) =>
-                                listItem.name === item.stockItem.name
-                            )}
-                          />
-                        </td>
-                        <td>{list3[index]?.name}</td>
-                        {list.length < pagePrice.length ? null : (
-                          <>
-                            <td>{item.endPrice}</td>
-                            <td
-                              style={{
-                                color:
-                                  item.returnTrend["0"].rate > 0
-                                    ? "red"
-                                    : "blue",
-                              }}
-                            >
-                              {Math.round(
-                                Number(item.returnTrend["0"].rate.toFixed(4)) *
-                                  100,
-                                2
-                              )}
-                              %
-                            </td>
-                            <td
-                              style={{
-                                color:
-                                  item.returnTrend["1"].rate > 0
-                                    ? "red"
-                                    : "blue",
-                              }}
-                            >
-                              {Math.round(
-                                Number(item.returnTrend["1"].rate.toFixed(4)) *
-                                  100,
-                                2
-                              )}
-                              %
-                            </td>
-                            <td
-                              style={{
-                                color:
-                                  item.returnTrend["2"].rate > 0
-                                    ? "red"
-                                    : "blue",
-                              }}
-                            >
-                              {Math.round(
-                                Number(item.returnTrend["2"].rate.toFixed(4)) *
-                                  100
-                              )}
-                              %
-                            </td>
-                            <td
-                              style={{
-                                color:
-                                  item.returnTrend["3"].rate > 0
-                                    ? "red"
-                                    : "blue",
-                              }}
-                            >
-                              {Math.round(
-                                Number(item.returnTrend["3"].rate.toFixed(4)) *
-                                  100,
-                                2
-                              )}
-                              %
-                            </td>
-                          </>
-                        )}
-                      </tr>
-                    </React.Fragment>
-                  )
-              )}
-          </tbody>
-        </Table>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "2%",
-            alignItems: "center",
-          }}
-        >
-          {end === 5 ? null : (
-            <Button
-              onClick={() => {
-                minuspage();
-              }}
-            >
-              이전
-            </Button>
-          )}
-          <Pagination size="sm">{items}</Pagination>
-          {end > pages ? null : (
-            <Button
-              onClick={() => {
-                pluspage(pages);
-              }}
-            >
-              이후
-            </Button>
-          )}
-        </div>
-      </div>
-    );
+    setList(response.docs);
   }
 
   return (
@@ -319,14 +158,47 @@ export default function ETFSetting2() {
                     </Button>
                   </div>
                   <div style={{ marginTop: "20px" }}>ETF 상품</div>
-                  {/* 종목 보여주기 */}
+                  {/* 코스피 200종목 보여주기 */}
                   <Tabs
                     defaultActiveKey="profile"
                     id="uncontrolled-tab-example"
                     className="mb-3"
                   >
                     <Tab eventKey="kospi200" title="코스피200">
-                      <KOSPI list={list3} />
+                      <KOSPI
+                        list_kospi200={list_kospi200}
+                        pagePrice={pagePrice}
+                        ETFlist={ETFlist}
+                        check={check}
+                      />
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          gap: "2%",
+                          alignItems: "center",
+                        }}
+                      >
+                        {end === 5 ? null : (
+                          <Button
+                            onClick={() => {
+                              minuspage();
+                            }}
+                          >
+                            이전
+                          </Button>
+                        )}
+                        <Pagination size="sm">{items}</Pagination>
+                        {end > pages_kospi200 ? null : (
+                          <Button
+                            onClick={() => {
+                              pluspage();
+                            }}
+                          >
+                            이후
+                          </Button>
+                        )}
+                      </div>
                     </Tab>
                   </Tabs>
 
@@ -366,11 +238,11 @@ export default function ETFSetting2() {
                     <Link>
                       <Button
                         onClick={() => {
-                          // if (!etfList.itemCodes) {
-                          //   alert("종목을 선택하지 않았습니다");
-                          // } else {
-                          //   setContextValue("3");
-                          // }
+                          if (!etfList.itemCodes) {
+                            alert("종목을 선택하지 않았습니다");
+                          } else {
+                            setContextValue("3");
+                          }
                           setContextValue("3");
                         }}
                         className="d-flex flex-column justify-content-center align-items-end"

@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom"
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 // reactstrap components
-import {Button, Card, CardBody, CardHeader, Col, Row,} from "reactstrap";
+import { Button, Card, CardBody, CardHeader, Col, Row } from "reactstrap";
 import instance from "../../lib/api/axios";
-
 
 function Community() {
   let navigate = useNavigate();
@@ -12,7 +11,7 @@ function Community() {
 
   useEffect(() => {
     async function getBoard() {
-      const response = await instance.get("/api/board");
+      const response = await instance.get("/board");
       setBoardList(response.data);
     }
     getBoard();
