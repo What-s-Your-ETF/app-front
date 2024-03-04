@@ -47,6 +47,34 @@ export default function Login() {
     window.addEventListener("message", handleMessage, false);
   };
 
+const handleMessage = (event) => {
+  // 신뢰할 수 있는 출처에서 온 메시지인지 확인
+  if (event.origin !== "https://kjh-portfolio.com:3000/api/kakao/callback") {
+    return; // 출처가 일치하지 않으면 처리하지 않음
+  }
+
+  if (typeof event.data === 'string') {
+    try {
+      const userData = JSON.parse(event.data);
+      if (userData.message === "success") {
+        // 로그인 성공 처리
+        localStorage.setItem("authToken", userData.authToken);
+        localStorage.setItem("nickname", userData.nickname);
+        localStorage.setItem("loginType", userData.loginType);
+        navigate("/admin/dashboard");
+
+        if (popup) {
+          popup.close(); // 팝업 창 닫기
+        }
+        // 이벤트 리스너를 제거합니다.
+        window.removeEventListener("message", handleMessage);
+      }
+    } catch (error) {
+      console.error("Parsing error:", error);
+    }
+  }
+};
+  /*
   // 메시지 이벤트 리스너를 추가하여, 팝업 창으로부터 메시지를 받기.
   const handleMessage = (event) => {
     if (event.data.message === "success") {
@@ -64,6 +92,7 @@ export default function Login() {
     // 이벤트 리스너를 제거합니다.
     window.removeEventListener("message", handleMessage);
   };
+  */
 
   return (
     <>
